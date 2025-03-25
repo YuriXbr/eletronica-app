@@ -43,10 +43,10 @@ export default function HomeScreen() {
 
         {/* Cards horizontais */}
         <div className=" flex flex-row overflow-x-scroll">
-          <Card type='formulas' icon={"formulas"} title={"formulas"} />
-          <Card type='disciplines' icon={"disciplines"} title={"disciplines"} />
-          <Card type='formulas' icon={""} title={""} />
-          <Card type='formulas' icon={""} title={""} />
+          <Card type='formulas' icon={"formulas"} title={"Fórmulas"} bgColor="#FF7648" link="formulas" />
+          <Card type='disciplines' icon={"disciplines"} title={"Disciplinas"} bgColor="#8F98FF" link="formulas"/>
+          <Card type='formulas' icon={""} title={"Work In Progress"} bgColor="#FF7648" link="formulas"/>
+          <Card type='formulas' icon={""} title={"Work In Progress"} bgColor="#FF7648" link="formulas"/>
         </div>
         
     </div>

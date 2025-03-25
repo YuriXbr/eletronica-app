@@ -1,8 +1,8 @@
 {
-    "name": "Eletricidade I",
+    "name": "Eletricidade II",
     "id": 0,
     "status": "active",
-    "slug": "eletricidade-i",
+    "slug": "eletricidade-ii",
     "parents": ["eletricidade-i", "eletricidade-ii", "eletricidade-iii", "eletricidade-iv"],
     "needs": ["introducao-a-eletronica"],
     "semmester": 2,
@@ -14,7 +14,7 @@
     "chapters": ["carga eletrica", "campo eletrico", "corrente eletrica", "resistencia", "tensao", "potencia", "lei de ohm", "associação de resistores"],
         "formulas": [
             {
-                "name": "Carga Elétrica",
+                "name": "Carga Elétrica teste 2",
                 "description": "Carga Elétrica é a quantidade de elétrons que passam por um ponto em um determinado tempo.",
                 "latex": ["q=n\\times e"],
                 "constants": {

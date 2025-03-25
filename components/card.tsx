@@ -6,6 +6,8 @@ interface CardProps {
   type: string | "formulas";
   icon: string | "formulas";
   title: string | "formulas";
+  bgColor: string | "#FF7648";
+  link: string | "/";
 }
 
 const squareRootSVG = (
@@ -43,22 +45,19 @@ const threeDotsSVG = (
    * @param {string} (optional) icon - card icon
    * @param {string} (optional) title - card title
    */
-export default function Card({ type = "formulas", icon = "formulas", title = "formulas" }: CardProps) {
-  const bgColor = type === 'formulas' 
-  ? '#FF7648' 
-    : type === 'disciplines' ? '#8F98FF' : '#FF7648';
-
-  const iconSVG = icon === 'formulas' ? 'formulas' : 'disciplines';
-  const titleText = title === 'formulas' ? 'Fórmulas' : 'Disciplinas';
+export default function Card({ type = "formulas", icon = "formulas", title = "formulas", bgColor, link }: CardProps) {
+  const handleClick = () => {
+    window.location.href = `/${link}`;
+  };
 
   return (
-    <div className="p-3 mt-3 flex flex-row">
+    <div className="p-3 mt-3 flex flex-row" onClick={handleClick}>
       <div className={`w-[9.7rem] h-[7.2rem] grid-flow-row grid grid-rows-2 p-4 rounded-xl`} style={{ backgroundColor: bgColor }}>
         <div className="flex flex-row justify-between">
           {squareRootSVG}
           {threeDotsSVG}
         </div>
-          <a className="text-white text-lg font-regular poppins-regular pl-0 flex flex-row items-end">{titleText}</a>
+          <a className="text-white text-lg font-regular poppins-regular pl-0 flex flex-row items-end">{title}</a>
       </div>
     </div>
   );
