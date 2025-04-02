@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
-import '../../katex/dist/katex.min.css';
+import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';
 
 type Formula = {
@@ -41,9 +41,8 @@ export default function DisciplinaDetail() {
                     <Text style={{ fontSize: 18, fontWeight: '600' }}>{formula.name}</Text>
                     <Text>{formula.description}</Text>
                     {formula.latex.map((ltx, i) => (
-                        <Latex key={i}>{ltx}</Latex>
+                        <Latex>{`$${ltx}$`}</Latex>
                     ))}
-
                 </View>
             ))}
         </ScrollView>

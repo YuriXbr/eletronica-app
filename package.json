@@ -8,6 +8,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "webexpose": "expo start --web --port 3000",
     "test": "jest --watchAll",
     "lint": "expo lint"
   },
