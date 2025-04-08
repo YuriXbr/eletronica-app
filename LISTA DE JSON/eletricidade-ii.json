@@ -1,0 +1,354 @@
+{
+    "name": "Eletricidade II",
+    "id": 0,
+    "status": "active",
+    "slug": "eletricidade-ii",
+    "parents": ["eletricidade-i", "eletricidade-ii", "eletricidade-iii", "eletricidade-iv"],
+    "needs": ["introducao-a-eletronica"],
+    "semmester": 2,
+    "course": "eletronica",
+    "period": "integrado",
+    "description": "Apresentação sobre eletricidade básica",
+    "content": "Eletricidade I é a disciplina inicial do nosso curso, ela é ofertada no segundo semestre e vem logo após “Introdução a Eletrônica”. Aqui começamos de fato os estudos na eletrônica aprendendo sobre a base dela. Nessa disciplina veremos alguns conceitos de carga elétrica, campo elétrico, corrente elétrica, resistência, tensão, potência, entre outros. Também começaremos a entrar de cabeça na matemática aplicada a nossos circuitos, aprenderemos a usar múltiplos e submúltiplos, aprenderemos a calcular correntes, resistências, tensões, potências e muitas outras coisas. Nessa disciplina conhecemos a fórmula mais utilizada no nosso curso, a gloriosa Lei de Ohm. A cada passada pelo nosso corredor você escutará “Faz um 'VRI' e resolve isso aí”, ou algo como “É só Lei de Ohm, pô.”. Essa fórmula irá te acompanhar até o oitavo semestre, é impossível fugir dela depois de colocar os pés nesse curso. Após essa disciplina, será possível entender o porquê do seu pisca pisca parar quando apenas uma luzinha queima, é o famoso conceito de estar em série ou paralelo, mas pode ficar tranquilo, é bem tranquilo! Esperamos que tenham um ótimo começo neste senhor curso!",
+    "obs": "Não deixe os resistores na diagonal assustar você, basta redesenhá-los",
+    "chapters": ["carga eletrica", "campo eletrico", "corrente eletrica", "resistencia", "tensao", "potencia", "lei de ohm", "associação de resistores"],
+        "formulas": [
+            {
+                "name": "Carga Elétrica teste 2",
+                "description": "Carga Elétrica é a quantidade de elétrons que passam por um ponto em um determinado tempo.",
+                "latex": ["q=n\\times e"],
+                "constants": {
+                    "e": "1,6\\times{10}^{-19} C"
+                },
+                "variables": {
+                    "q": "Carga Elétrica (C)",
+                    "n": "Número de Elétrons",
+                    "e": "Carga Elementar (C)"
+                }
+            },
+            {
+                "name": "Lei de Coulomb",
+                "description": "A Lei de Coulomb determina a força elétrica entre duas cargas puntuais no vácuo ou no ar.",
+                "latex": ["F=K_0\\times\\ \\frac{q_1\\times q_2}{d^2}"],
+                "constants": {
+                    "K_0": "9\\times{10}^9 N·m²/C²"
+                },
+                "variables": {
+                    "F": "Força Elétrica (N)",
+                    "q1": "Carga 1 (C)",
+                    "q2": "Carga 2 (C)",
+                    "d": "Distância entre as cargas (m)"
+                }
+            },
+            {
+                "name": "Intensidade de Campo Elétrico",
+                "description": "Campo elétrico é a força por unidade de carga exercida sobre uma carga de teste.",
+                "latex": ["E=\\frac{F}{q}"],
+                "constants": {},
+                "variables": {
+                    "E": "Intensidade do Campo Elétrico (N/C)",
+                    "F": "Força Elétrica (N)",
+                    "q": "Carga de Teste (C)"
+                }
+            },
+            {
+                "name": "Campo Elétrico gerado por uma carga",
+                "description": "Intensidade do campo elétrico gerado por uma carga puntiforme no vácuo ou no ar.",
+                "latex": ["E=\\frac{K\\times Q}{d^2}"],
+                "constants": {
+                    "K": "9\\times{10}^9 N·m²/C²"
+                },
+                "variables": {
+                    "E": "Intensidade do Campo Elétrico (N/C)",
+                    "Q": "Carga Geradora (C)",
+                    "d": "Distância da Carga (m)"
+                }
+            },
+            {
+                "name": "Trabalho",
+                "description": "Trabalho realizado por uma força ao longo de um deslocamento.",
+                "latex": ["W=F\\times d"],
+                "constants": {},
+                "variables": {
+                    "W": "Trabalho (J)",
+                    "F": "Força (N)",
+                    "d": "Deslocamento (m)"
+                }
+            },
+            {
+                "name": "Diferença de Potencial (ddp)",
+                "description": "Diferença de potencial entre dois pontos em um campo elétrico.",
+                "latex": ["V_{ab}=\\frac{W_{ab}}{q}"],
+                "constants": {},
+                "variables": {
+                    "Vab": "Diferença de Potencial (V)",
+                    "Wab": "Trabalho entre os pontos A e B (J)",
+                    "q": "Carga de Teste (C)"
+                }
+            },
+            {
+                "name": "Potencial Elétrico",
+                "description": "Potencial elétrico gerado por uma carga puntiforme em um ponto no vácuo ou no ar.",
+                "latex": ["V=\\frac{K\\times Q}{d}"],
+                "constants": {
+                    "K": "9\\times{10}^9 N·m²/C²"
+                },
+                "variables": {
+                    "V": "Potencial Elétrico (V)",
+                    "Q": "Carga Geradora (C)",
+                    "d": "Distância da Carga (m)"
+                }
+            },
+            {
+                "name": "Corrente Elétrica",
+                "description": "Corrente elétrica é a quantidade de carga que atravessa um condutor por unidade de tempo.",
+                "latex": ["I=\\frac{q}{t}"],
+                "constants": {},
+                "variables": {
+                    "I": "Corrente Elétrica (A)",
+                    "q": "Carga Elétrica (C)",
+                    "t": "Tempo (s)"
+                }
+            },
+            {
+                "name": "Resistência Elétrica",
+                "description": "Resistência elétrica de um condutor segundo a Lei de Ohm.",
+                "latex": ["R=\\frac{V_{ab}}{I}"],
+                "constants": {},
+                "variables": {
+                    "R": "Resistência Elétrica (Ω)",
+                    "Vab": "Diferença de Potencial (V)",
+                    "I": "Corrente Elétrica (A)"
+                }
+            },
+            {
+                "name": "Área dos Condutores",
+                "description": "A área da seção transversal de um condutor é calculada com base no seu raio.",
+                "latex": ["A=\\pi\\times r^2"],
+                "constants": {
+                    "pi": "3,14"
+                },
+                "variables": {
+                    "A": "Área do Condutor (m²)",
+                    "r": "Raio do Condutor (m)"
+                }
+            },
+            {
+                "name": "Coeficiente de Resistividade",
+                "description": "A resistência elétrica de um material depende do seu comprimento, área de seção transversal e resistividade.",
+                "latex": ["R=\\frac{\\rho\\times\\ell}{A}"],
+                "constants": {},
+                "variables": {
+                    "R": "Resistência Elétrica (Ω)",
+                    "rho": "Resistividade do Material (Ω·m)",
+                    "l": "Comprimento do Material (m)",
+                    "A": "Área da Seção Transversal (m²)"
+                }
+            },
+            {
+                "name": "Resistividade em função da Temperatura",
+                "description": "A resistividade de um material varia com a temperatura.",
+                "latex": ["\\rho=\\rho_0\\times(1+\\alpha\\times\\Delta t)"],
+                "constants": {},
+                "variables": {
+                    "rho": "Resistividade Final (Ω·m)",
+                    "rho_0": "Resistividade Inicial (Ω·m)",
+                    "alpha": "Coeficiente de Temperatura do Material (°C⁻¹)",
+                    "deltaT": "Variação de Temperatura (°C)"
+                }
+            },
+            {
+                "name": "Relação entre Resistências e Resistividades",
+                "description": "A razão entre resistência e resistividade permanece constante para o mesmo material.",
+                "latex": ["\\frac{R}{\\rho}=\\frac{R_0}{\\rho_0}"],
+                "constants": {},
+                "variables": {
+                    "R": "Resistência Final (Ω)",
+                    "rho": "Resistividade Final (Ω·m)",
+                    "R_0": "Resistência Inicial (Ω)",
+                    "rho_0": "Resistividade Inicial (Ω·m)"
+                }
+            },
+            {
+                "name": "Lei de Ohm",
+                "description": "A tensão elétrica é proporcional à corrente elétrica em um circuito resistivo.",
+                "latex": ["V_{ab}=R\\times I"],
+                "constants": {},
+                "variables": {
+                    "V_ab": "Diferença de Potencial (V)",
+                    "R": "Resistência Elétrica (Ω)",
+                    "I": "Corrente Elétrica (A)"
+                }
+            },
+            {
+                "name": "Potência Elétrica",
+                "description": "Potência elétrica é a energia consumida por unidade de tempo.",
+                "latex": ["P=\\frac{E}{t}"],
+                "constants": {},
+                "variables": {
+                    "P": "Potência Elétrica (W)",
+                    "E": "Energia Elétrica (J)",
+                    "t": "Tempo (s)"
+                }
+            },
+            {
+                "name": "Potência Elétrica (Alternativa)",
+                "description": "Potência elétrica em termos de tensão e carga.",
+                "latex": ["W=V\\times q"],
+                "constants": {},
+                "variables": {
+                    "W": "Potência Elétrica (W)",
+                    "V": "Diferença de Potencial (V)",
+                    "q": "Carga Elétrica (C)"
+                }
+            },
+            {
+                "name": "Potência Elétrica (Corrente e Tensão)",
+                "description": "Potência elétrica é dada pelo produto da tensão e corrente elétrica.",
+                "latex": ["P=V\\times I"],
+                "constants": {},
+                "variables": {
+                    "P": "Potência Elétrica (W)",
+                    "V": "Diferença de Potencial (V)",
+                    "I": "Corrente Elétrica (A)"
+                }
+            },
+            {
+                "name": "Quantidade de Calor",
+                "description": "O calor trocado é proporcional à massa, capacidade térmica e variação de temperatura.",
+                "latex": ["Q=m\\times c\\times(t_2-t_1)"],
+                "constants": {},
+                "variables": {
+                    "Q": "Quantidade de Calor (J)",
+                    "m": "Massa (kg)",
+                    "c": "Calor Específico (J/kg·°C)",
+                    "t2": "Temperatura Final (°C)",
+                    "t1": "Temperatura Inicial (°C)"
+                }
+            },
+            {
+                "name": "Resistência Total em Circuito Série",
+                "description": "A resistência equivalente de resistores em série é a soma das resistências individuais.",
+                "latex": ["R_t=R_1+R_2+\\ldots+R_n"],
+                "constants": {},
+                "variables": {
+                    "Rt": "Resistência Total (Ω)",
+                    "R1": "Resistência do Resistor 1 (Ω)",
+                    "R2": "Resistência do Resistor 2 (Ω)",
+                    "Rn": "Resistência do Resistor n (Ω)"
+                }
+            },
+            {
+                "name": "Resistência Total em Circuito Paralelo",
+                "description": "A resistência equivalente de resistores em paralelo é dada pela soma inversa das resistências individuais.",
+                "latex": ["\\frac{1}{R_t}=\\frac{1}{R_1}+\\frac{1}{R_2}+\\ldots+\\frac{1}{R_n}"],
+                "constants": {},
+                "variables": {
+                    "Rt": "Resistência Total (Ω)",
+                    "R1": "Resistência do Resistor 1 (Ω)",
+                    "R2": "Resistência do Resistor 2 (Ω)",
+                    "Rn": "Resistência do Resistor n (Ω)"
+                }
+            }
+        ],
+    "supervisors": [
+        {
+            "name": "Fulano de Tal",
+            "role": "Professor",
+            "degree": "Doutor",
+            "university": "Universidade Federal de Pelotas",
+            "campus": "Campus Pelotas",
+            "couse": "Curso Ténico em Eletrônica",
+            "email": null,
+            "telephone": null,
+            "github": null,
+            "instagram": null,
+            "youtube": null,
+            "whatsapp": null
+        }
+    ],
+    "references": [
+        {
+            "name": "Wikipedia",
+            "url": "https://pt.wikipedia.org/wiki/Eletricidade",
+            "description": null
+        }
+    ],
+    "images": [
+        {
+            "name": "Imagem de Exemplo",
+            "id": 0,
+            "alt": "Nome da Imagem que aparece ao segurar o clique nela",
+            "url": "",
+            "source": "Google Images",
+            "author": "Autor da Imagem"
+        }
+    ],
+    "tags": ["eletricidade", "lei de ohm", "associação de resistores", "resistores", "tensão", "corrente", "potência", "ohm"],
+    "alias": ["eletricidade", "eletricidade I", "eletricidade 1"],
+    "articleWriters": [
+        {
+            "summary": [
+                {
+                    "name": "Pablo Maciel Pinto",
+                    "roles": ["Desenvolvedor", "Estudante de Eletrônica"],
+                    "email": null,
+                    "github": null,
+                    "date": "2024-12-01"
+                }
+            ],
+            "formulas": [
+                {
+                    "name": "Murilo",
+                    "roles": ["Desenvolvedor", "Estudante de Eletrônica"],
+                    "email": null,
+                    "github": null,
+                    "date": "2024-12-01"
+                }
+            ],
+            "json": [
+                {
+                    "name": "Yuri Andrade dos Anjos",
+                    "roles": ["Desenvolvedor", "Estudante de Eletrônica"],
+                    "email": "yurixbroficial@gmail.com",
+                    "github": "https://github.com/YuriXbr",
+                    "date": "2024-12-01"
+                }
+            ]
+        }
+    ],
+    "files": [
+        {
+            "name": "Apresentação Eletricidade I",
+            "id": 0,
+            "description": "Apostila de Eletricidade I",
+            "url": "https://drive.google.com/file/d/",
+            "fileId": "1eU7NinMoUvz3lXTd5Xvxsfq3jBzahWC1",
+            "type": "pdf",
+            "source": "Google Drive",
+            "author": "Prof. Dr. Fulano de Tal",
+            "created_at": null,
+            "updated_at": null,
+            "deleted_at": null
+        }
+    ],
+    "embededVideos": [
+        {
+            "name": "Eletricidade I - Aula 01",
+            "id": 0,
+            "description": "Aula sobre eletricidade básica",
+            "url": "https://www.youtube.com/watch?v=",
+            "type": "video",
+            "source": "Youtube",
+            "author": "canalX",
+            "suggestedBy": "Prof. Dr. Fulano de Tal",
+            "created_at": null,
+            "updated_at": null,
+            "deleted_at": null
+        }
+    ],
+    "created_at": null,
+    "updated_at": null,
+    "deleted_at": null,
+    "fileVersion": 2
+}
