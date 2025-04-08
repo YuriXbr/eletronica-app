@@ -1,17 +1,17 @@
 {
     "name": "Eletricidade II",
-    "id": 0,
+    "id": 1,
     "status":"active",
     "slug": "eletricidade-ii",
     "parents": ["eletricidade-i", "eletricidade-ii", "eletricidade-iii", "eletricidade-iv"],
-    "needs": ["introducao-a-eletronica"],
-    "semmester": 2,
+    "needs": ["introducao-a-eletronica,eletricidade-i"],
+    "semmester": 3,
     "course": "eletronica",
     "period": "integrado",
-    "description": "Apresentação sobre eletricidade básica",
-    "content": "Eletricidade I é a disciplina inicial do nosso curso, ela é ofertada no segundo semestre e vem logo após “Introdução a Eletrônica”. Aqui começamos de fato os estudos na eletrônica aprendendo sobre a base dela. Nessa disciplina veremos alguns conceitos de carga elétrica, campo elétrico, corrente elétrica, resistência, tensão, potência, entre outros. Também começaremos a entrar de cabeça na matemática aplicada a nossos circuitos, aprenderemos a usar múltiplos e submúltiplos, aprenderemos a calcular correntes, resistências, tensões, potências e muitas outras coisas. Nessa disciplina conhecemos a fórmula mais utilizada no nosso curso, a gloriosa Lei de Ohm. A cada passada pelo nosso corredor você escutará “Faz um 'VRI' e resolve isso aí”, ou algo como “É só Lei de Ohm, pô.”. Essa fórmula irá te acompanhar até o oitavo semestre, é impossível fugir dela depois de colocar os pés nesse curso. Após essa disciplina, será possível entender o porquê do seu pisca pisca parar quando apenas uma luzinha queima, é o famoso conceito de estar em série ou paralelo, mas pode ficar tranquilo, é bem tranquilo! Esperamos que tenham um ótimo começo neste senhor curso!",
-    "obs": "Não deixe os resistores na diagonal assustar você, basta redesenhá-los",
-    "chapters": ["carga eletrica", "campo eletrico", "corrente eletrica", "resistencia", "tensao", "potencia", "lei de ohm", "associação de resistores"],
+    "description": "Eletricidade focada principalmente em eletromagnetismo",
+    "content": "Eletricidade II representa a progressão natural dos estudos iniciados em Eletricidade I. Nesta disciplina, o foco se concentra no aprofundamento do eletromagnetismo, explorando em detalhe temas como força magnética, indução magnética e as leis de Faraday e Lenz. A aplicação da matemática torna-se fundamental para a compreensão e análise dos fenômenos físicos envolvidos. O estudo dos indutores assume um papel de destaque, abordando a indutância, associações de indutores e a constante de tempo em circuitos RL. Adicionalmente, serão analisados os conceitos de frequência, frequência angular e os valores instantâneos de tensão e corrente em circuitos de corrente alternada (CA). Com o suporte de nossos supervisores e a dedicação do aluno, a Eletricidade II proporciona uma base sólida para o prosseguimento nos estudos da eletrônica, preparando-o para desafios mais complexos e projetos inovadores.",
+    "obs": "Entender o conceito por detrás das fórmulas é mais fácil que decorá-las",
+    "chapters": ["força magnética", "indução magnética", "força eletromotriz induzida", "fluxo magnético", "lei de faraday", "lei de lenz", "transformador", "permeabilidade magnética absoluta","permeabilidade relativa","intensidade do campo magnético","relutância magnética","lei de hopkinson","indutância","relação entre indutância e lei de lenz","constante de tempo no circuito rl","associação de indutore em série","associação de indutores em paralelo","frequência","frequência angular","valor instantâneo da tensão","valor instantâneo da corrente","corrente média","tensão média","potência instantânea","corrente eficaz ou corrente rms","tensão eficaz ou tensão rms","potência média eficaz"],
         "formulas":[
             {
                 "name": "Força magnética",
@@ -241,7 +241,7 @@
                 "variables":
                 {
                     "µr": "Admensional",
-                    "µ e µ0": "Permeabilidade magnética(Henry/Metro = H/m) (Newton/Ampere² = N/A²)(Tesla.Metro/Ampère = T.m/A)"
+                    "µ e µ₀": "Permeabilidade magnética(Henry/Metro = H/m) (Newton/Ampere² = N/A²)(Tesla.Metro/Ampère = T.m/A)"
                 }
             },
             {
@@ -441,7 +441,7 @@
 
                 "variables":
                 {
-                    "Imd": "Corrente média",
+                    "Imd": "Corrente média (Ampère = A)",
                     "A": "Área (Metro² = m²)",
                     "T": "Período (Segundos = s)"
                 }
@@ -454,7 +454,7 @@
 
                 "variables":
                 {
-                    "Vmd": "Tensão média",
+                    "Vmd": "Tensão média (Volt = V)",
                     "A": "Área (Metro² = m²)",
                     "T": "Período (Segundos = s)"
                 }
@@ -467,13 +467,13 @@
 
                 "variables":
                 {
-                    "p": "Potência instantânea",
+                    "p": "Potência instantânea (Watts = W)",
                     "R": "Resistência (Ohm = Ω)",
                     "i": "Valor instantâneo da corrente (Ampère =A)"
                 }
             },
             {
-                "name": "Valor eficaz ou corrente RMS",
+                "name": "Corrente eficaz ou corrente RMS",
                 "description":null,
                 "latex": ["I = \\frac{I_{M}}{\\sqrt{2}}"],
                 "constants":null,
@@ -543,8 +543,8 @@
             "author": "Autor da Imagem"
         }
     ],
-    "tags": ["eletricidade", "lei de ohm", "associação de resistores", "resistores", "tensão", "corrente", "potência", "ohm"],
-    "alias": ["eletricidade", "eletricidade I", "eletricidade 1"],
+    "tags": ["Indutância","Frequência","Frequência Angular","tensão média","eletricidade", "associação de indutores","indutores","indutor", "tensão", "corrente", "potência","Lei de Lenz","espiras","Força Magnética","eletromotriz","Indução Magnética","Fluxo magnético","Lei de Faraday"],
+    "alias": ["eletricidade", "eletricidade II", "eletricidade 2","Eletricidade ii","ele ii","Ele II","eletricidade2"],
     "articleWriters": [
         {
             "summary": [
@@ -572,9 +572,7 @@
                     "email": "yurixbroficial@gmail.com",
                     "github": "https://github.com/YuriXbr",
                     "date": "2024-12-01"
-                }
-            ],
-            "json2": [
+                },
                 {
                     "name": "Carlos Alexandre Dutra Volz",
                     "roles": ["Desenvolvedor", "Estudante de Eletrônica"],
@@ -583,6 +581,7 @@
                     "date": "2025-05-04"
                 }
             ]
+            
         }
     ],
     "files": [
