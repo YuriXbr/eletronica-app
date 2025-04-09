@@ -1,0 +1,199 @@
+{
+    "name": "Análise de Circuitos I",
+    "id": 2,
+    "status": "active",
+    "slug": "analise-de-circuitos-i",
+    "parents": ["analise-de-circuitos-i", "analise-de-circuitos-ii", "analise-de-circuitos-iii", "analise-de-circuitos-iv"],
+    "needs": [],
+    "semmester": 3,
+    "course": "eletronica",
+    "period": "integrado",
+    "description": "Diferentes métodos, como Leis de Kirchhoff, para análise de circuitos elétricos",
+    "content": "A disciplina de Análise de Circuitos I aborda diversas formas de compreender circuitos elétricos. O foco está em entender as diferentes maneiras de associar fontes, os métodos de análise baseados nas Leis de Kirchhoff e a aplicação de teoremas importantes, como o Teorema da Superposição e o Teorema de Thévenin.",
+    "obs": "Lute contra a vontade de usar VRI para solucionar todos os problemas, aprender as outras fórmulas será muito importante no futuro.",
+    "chapters": ["fontes", "leis e métodos de análise", "teoremas" ],
+    "formulas": [
+        {
+            "name": "Fonte de Tensão Real (Gerador Elétrico)",
+            "description": "Fontes de tensão não ideais, com resistência interna.",
+            "latex": ["V_{RL}= V_{T}-V_{Rs}", "R_{T}=R_{L}+R_{S}", "I_{RL}=\frac{V_{T}}{R_{T}}", "V_{RL}=R_{L}\times I_{RL}"],
+            "constants": null,
+            "variables": {
+                "VRL": "Tensão na carga",
+                "VT": "Tensão total da fonte",
+                "VRs": "Tensão na resistência interna da fonte",
+                "RL": "Resistência de carga",
+                "Rs": "Resistência interna da fonte",
+                "RT": "Resistência total do circuito",
+                "IRL": "Corrente no resistor de carga"
+            }
+        },
+
+        {
+            "name": "Fonte de Corrente Real",
+            "description": "Fontes de correntes não ideais, com resistência interna",
+            "latex": ["I_{RL}=I_{T}-I_{Rs}", "R_{T}=\frac{R_{L}\times R_{S}}{R_{L}+R_{S}}", "V_{RL}=R_{T}\times I_{T}", "I_{RL}=\frac{V_{RL}}{R_{L}}"],
+            "constants": null,
+            "variables": {
+                "IRL": "Corrente na carga",
+                "IT": "Corrente total da fonte",
+                "IRs": "Corrente na resistência interna da fonte",
+                "RL": "Resistência de carga",
+                "Rs": "Resistência interna da fonte",
+                "RT": "Resistência total do circuito",
+                "VRL": "Tensão na resistência de carga"
+            }
+        },
+
+        {
+            "name": "Divisor de Corrente",
+            "description": "Fórmula para encontrar a corrente em uma carga específica em circuitos paralelos.",
+            "latex": ["I_{n}=\frac{I_{T}\times R_{T}}{R_{n}}"],
+            "constants": null,
+            "variables": {
+                "In": "Corrente no resistor n",
+                "IT": "Corrente total do circuito",
+                "RT": "Resistência total do circuito",
+                "Rn": "Resistência do resistor n"
+            }
+        },
+
+        {
+            "name": "Divisor de Tensão",
+            "description": "Fórmula para encontrar a tensão em uma carga específica em circuitos em série.",
+            "latex": ["V_{n}=\frac{V_{T}\times R_{n}}{R_{T}}"],
+            "constants": null,
+            "variables": {
+                "Vn": "Tensão no resistor n",
+                "VT": "Tensão total do circuito",
+                "RT": "Resistência total do circuito",
+                "Rn": "Resistência do resistor n"
+            }
+        },
+
+        {
+            "name": "Corrente no Teorema da Máxima Transferência de Potência",
+            "description": "Fórmula para encontrar a corrente no resistor de carga após a aplicação do Teorema de Thévenin.",
+            "latex": ["I=\frac{V_{Th}}{R_{Th}+R_{L}}"],
+            "constants": null,
+            "variables": {
+                "I": "Corrente no resistor de carga",
+                "VTh": "Tensão de Thévenin",
+                "RTh": "Resistência de Thévenin",
+                "RL": "Resistência de carga"
+            }
+        },
+
+        {
+            "name": "Rendimento no Teorema da Máxima Transferência de Potência",
+            "description": "Fórmula para encontrar o rendimento em porcentagem após a aplicação do Teorema de Thévenin.",
+            "latex": ["\\eta = \frac{P_{RL}}{P_{S}}\times 100\\%"],
+            "constants": null,
+            "variables": {
+                "n": "Rendimento em porcentagem",
+                "PRL": "Potência na carga",
+                "PS": "Potência total da fonte"
+            }
+        }
+    ],
+    "supervisors": [
+        {
+            "name": "Vinicius Nizolli Kuhn",
+            "role": "Professor",
+            "degree": "Doutor",
+            "university": "Universidade Federal de Santa Maria",
+            "campus": "Campus Santa Maria",
+            "couse": "Curso Técnico em Eletrônica",
+            "email": "viniciuskuhn@ifsul.edu.br",
+            "telephone": null,
+            "github": null,
+            "instagram": null,
+            "youtube": null,
+            "whatsapp": null
+        }
+    ],
+    "references": [
+        {
+            "name": "BOYLESTAD, Robert L. INtrodução a Análise de Circuitos. Ed. Pearson Prentice Education, 2007.",
+            "url": null,
+            "description": null
+        }
+    ],
+    "images": [
+        {
+            "name": "nao tem",
+            "id": null,
+            "alt": "",
+            "url": "",
+            "source": "",
+            "author": ""
+        }
+    ],
+    "tags": ["analise de circuitos", "teoremas", "fontes", "thevenin", "superposicao", "maxima transferencia de potencia", "leis de kirchhoff", "divisor de tensao", "divisor de corrente"],
+    "alias": ["aci", "ac1", "analise de circuitos", "ac 1", "ac i", "ac-1", "ac-i"],
+    "articleWriters": [
+        {
+            "summary": [
+                {
+                    "name": "Pablo Maciel Pinto",
+                    "roles": ["Desenvolvedor", "Estudante de Eletrônica"],
+                    "email": null,
+                    "github": "https://github.com/Mablozin",
+                    "date": "2025-04-08"
+                }
+            ],
+            "formulas": [
+                {
+                    "name": "Murilo",
+                    "roles": ["Desenvolvedor", "Estudante de Eletrônica"],
+                    "email": null,
+                    "github": null,
+                    "date": "2024-12-01"
+                }
+            ],
+            "json": [
+                {
+                    "name": "Pablo Maciel Pinto",
+                    "roles": ["Desenvolvedor", "Estudante de Eletrônica"],
+                    "email": null,
+                    "github": "https://github.com/Mablozin",
+                    "date": "2025-04-08"
+                }
+            ]
+        }
+    ],
+    "files": [
+        {
+            "name": "",
+            "id": null,
+            "description": "",
+            "url": "",
+            "fileId": "",
+            "type": "",
+            "source": "",
+            "author": "",
+            "created_at": null,
+            "updated_at": null,
+            "deleted_at": null
+        }
+    ],
+    "embededVideos": [
+        {
+            "name": "",
+            "id": null,
+            "description": "",
+            "url": "",
+            "type": "",
+            "source": "",
+            "author": "",
+            "suggestedBy": "",
+            "created_at": null,
+            "updated_at": null,
+            "deleted_at": null
+        }
+    ],
+    "created_at": null,
+    "updated_at": null,
+    "deleted_at": null,
+    "fileVersion": 2
+}
