@@ -14,7 +14,7 @@ type Disciplina = {
     name: string;
     description: string;
     formulas: Formula[];
-    // adicione outros campos conforme necessário
+
 };
 
 export default function DisciplinaDetail() {
@@ -35,7 +35,7 @@ export default function DisciplinaDetail() {
         <ScrollView style={{ padding: 16 }}>
             <Text style={{ fontSize: 24, fontWeight: 'bold' }}>{disciplina.name}</Text>
             <Text style={{ marginVertical: 8 }}>{disciplina.description}</Text>
-
+            
             {disciplina.formulas.map((formula, index) => (
                 <View key={index} style={{ marginVertical: 8, padding: 8, backgroundColor: '#EFEFEF', borderRadius: 8 }}>
                     <Text style={{ fontSize: 18, fontWeight: '600' }}>{formula.name}</Text>
