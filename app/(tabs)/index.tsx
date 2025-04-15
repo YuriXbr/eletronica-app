@@ -1,5 +1,5 @@
 import React from "react";
-import { Svg, Path } from "react-native-Svg";
+import { Svg, Path } from "react-native-svg";
 import "../../global.css"
 import Card from "@/components/card";
 
