@@ -6,21 +6,12 @@ import Svg, { Path } from 'react-native-svg';
 const windowHeight = Dimensions.get('window').height;
 
 export default function HomeScreen() {
-  const [isExpanded, setIsExpanded] = useState(false);
 
   const scrollY = useRef(new Animated.Value(0)).current;
 
-  const handleScroll = (event: any) => {
-    // Se o usuário scrolar verticalmente mais de 50, expande o container
-    const offsetY = event.nativeEvent.contentOffset.y;
-    if (offsetY > 50 && !isExpanded) {
-      setIsExpanded(true);
-    } else if (offsetY <= 50 && isExpanded) {
-      setIsExpanded(false);
-    }
-  };
-
   return (
+    
+    /* Top background */
      <Animated.ScrollView
       
       onScroll={Animated.event(
@@ -30,23 +21,23 @@ export default function HomeScreen() {
   scrollEventThrottle={16}
   
     >
-      
       <Animated.View //Animação sutil do top background
   
   style={{ 
-    backgroundColor: '#00664F',//bg-backgreen parou de funcionar
+    
+    
     transform: [
       {
         translateY: scrollY.interpolate({
-          inputRange: [0, 300],
-          outputRange: [0, -70], // quanto menor o movimento, mais “parallax”
+          inputRange: [0, 500],
+          outputRange: [0, -130], // quanto menor o movimento, mais “parallax”
           extrapolate: 'clamp',
         }),
       },
     ],
   }}
 >
-      {/* Top background e decorações */}
+      <View className="flex-1 bg-backgreen relative">
       <View className="w-full">
         <View className="w-12 h-12 z-10 p-4 m-7 bg-zinc-400/20 rounded-xl items-center justify-center">
           <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -68,16 +59,17 @@ export default function HomeScreen() {
           </View>
         </View>
       </View>
+      </View>
       </Animated.View>
 
       {/* Conteúdo principal com Cartões */}
-      <Animated.View // Animação do container de cartões
+      <Animated.View 
   style={{
     transform: [
       {
         translateY: scrollY.interpolate({
           inputRange: [0, 200],
-          outputRange: [0, -120],
+          outputRange: [0, -140],
           extrapolate: 'clamp',
         }),
       },
