@@ -6,7 +6,7 @@
     "parents": ["eletricidade-i", "eletricidade-ii", "eletricidade-iii", "eletricidade-iv"],
     "needs": ["introducao-a-eletronica,eletricidade-i"],
     "semmester": 3,
-    "course": "eletronica",
+    "course": "eletrônica",
     "period": "integrado",
     "description": "Eletricidade focada principalmente em eletromagnetismo",
     "content": "Eletricidade II representa a progressão natural dos estudos iniciados em Eletricidade I. Nesta disciplina, o foco se concentra no aprofundamento do eletromagnetismo, explorando em detalhe temas como força magnética, indução magnética e as leis de Faraday e Lenz. A aplicação da matemática torna-se fundamental para a compreensão e análise dos fenômenos físicos envolvidos. O estudo dos indutores assume um papel de destaque, abordando a indutância, associações de indutores e a constante de tempo em circuitos RL. Adicionalmente, serão analisados os conceitos de frequência, frequência angular e os valores instantâneos de tensão e corrente em circuitos de corrente alternada (CA). Com o suporte de nossos supervisores e a dedicação do aluno, a Eletricidade II proporciona uma base sólida para o prosseguimento nos estudos da eletrônica, preparando-o para desafios mais complexos e projetos inovadores.",
