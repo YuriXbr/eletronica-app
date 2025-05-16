@@ -6,7 +6,7 @@
     "parents": ["analise-de-circuitos-i", "analise-de-circuitos-ii", "analise-de-circuitos-iii", "analise-de-circuitos-iv"],
     "needs": [],
     "semmester": 3,
-    "course": "eletronica",
+    "course": "eletrônica",
     "period": "integrado",
     "description": "Diferentes métodos, como Leis de Kirchhoff, para análise de circuitos elétricos",
     "content": "A disciplina de Análise de Circuitos I aborda diversas formas de compreender circuitos elétricos. O foco está em entender as diferentes maneiras de associar fontes, os métodos de análise baseados nas Leis de Kirchhoff e a aplicação de teoremas importantes, como o Teorema da Superposição e o Teorema de Thévenin.",
