@@ -6,7 +6,7 @@
     "parents": ["eletricidade-i", "eletricidade-ii", "eletricidade-iii", "eletricidade-iv"],
     "needs": ["introducao-a-eletronica"],
     "semmester": 2,
-    "course": "eletronica",
+    "course": "eletrônica",
     "period": "integrado",
     "description": "Apresentação sobre eletricidade básica",
     "content": "Eletricidade I é a disciplina inicial do nosso curso, ela é ofertada no segundo semestre e vem logo após “Introdução a Eletrônica”. Aqui começamos de fato os estudos na eletrônica aprendendo sobre a base dela. Nessa disciplina veremos alguns conceitos de carga elétrica, campo elétrico, corrente elétrica, resistência, tensão, potência, entre outros. Também começaremos a entrar de cabeça na matemática aplicada a nossos circuitos, aprenderemos a usar múltiplos e submúltiplos, aprenderemos a calcular correntes, resistências, tensões, potências e muitas outras coisas. Nessa disciplina conhecemos a fórmula mais utilizada no nosso curso, a gloriosa Lei de Ohm. A cada passada pelo nosso corredor você escutará “Faz um 'VRI' e resolve isso aí”, ou algo como “É só Lei de Ohm, pô.”. Essa fórmula irá te acompanhar até o oitavo semestre, é impossível fugir dela depois de colocar os pés nesse curso. Após essa disciplina, será possível entender o porquê do seu pisca pisca parar quando apenas uma luzinha queima, é o famoso conceito de estar em série ou paralelo, mas pode ficar tranquilo, é bem tranquilo! Esperamos que tenham um ótimo começo neste senhor curso!",

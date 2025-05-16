@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Dimensions, View, Text, ScrollView } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { Dimensions, View, Text, ScrollView, Animated } from 'react-native';
 import Card from "@/components/card";
 import Svg, { Path } from 'react-native-svg';
 
@@ -7,6 +7,8 @@ const windowHeight = Dimensions.get('window').height;
 
 export default function HomeScreen() {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const scrollY = useRef(new Animated.Value(0)).current;
 
   const handleScroll = (event: any) => {
     // Se o usuário scrolar verticalmente mais de 50, expande o container
@@ -19,11 +21,31 @@ export default function HomeScreen() {
   };
 
   return (
-     <ScrollView
-      onScroll={handleScroll}
-      scrollEventThrottle={16}
-      className="flex-1 bg-backgreen"
+     <Animated.ScrollView
+      
+      onScroll={Animated.event(
+    [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+    { useNativeDriver: true }
+  )}
+  scrollEventThrottle={16}
+  
     >
+      
+      <Animated.View //Animação sutil do top background
+  
+  style={{ 
+    backgroundColor: '#00664F',//bg-backgreen parou de funcionar
+    transform: [
+      {
+        translateY: scrollY.interpolate({
+          inputRange: [0, 300],
+          outputRange: [0, -70], // quanto menor o movimento, mais “parallax”
+          extrapolate: 'clamp',
+        }),
+      },
+    ],
+  }}
+>
       {/* Top background e decorações */}
       <View className="w-full">
         <View className="w-12 h-12 z-10 p-4 m-7 bg-zinc-400/20 rounded-xl items-center justify-center">
@@ -46,8 +68,22 @@ export default function HomeScreen() {
           </View>
         </View>
       </View>
+      </Animated.View>
 
       {/* Conteúdo principal com Cartões */}
+      <Animated.View // Animação do container de cartões
+  style={{
+    transform: [
+      {
+        translateY: scrollY.interpolate({
+          inputRange: [0, 200],
+          outputRange: [0, -120],
+          extrapolate: 'clamp',
+        }),
+      },
+    ],
+  }}
+>
       <View className="bg-white rounded-t-3xl w-full pl-6 pt-7 -mt-40">
         <Text className="text-textprimary text-2xl font-bold">Cartões</Text>
         <Text className="text-textsecundary text-lg font-bold">Recomendado para você</Text>
@@ -87,6 +123,7 @@ export default function HomeScreen() {
           </View>
         </View>
       </View>
-    </ScrollView>
+      </Animated.View>
+    </Animated.ScrollView>
   );
 }
