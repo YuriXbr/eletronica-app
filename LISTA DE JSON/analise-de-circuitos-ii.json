@@ -23,7 +23,7 @@
             "variables":
             {
                  "Vo": "Tensão de Saída (Volt = V)",
-                 "Av": "Ganho de tesão",
+                 "Av": "Ganho de tensão",
                  "Vi2 e Vi1": "Diferença entre duas tensões de entrada(Volt = V)"
             }
         },
@@ -232,7 +232,7 @@
             "degree": "Doutor",
             "university": "Universidade Federal de Pelotas",
             "campus": "Campus Pelotas",
-            "couse": "Curso Ténico em Eletrônica",
+            "course": "Curso Ténico em Eletrônica",
             "email": "fabricioferreira@ifsul.edu.br",
             "telephone": null,
             "github": null,
