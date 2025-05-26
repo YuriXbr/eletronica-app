@@ -1,33 +1,56 @@
-# eletronica-app
+![Beige Minimalist Branding Twitter Header](https://github.com/user-attachments/assets/790a998f-b7c1-432b-9a64-435e4ceca5f0)
+---
+# ELETRONICA-APP
 
-Aplicativo desenvolvido por alunos em projeto de estágio em conjunto ao IFSUL Pelotas, para o curso de eletrônica, com o intuito de ajudar os alunos a encontrarem fórmulas, explicações e resumos dos conteúdos trabalhados no curso técnico.
+📱 Aplicativo desenvolvido por alunos do curso técnico em Eletrônica do [IFSUL Pelotas](https://www.pelotas.ifsul.edu.br), como parte de um projeto de estágio. Seu objetivo é **facilitar o acesso a fórmulas, explicações e resumos dos principais conteúdos da área de eletrônica**.
 
-### Funcionalidades principais:
-**Obs:** Essas funções podem não ter sido implementadas ainda
-- Formulário: Lista de fórmulas separadas por disciplina do curso técnico
-- Calculadora: Sistema para simular e calcular alguns casos comuns e ajudar na correção de listas exercícios
-- Exercicios dinâmicos: Exercícios criados dinamicamente com resposta e valores intermediários para os alunos estudarem
-- Calendário: Sistema para avisar o aluno sobre provas e trabalhos
+----
 
-### Para um futuro:
-- Integração com um servidor e banco de dados para que professores possam acessar um painel de controle e implementar novos artigos e criar avisos para os alunos
-- Integração com o sistema SUAP utilizado pela instituição
+## ✨ Funcionalidades
 
-## TÉCNOLOGIAS:
+> ⚠️ *Algumas funcionalidades ainda estão em desenvolvimento.*
 
-O projeto utiliza do `React Native, Node.JS, Typescript` juntamente ao `Expo Go`, a IDE recomendada para edição é o `Visual Studio Code / Visual Studio`, buscamos responsividade e compatibilidade com a maior quantidade de telefones.
+- 🧮 **Formulário de Fórmulas:** Listagem organizada por disciplinas.
+- 🔢 **Calculadora Técnica:** Simulador para resolver casos comuns e auxiliar nas listas de exercícios.
+- 📚 **Exercícios Dinâmicos:** Geração automática de questões com resolução intermediária.
+- 🗓️ **Calendário de Avaliações:** Notificações sobre provas e trabalhos.
 
-### INSTALAÇÃO:
-- Baixe o repositório pelo Git Clone ou por zip
-- Abra o diretório raiz, e nele, considerando que você tenha baixado todas as dependências citadas na sessão `técnologias`, abra o CMD
-- Com o CMD no diretório do projeto, escreva `npm install` para baixar as dependências do projeto
-- Ainda no CMD, execute o  `npm run start` para iniciar o projeto
+
+
+## 🚀 Futuras Implementações
+
+- 🔐 Integração com **servidor e painel de controle** para que professores possam adicionar conteúdos e avisos.
+- 🧩 Integração com o sistema institucional **SUAP**.
+
+----
+
+## 🛠️ Tecnologias Utilizadas
+
+- `React Native`
+- `Node.js`
+- `TypeScript`
+- `Expo Go`
+- IDE recomendada: **Visual Studio Code** ou **Visual Studio**
+
+> Buscamos compatibilidade com a maior variedade de dispositivos móveis e uma interface responsiva.
+
+---
+
+## ⚙️ Instalação e Execução
+
+1. Clone este repositório ou baixe o ZIP.
+2. Abra o terminal na pasta raiz do projeto.
+3. Execute `npm install` para instalar as dependências.
+4. Execute `npm run start` para iniciar o servidor local via Expo.
 
 > [!WARNING]
-> Você pode enfrentar problemas com versões do node.js superiores à 20.1.0
+> ⚠️ *Evite utilizar versões do Node.js superiores à **20.1.0**, pois podem causar problemas de compatibilidade.*
 
 > [!TIP]
-> O projeto pode demorar para carregar as páginas na primeira vez devido ao metro bundler utilizado pelo Expo
+> 💡 *Na primeira execução, o carregamento pode ser mais demorado devido ao Metro Bundler utilizado pelo Expo.*
 
-## Observações:
-* Este projeto pode ou não ser concluído, dado o periodo limite do estágio dos alunos envolvidos. No caso deste repositório estar arquivado, busque nos FORKS, possiveis continuações do projeto por futuros estudantes da instituição.
+---
+
+## 📌 Observações
+
+Este projeto foi desenvolvido dentro de um período de estágio. **Caso esteja arquivado, verifique os FORKS** — pode haver versões atualizadas por novos estudantes da instituição.
