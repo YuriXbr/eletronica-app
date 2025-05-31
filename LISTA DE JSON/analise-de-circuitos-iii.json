@@ -1,0 +1,267 @@
+{
+    "name": "Análise de Circuitos III",
+    "id": 4,
+    "status": "active",
+    "slug": "analise-de-circuitos-iii",
+    "parents": ["analise-de-circuitos-i", "analise-de-circuitos-ii", "analise-de-circuitos-iii", "analise-de-circuitos-iv"],
+    "needs": ["analise de circuitos i","analise de circuitoss ii"],
+    "semmester": 5,
+    "course": "eletronica",
+    "period": "integrado",
+    "description": "Demonstração mais complexa dos diferentes usos de amplificadores oepracionais integradores, diferenciadores dentre outros parâmetros como, o ganho de tensão e frequência",
+    "content": "Na disciplina de Análise de Circuitos III, o foco se expande para a exploração de circuitos mais complexos e suas aplicações no processamento de sinais e geração de formas de onda. Essa disciplina mergulha nas características de integradores, diferenciadores e osciladores de relaxação, fornecendo as ferramentas para projetar sistemas eletrônicos sofisticados.",
+    "obs": "Não se limite a fórmulas prontas para integradores, diferenciadores e osciladores; explorar as nuances de cada componente e configuração te permitirá projetar circuitos de processamento de sinal mais inovadores e precisos.",
+    "chapters": ["tensão de saída em função do tempo", "frequência de corte", "ganho de tensão","tensão de saída","ciclo de trabalho","tensão de comutação superior","tensão de comutação inferior","período de oscilação"],
+    "formulas": 
+    [
+        {
+            "name": "Tensão de Saída em Função do Tempo",
+            "description":"Circuito Integrador",
+            "latex": ["V_o(t) = - \\frac{1}{R \\times C} \\int_{t_1}^{t_2} V_{in}(t) \\, dt + V_C"],
+            "constants":null,
+
+            "variables":
+            {
+                 "Vo(t)": "Tensão de saída em função do tempo (Volt = V)",
+                 "R": "Resistência (Ohm = Ω)",
+                 "C": "Capacitância (Farad = F)",
+                 "Vin(t)": "Tensão de entrada em função do tempo (Volt = V)",
+                 "dt": "Diferencial de tempo",
+                 "Vc": "Tensão do capacitor no inicio de intervalo de tempo considerado (Volt = V)"
+
+            }
+        },
+        {
+            "name": "Frequência de Corte",
+            "description":"Circuito Integrador Prático",
+            "latex": ["F_c = \\frac{1}{2 \\times \\pi \\times R_f \\times C}"],
+            "constants":
+            {
+                "pi": "3,14"
+            },
+
+            "variables":
+            {
+                "Fc": "Frequência de corte (Hertz = Hz)",
+                "Rf": "Resistor de feedback (Ohm = Ω)",
+                "C": "Capacitância (Farad = F)"
+
+            }
+        },
+        {
+            "name": "Ganho de Tensão",
+            "description":"Circuito Integrador Prático",
+            "latex": ["A_v = - \\frac{R_f}{R_i}"],
+            "constants":null,
+
+            "variables":
+            {
+                "Av": "Ganho de ternsão",
+                "Rf": "Resistor de feedback (Ohm = Ω)",
+                "Ri": "Resistor de entrada (Ohm = Ω)"
+
+            }
+        },
+        {
+            "name": "Tensão de Saída em Função do tempo",
+            "description":"Circuito Diferenciador",
+            "latex": ["V_o(t) = -R \\times C \\times \\frac{dV_{in}(t)}{dt}"],
+            "constants":null,
+
+            "variables":
+            {
+                "Vo(t)": "Tensão de saída em função do tempo (Volt = V)",
+                "R": "Resistência (Ohm = Ω)",
+                "C": "Capacitância (Farad = F)",
+                "dVin": "Derivada da tensão de entrada",
+                "dt": "Diferencial de tempo"
+
+            }
+        },
+        {
+            "name": "Frequência de Corte",
+            "description":"Circuito Diferenciador Prático",
+            "latex": ["F_c = \\frac{1}{2 \\times \\pi \\times R_i \\times C}"],
+            "constants":
+            {
+                "pi": "3,14"
+            },
+
+            "variables":
+            {
+                "Fc": "Tensão de saída em função do tempo (Volt = V)",
+                "Ri": "Resistência de entrada (Ohm = Ω)",
+                "C": "Capacitância (Farad = F)"
+            }
+        },
+        {
+            "name": "Tensão de Saída",
+            "description":"Conversão de Sinal Retangular em Triangular",
+            "latex": ["V_{o} = \\frac{V_{in}}{4 \\times \\pi \\times R_1 \\times C}"],
+            "constants":
+            {
+                "pi": "3,14"
+            },
+
+            "variables":
+            {
+                "Vo": "Tensão de saída (Volt = V)",
+                "Vin": "Tensão de entrada (Volt = V)",
+                "R1":"Resistência (Ohm = Ω)",
+                "C":"Capacitância (Farad = F)"
+            }
+        },
+        {
+            "name": "Ciclo de Trabalho",
+            "description":"Conversão de Sinal Triangular em Pulso",
+            "latex": ["D = \\frac{W}{T}"],
+            "constants":null,
+
+            "variables":
+            {
+                "D": "Ciclo de trabalho",
+                "W": "Tempo de Trabalho (largura de pulso) (Segundo = s)",
+                "T": "Tempo total do ciclo (Período) (Segundo = s)"
+            }
+        },
+        {
+            "name": "Tensão de Comutação Superior",
+            "description":"Oscilador de Relaxação",
+            "latex": ["V_{CS} = \\beta \\times V_{Sat+}"],
+            "constants":null,
+
+            "variables":
+            {
+                "VCS": "Tensão de comutação superior (Volt = V)",
+                "VSat+": "Tensão de saturação positiva (Volt = V)"
+            }
+        },
+        {
+            "name": "Tensão de Comutação Inferior",
+            "description":"Oscilador de Relaxação",
+            "latex": ["V_{CI} = \\beta \\times V_{Sat-}"],
+            "constants":null,
+
+            "variables":
+            {
+                "VCI": "Tensão de comutação inferior (Volt = V)",
+                "VSat-": "Tensão de saturação negativa (Volt = V)"
+            }
+        },
+        {
+            "name": "Período de Oscilação",
+            "description":"Oscilador de Relaxação",
+            "latex": ["T = 2 \\times R_f \\times C \\times \\ln \\frac{1 + \\beta}{1 - \\beta}"],
+            "constants":null,
+
+            "variables":
+            {
+                "T": "Período de oscilação (Segundo = s)",
+                "Rf": "Resistor de feedback (Ohm = Ω)",
+                "C": "Capacitância (Farad = F)"
+            }
+        }
+        
+
+    ],
+    "supervisors": [
+        {
+            "name": "Fabricio Neitzke Ferreira",
+            "role": "Professor",
+            "degree": "Doutor",
+            "university": "Universidade Federal de Pelotas",
+            "campus": "Campus Pelotas",
+            "course": "Curso Ténico em Eletrônica",
+            "email": "fabricioferreira@ifsul.edu.br",
+            "telephone": null,
+            "github": null,
+            "instagram": null,
+            "youtube": null,
+            "whatsapp": null
+        }
+    ],
+    "references": [
+        {
+            "name": "BOYLESTAD, Robert L. Introdução a Análise de Circuitos. Ed. Pearson Prentice Education, 2007.",
+            "url": null,
+            "description": null
+        }
+    ],
+    "images": [
+        {
+            "name": "",
+            "id": null,
+            "alt": "",
+            "url": "",
+            "source": "",
+            "author": ""
+        }
+    ],
+    "tags": ["analise de circuitos", "ganho", "ganho de tensão", "tensão de saída","frequência","período"],
+    "alias": ["AC3", "AC III", "analise de circuitos 3", "analise de circuitos", "analise de circuitos iii", "ac 3", "acIII"],
+    "articleWriters": [
+        {
+            "summary": [
+                {
+                    "name": "Pablo Maciel Pinto",
+                    "roles": ["Desenvolvedor", "Estudante de Eletrônica"],
+                    "email": null,
+                    "github": "https://github.com/Mablozin",
+                    "date": "2025-04-08"
+                }
+            ],
+            "formulas": [
+                {
+                    "name": "Murilo",
+                    "roles": ["Desenvolvedor", "Estudante de Eletrônica"],
+                    "email": null,
+                    "github": null,
+                    "date": "2024-12-01"
+                }
+            ],
+            "json": [
+                {
+                    "name": "Carlos Alexandre Dutra Volz",
+                    "roles": ["Desenvolvedor", "Estudante de Eletrônica"],
+                    "email": null,
+                    "github":null,
+                    "date": "2025-04-10"
+                }
+            ]
+        }
+    ],
+    "files": [
+        {
+            "name": "",
+            "id": null,
+            "description": "",
+            "url": "",
+            "fileId": "",
+            "type": "",
+            "source": "",
+            "author": "",
+            "created_at": null,
+            "updated_at": null,
+            "deleted_at": null
+        }
+    ],
+    "embededVideos": [
+        {
+            "name": "",
+            "id": null,
+            "description": "",
+            "url": "",
+            "type": "",
+            "source": "",
+            "author": "",
+            "suggestedBy": "",
+            "created_at": null,
+            "updated_at": null,
+            "deleted_at": null
+        }
+    ],
+    "created_at": null,
+    "updated_at": null,
+    "deleted_at": null,
+    "fileVersion": 2
+}

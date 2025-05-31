@@ -3,6 +3,9 @@ import { Dimensions, View, Text, ScrollView, Animated } from 'react-native';
 import Card from "@/components/card";
 import Svg, { Path } from 'react-native-svg';
 
+const SCROLL_INPUT_RANGE = [0, 500];
+const SCROLL_OUTPUT_RANGE = [0, -130];
+
 const windowHeight = Dimensions.get('window').height;
 
 export default function HomeScreen() {
