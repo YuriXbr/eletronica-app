@@ -29,8 +29,8 @@ export default function HomeScreen() {
     transform: [
       {
         translateY: scrollY.interpolate({
-          inputRange: [0, 500],
-          outputRange: [0, -130], // quanto menor o movimento, mais “parallax”
+          inputRange: SCROLL_INPUT_RANGE,
+          outputRange: SCROLL_OUTPUT_RANGE,
           extrapolate: 'clamp',
         }),
       },
