@@ -1,0 +1,277 @@
+{
+    "name": "Eletrônica Geral III",
+    "id": 0,
+    "status": "active",
+    "slug": "eletronica-geral-iii",
+    "parents": ["eletronica-geral-i", "eletronica-geral-ii", "eletronica-geral-iii", "eletronica-geral-iv", "eletronica-geral-v"],
+    "needs": [],
+    "semmester": 5,
+    "course": "eletronica",
+    "period": "integrado",
+    "description": "Fórmulas relacionadas às configurações de TJB e aos amplificadores de potência utilizados em sistemas de áudio",
+    "content": "A disciplina de Eletrônica Geral 3 aprofunda o estudo dos transistores bipolares (TJB) e sua aplicação em circuitos de amplificação. Inicia com a revisão do funcionamento e das regiões de operação dos TJB, os tipos de polarização e a utilizar o transistor como chave. A disciplina também explora a simulação e prática de amplificadores de pequenos sinais, culminando no estudo de amplificadores de potência, como os de Classe A, B, AB, C e D. Ao longo do curso, são trabalhados conceitos como acoplamento, desacoplamento e casamento de impedância, além da integração de dispositivos como alto-falantes e microfones.",
+    "obs": "",
+    "chapters": ["amplificadores", "transistores", "microfones", "auto-falantes"],
+    "formulas": [
+        {
+            "name": "Resistência do Diodo Emissor",
+            "description": "Atalho para encontrar a resistência do diodo emissor evitando cálculos complexos",
+            "latex": [
+                "re' = \\frac{25\\,\\text{mV}}{I_E}"
+            ],
+            "constants": {
+                "25mV": "Tensão fixa"
+            },
+            "variables": {
+                "re'": "Resistência do Diodo Emissor",
+                "IE": "Corrente de Emissor"
+            }
+        },
+        {
+            "name": "Ganho de Corrente (β ou HFE)",
+            "description": "Fórmula para calcular o ganho de corrente de um transistor de junção bipolar",
+            "latex": [
+                "\\beta = \\frac{I_C}{I_B}"
+            ],
+            "variables": {
+                "β": "Fator de Amplificação de Corrente",
+                "IC": "Corrente de Coletor",
+                "IE": "Corrente de Emissor"
+            }
+        },
+        {
+            "name": "Impedância de entrada do transistor (polarização fixa e divisor de tensão)",
+            "description": "Fórmula para calcular a impedância de entrada de um transistor (TJB) usando as configurações \"polarização fixa\" e também \"divisor de tensão\"",
+            "latex": [
+                "Z_i' = \\beta \\times re'"
+            ],
+            "variables": {
+                "Zi'": "Impedância de Entrada do TJB",
+                "β": "Fator de Amplificação de Corrente",
+                "re'": "Resistência do Diodo Emissor"
+            }
+        },
+        {
+            "name": "Impedância de entrada do transistor (estável do emissor)",
+            "description": "Fórmula para calcular a impedância de entrada de um transistor (TJB) usando a configuração \"estável do emissor\"",
+            "latex": [
+                "Z_i' = \\beta \\times (re' + R_E)"
+            ],
+            "variables": {
+                "Zi'": "Impedância de Entrada do TJB",
+                "β": "Fator de Amplificação de Corrente",
+                "re'": "Resistência do Diodo Emissor",
+                "RE": "Resistor do Emissor"
+            }
+        },
+        {
+            "name": "Impedância de entrada do circuito (polarização fixa e estável do emissor)",
+            "description": "Fórmula para calcular a impedância de entrada do circuito de controle para as configurações \"polarização fixa\" e \"estável do emissor\"",
+            "latex": [
+                "Z_i = \\frac{R_1 \\cdot Z_i'}{R_1 + Z_i'}"
+            ],
+            "variables": {
+                "Zi": "Impedância de Entrada do Circuito",
+                "R1": "Resistor de Base",
+                "Zi'": "Impedância de Entrada do TJB"
+            }
+        },
+        {
+            "name": "Impedância de entrada do circuito (divisor de tensão)",
+            "description": "Fórmula para calcular a impedância de entrada do circuito de controle para a configuração \"divisor de tensão\"",
+            "latex": [
+                "Z_i = \\frac{1}{\\frac{1}{R_1} + \\frac{1}{R_2} + \\frac{1}{Z_i'}}"
+            ],
+            "variables": {
+                "Zi": "Impedância de Entrada do Circuito",
+                "R1": "Resistor de Base",
+                "R2": "Resistor do Divisor",
+                "Zi'": "Impedância de Entrada do TJB"
+            }
+        },
+        {
+            "name": "Ganho de tensão (polarização fixa e divisor de tensão)",
+            "description": "Fórmula para calcular o ganho de tensão (Av) para as configurações \"polarização fixa\" e \"divisor de tensão\"",
+            "latex": [
+                "A_V = -\\frac{R_C}{re'}"
+            ],
+            "variables": {
+                "Av": "Ganho de Tensão",
+                "RC": "Resistor de Coletor",
+                "re'": "Resistência do Diodo Emissor"
+            }
+        },
+        {
+            "name": "Ganho de tensão (estável do emissor)",
+            "description": "Fórmula para calcular o ganho de tensão (Av) para a configuração \"estável do emissor\"",
+            "latex": [
+                "A_V = -\\frac{R_C}{re' + R_E}"
+            ],
+            "variables": {
+                "Av": "Ganho de Tensão",
+                "RC": "Resistor de Coletor",
+                "re'": "Resistência do Diodo Emissor",
+                "RE": "Resistor do Emissor"
+            }
+        },
+        {
+            "name": "Tensão Eficaz",
+            "description": "Relembrar fórmula para calcular a tensão eficaz (Vrms)",
+            "latex": [
+                "V_{\\text{RMS}} = \\frac{V_P}{\\sqrt{2}}"
+            ],
+            "variables": {
+                "VRMS": "Tensão Eficaz",
+                "VP": "Tensão de Pico"
+            }
+        },
+        {
+            "name": "Potência Real de Saída",
+            "description": "Fórmula para calcular a potência real dissipada em uma carga RL",
+            "latex": [
+                "P_{\\text{REAL}} = \\frac{(V_{\\text{RMS}})^2}{R_L}"
+            ],
+            "variables": {
+                "PREAL": "Potência Real de Saída",
+                "VRMS": "Tensão Eficaz",
+                "RL": "Resistência da Carga"
+            }
+        },
+        {
+            "name": "Potência Máxima de Saída",
+            "description": "Fórmula para calcular a potência máxima dissipada em uma carga RL dada na escala \"Wpmpo\"",
+            "latex": [
+                "P_{\\text{MÁX}} = \\frac{(V_{PP})^2}{R_L}"
+            ],
+            "variables": {
+                "PMÁX": "Potência Máxima de Saída",
+                "VPP": "Tensão de Pico a Pico",
+                "RL": "Resistência da Carga"
+            }
+        },
+        {
+            "name": "Potência CC Fornecida ao Circuito de Saída",
+            "description": "Fórmula para calcular a potência fornecida ao circuito amplificador",
+            "latex": [
+                "P_{CC} = V_{CC} \\times I_{CC}"
+            ],
+            "variables": {
+                "PCC": "Potência Fornecida ao Circuito",
+                "VCC": "Tensão da Fonte",
+                "ICC": "Corrente Drenada Pelo Amplificador"
+            }
+        },
+        {
+            "name": "Rendimento do Amplificador",
+            "description": "Fórmula para calcular o rendimento do amplificador de potência",
+            "latex": [
+                "\\eta = \\frac{P_{REAL}}{P_{CC}} \\times 100\\%"
+            ],
+            "variables": {
+                "η": "Rendimento do Amplificador",
+                "PREAL": "Potência Real de Saída",
+                "PCC": "Potência Fornecida ao Circuito"
+            }
+        }
+    ],
+    "supervisors": [
+        {
+            "name": "Igor da Rocha Barros",
+            "role": "Professor",
+            "degree": "Graduado",
+            "university": "Instituto Federal Sul-rio-grandense",
+            "campus": "Campus Pelotas",
+            "couse": "Curso Técnico em Eletrônica",
+            "email": "igorbarros@ifsul.edu.br",
+            "telephone": null,
+            "github": null,
+            "instagram": null,
+            "youtube": null,
+            "whatsapp": null
+        }
+    ],
+    "references": [
+        {
+            "name": "",
+            "url": "",
+            "description": ""
+        }
+    ],
+    "images": [
+        {
+            "name": "",
+            "id": null,
+            "alt": "",
+            "url": "",
+            "source": "",
+            "author": ""
+        }
+    ],
+    "tags": ["eletronica geral", "amplificadores", "tjb", "transistor", "configurações", "microfones", "auto-falantes"],
+    "alias": ["egiii", "eg3", "eletronica geral", "eg 3", "eg iii", "eg-3", "eg-iii"],
+    "articleWriters": [
+        {
+            "summary": [
+                {
+                    "name": "",
+                    "roles": [],
+                    "email": null,
+                    "github": null,
+                    "date": null
+                }
+            ],
+            "formulas": [
+                {
+                    "name": "",
+                    "roles": [],
+                    "email": null,
+                    "github": null,
+                    "date": null
+                }
+            ],
+            "json": [
+                {
+                    "name": "",
+                    "roles": [],
+                    "email": null,
+                    "github": null,
+                    "date": null
+                }
+            ]
+        }
+    ],
+    "files": [
+        {
+            "name": "",
+            "id": null,
+            "description": "",
+            "url": "",
+            "fileId": "",
+            "type": "",
+            "source": "",
+            "author": "",
+            "created_at": null,
+            "updated_at": null,
+            "deleted_at": null
+        }
+    ],
+    "embededVideos": [
+        {
+            "name": "",
+            "id": null,
+            "description": "",
+            "url": "",
+            "type": "",
+            "source": "",
+            "author": "",
+            "suggestedBy": "",
+            "created_at": null,
+            "updated_at": null,
+            "deleted_at": null
+        }
+    ],
+    "created_at": null,
+    "updated_at": null,
+    "deleted_at": null,
+    "fileVersion": 2
+}
