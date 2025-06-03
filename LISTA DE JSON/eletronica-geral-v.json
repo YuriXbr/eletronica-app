@@ -1,0 +1,131 @@
+{
+    "name": "Eletrônica Geral V",
+    "id": 0,
+    "status": "active",
+    "slug": "eletronica-geral-v",
+    "parents": ["eletronica-geral-i", "eletronica-geral-ii", "eletronica-geral-iii", "eletronica-geral-iv", "eletronica-geral-v"],
+    "needs": [],
+    "semmester": 5,
+    "course": "eletronica",
+    "period": "integrado",
+    "description": "Estudo da radiofrequência",
+    "content": "",
+    "obs": "",
+    "chapters": ["amplificadores", "transistores", "microfones", "auto-falantes"],
+    "formulas": [
+        {
+            "name": "Resistência do Diodo Emissor",
+            "description": "Atalho para encontrar a resistência do diodo emissor evitando cálculos complexos",
+            "latex": [
+                "re' = \\frac{25\\,\\text{mV}}{I_E}"
+            ],
+            "constants": {
+                "25mV": "Tensão fixa"
+            },
+            "variables": {
+                "re'": "Resistência do Diodo Emissor",
+                "IE": "Corrente de Emissor"
+            }
+        }
+    ],
+    "supervisors": [
+        {
+            "name": "Guilherme Schwanke Cardoso",
+            "role": "Professor",
+            "degree": "",
+            "university": "",
+            "campus": "",
+            "course": "Curso Técnico em Eletrônica",
+            "email": "guilhermecardoso@ifsul.edu.br",
+            "telephone": null,
+            "github": null,
+            "instagram": null,
+            "youtube": null,
+            "whatsapp": null
+        }
+    ],
+    "references": [
+        {
+            "name": "",
+            "url": "",
+            "description": ""
+        }
+    ],
+    "images": [
+        {
+            "name": "",
+            "id": null,
+            "alt": "",
+            "url": "",
+            "source": "",
+            "author": ""
+        }
+    ],
+    "tags": ["eletronica geral"],
+    "alias": ["egv", "eg5", "eletronica geral", "eg 5", "eg v", "eg-5", "eg-v"],
+    "articleWriters": [
+        {
+            "summary": [
+                {
+                    "name": "",
+                    "roles": [],
+                    "email": null,
+                    "github": null,
+                    "date": null
+                }
+            ],
+            "formulas": [
+                {
+                    "name": "",
+                    "roles": [],
+                    "email": null,
+                    "github": null,
+                    "date": null
+                }
+            ],
+            "json": [
+                {
+                    "name": "",
+                    "roles": [],
+                    "email": null,
+                    "github": null,
+                    "date": null
+                }
+            ]
+        }
+    ],
+    "files": [
+        {
+            "name": "",
+            "id": null,
+            "description": "",
+            "url": "",
+            "fileId": "",
+            "type": "",
+            "source": "",
+            "author": "",
+            "created_at": null,
+            "updated_at": null,
+            "deleted_at": null
+        }
+    ],
+    "embededVideos": [
+        {
+            "name": "",
+            "id": null,
+            "description": "",
+            "url": "",
+            "type": "",
+            "source": "",
+            "author": "",
+            "suggestedBy": "",
+            "created_at": null,
+            "updated_at": null,
+            "deleted_at": null
+        }
+    ],
+    "created_at": null,
+    "updated_at": null,
+    "deleted_at": null,
+    "fileVersion": 2
+}
