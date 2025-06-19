@@ -112,31 +112,46 @@ export default function Resistor() {
     ]).start();
   };
 
+  // Cores de tolerância inválidas
+  const disabledTolerance = ['yellow', 'orange'] as ColorBand[];
+
   const renderColorButton = (
     color: ColorBand,
     setter: (color: ColorBand) => void,
     selected: ColorBand,
     idx: number,
-    animArr: Animated.Value[]
-  ) => (
-    <Animated.View key={color} style={{ transform: [{ scale: animArr[idx] }] }}>
-      <Pressable
-        onPress={() => handlePress(color, setter, selected, idx, animArr)}
-        className={`m-1 rounded-full border-2 ${selected === color ? 'border-4 border-blue-600 shadow-lg' : 'border-gray-400'}`}
-        style={{
-          backgroundColor: colorHex[color],
-          width: 38,
-          height: 38,
-          minWidth: 32,
-          minHeight: 32,
-          maxWidth: 44,
-          maxHeight: 44,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      />
-    </Animated.View>
-  );
+    animArr: Animated.Value[],
+    isTolerance?: boolean
+  ) => {
+    const isDisabled = isTolerance && disabledTolerance.includes(color);
+    return (
+      <Animated.View key={color} style={{ transform: [{ scale: animArr[idx] }] }}>
+        <Pressable
+          onPress={() => !isDisabled && handlePress(color, setter, selected, idx, animArr)}
+          disabled={isDisabled}
+          className={`m-1 rounded-full border-2 ${selected === color ? 'border-4 border-blue-600 shadow-lg' : 'border-gray-400'}`}
+          style={{
+            backgroundColor: colorHex[color],
+            width: 38,
+            height: 38,
+            minWidth: 32,
+            minHeight: 32,
+            maxWidth: 44,
+            maxHeight: 44,
+            justifyContent: 'center',
+            alignItems: 'center',
+            opacity: isDisabled ? 0.4 : 1,
+          }}
+        >
+          {isDisabled && (
+            <Svg width={32} height={32} style={{ position: 'absolute' }}>
+              <Path d="M4 28 L28 4" stroke="#333" strokeWidth={3} />
+            </Svg>
+          )}
+        </Pressable>
+      </Animated.View>
+    );
+  };
 
   const bandColors = [band1, band2, multiplier, tolerance];
 
@@ -197,7 +212,7 @@ export default function Resistor() {
                     {/* Tolerância */}
                     <View className="flex-col items-center mx-2">
                       <Text className="text-xs font-semibold mb-1 text-gray-600">Tolerância</Text>
-                        {colorOptions.map((color, idx) => renderColorButton(color, setTolerance, tolerance, idx, scaleAnimTolerance))}
+                        {colorOptions.map((color, idx) => renderColorButton(color, setTolerance, tolerance, idx, scaleAnimTolerance, true))}
                     </View>
                 </View>
             </View>
