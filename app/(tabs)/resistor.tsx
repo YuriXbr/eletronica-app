@@ -166,20 +166,39 @@ export default function Resistor() {
         <View className="flex-1 justify-start items-center pt-8 px-2 w-full bg-white">
             <View className="w-full max-w-xl items-center justify-center">
                 <Text className="text-3xl md:text-5xl font-extrabold mb-4 text-center text-blue-900">Calculadora de Resistores (4 Faixas)</Text>
-                <Svg width="100%" height={110} viewBox="0 0 1920 1080" style={{ aspectRatio: 1920/1080, maxWidth: 340 }}>
-                    <g transform="translate(0.000000,1080.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
-                        <path d="M6708 6660 c-49 -26 -94 -83 -107 -136 -7 -27 -11 -198 -11 -478 l0 -436 -1497 0 c-1427 0 -1500 -1 -1538 -19 -49 -22 -99 -77 -115 -126 -28 -86 14 -201 93 -253 l42 -27 1507 -3 1507 -2 3 -453 3 -453 26 -49 c18 -35 39 -59 74 -80 l48 -30 2881 -3 2881 -2 52 26 c57 27 93 68 112 123 7 23 11 172 11 477 l0 444 1473 2 1472 3 40 26 c22 15 48 35 57 46 48 54 62 157 29 228 -19 43 -78 100 -118 116 -15 5 -607 9 -1489 9 l-1464 0 0 441 c0 302 -4 454 -11 480 -15 50 -62 105 -110 129 -38 20 -72 20 -2926 20 -2835 -1 -2889 -1 -2925 -20z m5550 -1262 l-3 -853 -2620 0 -2620 0 -3 853 -2 852 2625 0 2625 0 -2 -852z" fill="black"/>
-                    </g>
-                    {bandColors.map((color, index) => (
-                        <Rect
-                            key={index}
-                            x={765 + index * 120}
-                            y={452}
-                            width={40}
-                            height={175}
-                            fill={colorHex[color]}
-                        />
-                    ))}
+                <Svg
+                  width="100%"
+                  height={80}
+                  viewBox="0 0 320 80"
+                  style={{ aspectRatio: 4, maxWidth: 340 }}
+                  accessibilityLabel="Resistor ilustrado"
+                >
+                  {/* Terminais metálicos */}
+                  <Rect x="10" y="36" width="50" height="8" rx="4" fill="#bbb" />
+                  <Rect x="260" y="36" width="50" height="8" rx="4" fill="#bbb" />
+                  {/* Corpo do resistor */}
+                  <Rect x="60" y="20" width="200" height="40" rx="20" fill="#f5e6b2" stroke="#bfa76a" strokeWidth="2" />
+                  {/* Sombra */}
+                  <ellipse cx="160" cy="62" rx="90" ry="8" fill="#000" opacity="0.08" />
+                  {/* Faixas de cor com borda */}
+                  {bandColors.map((color, index) => (
+                    <Rect
+                      key={index}
+                      x={80 + index * 40}
+                      y={22}
+                      width={16}
+                      height={36}
+                      rx={4}
+                      fill={colorHex[color]}
+                      stroke="#222"
+                      strokeWidth={1.5}
+                    />
+                  ))}
+                  {/* Contorno do corpo */}
+                  <Rect x="60" y="20" width="200" height="40" rx="20" fill="none" stroke="#8a7c5a" strokeWidth="2.5" />
+                  {/* Título e descrição para acessibilidade */}
+                  <title>Resistor ilustrado</title>
+                  <desc>Desenho de um resistor eletrônico com quatro faixas de cor.</desc>
                 </Svg>
             </View>
             <View className="w-full max-w-xl px-2 py-4">
