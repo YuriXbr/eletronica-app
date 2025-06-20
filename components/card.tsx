@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, View, Text, Dimensions } from 'react-native';
+import { Pressable, View, Text, Dimensions, Modal, Pressable as RNPressable, UIManager, findNodeHandle } from 'react-native';
 import Svg, { G, Path, Defs, ClipPath, Rect } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 
@@ -54,7 +54,10 @@ const ThreeDotsSVG = () => (
 export default function Card({ type = "formulas", icon = "formulas", title = "formulas", bgColor = "#FF7648", link = "/" }: CardProps) {
   // Hook de navegação para redirecionamento entre telas
   const navigation = useNavigation<any>();
-  
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const [menuPos, setMenuPos] = React.useState<{x: number, y: number, align: 'left' | 'right'}>({x: 0, y: 0, align: 'right'});
+  const dotsRef = React.useRef<any>(null);
+
   // Função que lida com o clique no card e realiza a navegação para a rota indicada
   const handleClick = () => {
     navigation.navigate(link);
@@ -64,24 +67,85 @@ export default function Card({ type = "formulas", icon = "formulas", title = "fo
   const { width } = Dimensions.get('window');
   const cardWidth = width * 0.4; // Aproximadamente 40% da largura da tela
 
+  const openMenu = () => {
+    if (dotsRef.current) {
+      const node = findNodeHandle(dotsRef.current);
+      if (node && UIManager.measureInWindow) {
+        UIManager.measureInWindow(node, (px, py, width, height) => {
+          const screenWidth = Dimensions.get('window').width;
+          const menuWidth = 200; // Largura estimada do menu
+          let align: 'left' | 'right' = 'right';
+          let x = px + width;
+          if (x + menuWidth > screenWidth) {
+            align = 'left';
+            x = px - menuWidth;
+          }
+          setMenuPos({ x, y: py, align });
+          setModalVisible(true);
+        });
+      }
+    }
+  };
+
   return (
-    <Pressable onPress={handleClick} className="p-3 mt-3 flex-row">
-      <View 
-        className="p-4 rounded-xl grid-rows-2" 
-        style={{ 
-          width: cardWidth, 
-          height: cardWidth * 0.75, 
-          backgroundColor: bgColor 
-        }}
-      >
-        <View className="flex-row justify-between">
-          <SquareRootSVG />
-          <ThreeDotsSVG />
+    <>
+      <Pressable onPress={handleClick} className="p-3 mt-3 flex-row">
+        <View 
+          className="p-4 rounded-xl grid-rows-2" 
+          style={{ 
+            width: cardWidth, 
+            height: cardWidth * 0.75, 
+            backgroundColor: bgColor 
+          }}
+        >
+          <View className="flex-row justify-between items-center">
+            <SquareRootSVG />
+            <RNPressable ref={dotsRef} onPress={openMenu} hitSlop={10} style={{ padding: 2 }}>
+              <ThreeDotsSVG />
+            </RNPressable>
+          </View>
+          <Text className="text-white text-lg font-regular flex-row items-end mt-2">
+            {title}
+          </Text>
         </View>
-        <Text className="text-white text-lg font-regular flex-row items-end">
-          {title} {/* Exibe o título do card para identificação */}
-        </Text>
-      </View>
-    </Pressable>
+      </Pressable>
+      {/* Menu popover ao lado dos três pontinhos */}
+      <Modal
+        visible={modalVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <Pressable style={{ flex: 1 }} onPress={() => setModalVisible(false)}>
+          <View style={{
+            position: 'absolute',
+            left: menuPos.x,
+            top: menuPos.y,
+            backgroundColor: '#fff',
+            borderRadius: 16,
+            padding: 20,
+            elevation: 8,
+            minWidth: 180,
+            maxWidth: 220,
+            alignItems: 'center',
+            shadowColor: '#000',
+            shadowOpacity: 0.15,
+            shadowRadius: 8,
+            shadowOffset: { width: 0, height: 2 },
+          }}>
+            <Text className="text-base font-bold mb-2 text-gray-800">Opções</Text>
+            <RNPressable className="py-2 w-full" onPress={() => {}}>
+              <Text className="text-blue-600 text-base text-center">Como usar</Text>
+            </RNPressable>
+            <RNPressable className="py-2 w-full" onPress={() => {}}>
+              <Text className="text-yellow-600 text-base text-center">Favoritar</Text>
+            </RNPressable>
+            <RNPressable className="py-2 w-full" onPress={() => {}}>
+              <Text className="text-red-600 text-base text-center">Esconder</Text>
+            </RNPressable>
+          </View>
+        </Pressable>
+      </Modal>
+    </>
   );
 }
