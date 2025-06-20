@@ -1,0 +1,621 @@
+{
+    "name": "Eletricidade II",
+    "id": 1,
+    "status":"active",
+    "slug": "eletricidade-ii",
+    "parents": ["eletricidade-i", "eletricidade-ii", "eletricidade-iii", "eletricidade-iv"],
+    "needs": ["introducao-a-eletronica,eletricidade-i"],
+    "semmester": 3,
+    "course": "eletrônica",
+    "period": "integrado",
+    "description": "Eletricidade focada principalmente em eletromagnetismo",
+    "content": "Eletricidade II representa a progressão natural dos estudos iniciados em Eletricidade I. Nesta disciplina, o foco se concentra no aprofundamento do eletromagnetismo, explorando em detalhe temas como força magnética, indução magnética e as leis de Faraday e Lenz. A aplicação da matemática torna-se fundamental para a compreensão e análise dos fenômenos físicos envolvidos. O estudo dos indutores assume um papel de destaque, abordando a indutância, associações de indutores e a constante de tempo em circuitos RL. Adicionalmente, serão analisados os conceitos de frequência, frequência angular e os valores instantâneos de tensão e corrente em circuitos de corrente alternada (CA). Com o suporte de nossos supervisores e a dedicação do aluno, a Eletricidade II proporciona uma base sólida para o prosseguimento nos estudos da eletrônica, preparando-o para desafios mais complexos e projetos inovadores.",
+    "obs": "Entender o conceito por detrás das fórmulas é mais fácil que decorá-las",
+    "chapters": ["força magnética", "indução magnética", "força eletromotriz induzida", "fluxo magnético", "lei de faraday", "lei de lenz", "transformador", "permeabilidade magnética absoluta","permeabilidade relativa","intensidade do campo magnético","relutância magnética","lei de hopkinson","indutância","relação entre indutância e lei de lenz","constante de tempo no circuito rl","associação de indutore em série","associação de indutores em paralelo","frequência","frequência angular","valor instantâneo da tensão","valor instantâneo da corrente","corrente média","tensão média","potência instantânea","corrente eficaz ou corrente rms","tensão eficaz ou tensão rms","potência média eficaz"],
+        "formulas":[
+            {
+                "name": "Força magnética",
+                "description": "Força móvel sobre carga.",
+                "latex": ["F = B \\times q \\times v \\times \\sin{\\theta}"],
+                "constants": null,
+
+                "variables": 
+                {
+                    "F": "Força magnética (Newton = N)",
+                    "B": "Indução magnética (Tesla = T)",
+                    "q": "Carga elétrica (Coulomb C)",
+                    "v": "Velocidade da carga (metro / segundo = m/s)"
+                }
+            },
+            {
+                "name": "Força magnética (condutor retilíneo)",
+                "description": "Força sobre condutor retilíneo.",
+                "latex": ["F = B \\times I \\times l \\times \\sin{\\theta}"],
+                "constants":null,
+            
+            
+                "variables":
+                {
+                    "F": "Força magnética (Newton = N)",
+                    "B": "Indução magnética (Tesla = T)",
+                    "I": "Corrente elétrica (Ampère = A)",
+                    "l": "Comprimento do condutor (Metro² = m²)"
+                }
+            },
+            {
+                "name": "Indução magnética",
+                "description": null,
+                "latex": ["B = \\frac{2 \\times 10^{-7} \\times I}{d}"],
+                "constants": null,
+
+                "variables": 
+                {
+                    "B": "Indução magnética (Tesla = T)",
+                    "I": "Corrente elétrica (Ampère = A)",
+                    "d": "distância (Metro² = m²)"
+                }
+            },
+            {
+                "name": "Indução magnética (Alternativa)",
+                "description": null,
+                "latex": ["B = \\frac{4 \\times \\pi \\times 10^{-7} \\times N \\times I}{l}"],
+                "constants": 
+                {
+                    "pi": "3,14"
+                },
+
+                "variables":
+                {
+                    "B": "Indução magnética (Tesla = T)",
+                    "I": "Corrente elétrica (Ampère = A)",
+                    "l": "Comprimento do condutor (Metro² = m²)",
+                    "N": "Número de espiras"
+                }
+            },
+            {
+                "name": "Indução magnética (Alternativa)",
+                "description": null,
+                "latex": ["B = \\mu \\times H"],
+                "constants": null,
+
+                "variables":
+                {
+                    "B": "Indução magnética (Tesla = T)",
+                    "µ": "permeabilidade magnética (Henry/Metro = H/m) (Newton/Ampere² = N/A²)(Tesla . Metro/Ampère = T.m/A)",
+                    "H": "Intensidade do campo magnético (Ampère . Espira/Metro = A.e/m)"
+                    
+                }
+            },
+            {
+                "name": "Indução magnética (Alternativa)",
+                "description": null,
+                "latex": ["B = \\frac{\\mu_{0} \\times N \\times I}{l}"],
+                "constants": null,
+
+                "variables":
+                {
+                    "B": "Indução magnética (Tesla = T)",
+                    "µ0": "Permeabilidade magnética (Henry/Metro = H/m) (Newton/Ampere² = N/A²)(Tesla . Metro/Ampère = T.m/A)",
+                    "I":"Corrente elétrica (Ampère = A)",
+                    "l":"Comprimento do condutor (Metro² = m²)",
+                    "N":"Número de espiras"
+                    
+                }
+            },
+            {
+                "name": "Força eletromotriz induzida",
+                "description": null,
+                "latex": ["\\varepsilon = B \\times l \\times v \\times \\sin{\\alpha}"],
+                "constants": null,
+
+                "variables":
+                {
+                    "ε": "Força Eletromotriz Induzida (Volt = v)",
+                    "B": "Indução magnética (Tesla = T)",
+                    "l": "Comprimento do condutor (Metro² = m²)",
+                    "v": "Velocidade do condutor (Metro/segundo = m/s)",
+                    "α": "Ângulo formado entre o sentido do movimento do condutor e o sentido das linhas de indução"
+                }
+            },
+            {
+                "name": "Força eletromotriz induzida (Alternativa)",
+                "description": "Em caso de bobina rotativa com 'N' espiras",
+                "latex": ["\\varepsilon = 2 \\times N \\times B \\times l \\times v \\times \\sin{\\alpha}"],
+                "constants": null,
+
+                "variables":
+                {
+                    "ε": "Força Eletromotriz Induzida (Volt = v)",
+                    "B": "Indução magnética (Tesla = T)",
+                    "l": "Comprimento do condutor (Metro² = m²)",
+                    "v": "Velocidade do condutor (Metro/segundo = m/s)",
+                    "α": "Ângulo formado entre o sentido do movimento do condutor e o sentido das linhas de indução",
+                    "N": "Número de espiras"
+                }
+            },
+            {
+                "name": "Fluxo magnético (com ângulo y)",
+                "description": null,
+                "latex": ["\\Phi = B \\times A \\times \\cos{\\gamma}"],
+                "constants": null,
+
+
+                "variables":
+                {
+                    "Φ": "Fluxo magnético (Weber = Wb)",
+                    "B": "Indução magnética (Tesla = T)",
+                    "A": "Área (Metro² = m²)",
+                    "Y": "Ângulo entre um vetor perpendicular à área e o campo magnético"
+                }
+            },
+            {
+                "name": "Fluxo magnético",
+                "description": null,
+                "latex": ["\\Phi = B \\times A"],
+                "constants": null,
+
+                "variables":
+                {
+                    "Φ": "Fluxo magnético (Weber = Wb)",
+                    "B": "Indução magnética (Tesla = T)",
+                    "A": "Área (Metro² = m²)" 
+                }
+            },
+            {
+                "name": "Lei de Faraday ou Lei da indução eletromagnética",
+                "description": "Lei de Faraday, também conhecida como lei da indução eletromagnética, afirma que a variação no fluxo de campo magnético através de materiais condutores induz o surgimento de uma corrente elétrica.",
+                "latex": ["\\varepsilon = \\frac{N \\times \\Delta \\Phi}{\\Delta t}"],
+                "constants": null,
+
+                "variables":
+                {
+                    "ε": "Força Eletromotriz Induzida (Volt = v)",
+                    "N": "Número de espiras",
+                    "ΔΦ": "Variação de fluxo magnético (Weber = Wb)",
+                    "Δt": "Variação do tempo (segundos = s)"
+                }
+            },
+            {
+                "name": "Lei de Lenz",
+                "description": "A lei de Lenz enuncia que, quando houver uma variação de fluxo magnético sobre um condutor fechado, surgirá, nesse condutor, um campo magnético que se oporá a tal variação.",
+                "latex": ["\\varepsilon = - \\frac{N \\times \\Delta \\Phi}{\\Delta t}"],
+                "constants": null,
+
+                "variables":
+                {
+                    "ε": "Força Eletromotriz Induzida (Volt = v)",
+                    "N": "Número de espiras",
+                    "ΔΦ": "Variação de fluxo magnético (Weber = Wb)",
+                    "Δt": "Variação do tempo (segundos = s)"
+                }
+            },
+            {
+                "name": "Transformador",
+                "description": "Um transformador é um dispositivo destinado a modificar os níveis de tensão e corrente elétrica, mantendo potência elétrica praticamente constante, de um circuito a outro, modificando também os valores das impedâncias elétricas de um circuito elétrico.",
+                "latex": ["\\frac{V_{s}}{N_{s}} = \\frac{V_{p}}{N_{p}}"],
+                "constants": null,
+
+                "variables":
+                {
+                    "Vp": "Tensão aplicada ao primário (Volt = v)",
+                    "Vs": "Tensão aplicada no secundário (Volt = v)",
+                    "Np": "Número de espiras do primário",
+                    "Ns": "Número de espiras do secundário"
+                }
+            },
+            {
+                "name": "Transformador (Alternativa)",
+                "description": "Um transformador é um dispositivo destinado a modificar os níveis de tensão e corrente elétrica, mantendo potência elétrica praticamente constante, de um circuito a outro, modificando também os valores das impedâncias elétricas de um circuito elétrico.",
+                "latex": ["\\frac{N_{s}}{N_{p}} = \\frac{I_{p}}{I_{s}}"],
+                "constants": null,
+
+                "variables":
+                {
+                    "Ip": "Corrente aplicada ao primário (Volt = v)",
+                    "Is": "Corrente aplicada no secundário (Volt = v)",
+                    "Np": "Número de espiras do primário",
+                    "Ns": "Número de espiras do secundário"
+                }
+            },
+            
+            {
+                "name": "Permeabilidade magnética absoluta",
+                "description": null,
+                "latex": ["\\mu_{0} = 4 \\times \\pi \\times 10^{-7}"],
+                "constants": 
+                {
+                    "pi": "3,14"
+                },
+
+                "variables":
+                {
+                    "µ0": "Permeabilidade magnética (Henry/Metro = H/m) (Newton/Ampere² = N/A²)"                      
+                }
+            },
+            {
+                "name": "Permeabilidade relativa",
+                "description": null,
+                "latex": ["\\mu_{r} = \\frac{\\mu}{\\mu_{0}}"],
+                "constants":null,
+
+                "variables":
+                {
+                    "µr": "Admensional",
+                    "µ e µ₀": "Permeabilidade magnética(Henry/Metro = H/m) (Newton/Ampere² = N/A²)(Tesla.Metro/Ampère = T.m/A)"
+                }
+            },
+            {
+                "name": "Intensidade do campo magnético",
+                "description": null,
+                "latex": ["H = \\frac{N \\times I}{l}"],
+                "constants":null,
+
+                "variables":
+                {
+                    "H": "Intensidade do campo magnético (Ampère . Espira/Metro = A.e/m)",
+                    "I": "Corrente elétrica (Ampère = A)",
+                    "l": "Comprimento do condutor (Metro² = m²)",
+                    "N": "Número de espiras"
+                }
+            },
+            {
+                "name": "Relutância magnética",
+                "description": "A relutância magnética é a medida da oposição que um meio oferece ao estabelecimento e concentração das linhas de campo magnético.",
+                "latex": ["R = \\frac{l}{\\mu \\times A}"],
+                "constants":null,
+
+                "variables":
+                {
+                    "R": "Relutância magnética (Henry⁻¹=H⁻¹)",
+                    "l": "Comprimento do condutor (Metro² = m²)",
+                    "µ": "permeabilidade magnética (Henry/Metro = H/m) (Newton/Ampere² = N/A²)(Tesla . Metro/Ampère = T.m/A)",
+                    "A": "Área (Metro² = m²)"
+                }
+            },
+            {
+                "name": "Lei de Hopkinson",
+                "description": "Esta hipótese permite admitir que o campo de indução magnética é praticamente constante em todos os pontos de uma secção circular do núcleo (secção perpendicular ao núcleo).",
+                "latex": ["N \\times I = \\Phi \\times R"],
+                "constants":null,
+
+                "variables":
+                {
+                    "N": "Número de espiras",
+                    "I": "Corrente elétrica (Ampère = A)",
+                    "Φ": "Fluxo magnético (Weber = Wb)",
+                    "R": "Relutância magnética (Henry⁻¹=H⁻¹)"
+                }
+            },
+            {
+                "name": "Indutância",
+                "description": "A indutância é uma grandeza física que está relacionada à capacidade de um circuito elétrico de armazenar energia em forma de campo magnético.",
+                "latex": ["L = \\frac{N \\times \\Delta \\Phi}{\\Delta I}"],
+                "constants":null,
+
+                "variables":
+                {
+                    "L": "Indutância (Henry = H)",
+                    "N": "Número de espiras",
+                    "ΔΦ": "Variação de fluxo magnético (Weber = Wb)",
+                    "ΔI": "Variação de corrente (Ampère = A)"
+                }
+            },
+            {
+                "name": "Indutância (Alternativa)",
+                "description": null,
+                "latex": ["L = \\frac{\\mu \\times A \\times N^{2}}{l}"],
+                "constants":null,
+
+                "variables":
+                {
+                    "L":"Indutância (Henry = H)",
+                    "l":"Comprimento do condutor (Metro² = m²)",
+                    "µ":"permeabilidade magnética (Henry/Metro = H/m) (Newton/Ampere² = N/A²)(Tesla . Metro/Ampère = T.m/A)",
+                    "A":"Área (Metro² = m²)",
+                    "N":"Número de espiras"
+                }
+            },
+            {
+                "name": "Relação entre a Indutância e a Lei de Lenz",
+                "description": null,
+                "latex": ["\\varepsilon = - \\frac{L \\times \\Delta I}{\\Delta t}"],
+                "constants":null,
+
+                "variables":
+                {
+                    "ε": "Força Eletromotriz Induzida (Volt = v)",
+                    "L": "Indutância (Henry = H)",
+                    "ΔI": "Variação de corrente (Ampère = A)",
+                    "Δt": "Variação do tempo (segundos = s)"
+                }
+            },
+            {
+                "name": "Constante de tempo no circuito RL",
+                "description": null,
+                "latex": ["\\tau = \\frac{L}{R}"],
+                "constants":null,
+
+                "variables":
+                {
+                    "τ": "constante de tempo (Segundos = s)",
+                    "L": "Indutância (Henry = H)",
+                    "R": "Resistência (Ohm = Ω)"
+                }
+            },
+            {
+                "name": "Associação de indutores em série",
+                "description": null,
+                "latex": ["L_{t} = L_{1} + L_{2} + \\dots + L_{n}"],
+                "constants":null,
+
+                "variables":
+                {
+                    "L": "Indutância (Henry = H)"
+                }
+            },
+            {
+                "name": "Associação de indutores em paralelo",
+                "description": null,
+                "latex": ["\\frac{1}{L_{t}} = \\frac{1}{L_{1}} + \\frac{1}{L_{2}} + \\frac{1}{L_{3}} + \\dots + \\frac{1}{L_{n}}"],
+                "constants":null,
+
+                "variables":
+                {
+                    "L": "Indutância (Henry = H)"
+                }
+            },
+            {
+                "name": "Frequência",
+                "description": "A frequência é uma grandeza física que indica o número de ocorrências de um evento (ciclos, voltas, oscilações etc.) em um determinado intervalo de tempo.",
+                "latex": ["f = \\frac{1}{T}"],
+                "constants":null,
+
+                "variables":
+                {
+                    "T": "Período (Segundos = s)",
+                    "f": "Frequência (Hertz = Hz)"
+                }
+            },
+            {
+                "name": "Frequência Angular",
+                "description": "A frequência angular (ω) é uma medida escalar da velocidade de rotação.",
+                "latex": ["\\omega = \\frac{2 \\times \\pi}{T}"],
+                "constants":
+                {
+                    "pi":"3,14"
+                },
+
+                "variables":
+                {
+                    "ω": "Frequência angular ou velocidade angular (Radianos/Segundo = Rad/s)",
+                    "T": "Período (Segundos = s)"
+                }
+            },
+            {
+                "name": "Frequência Angular (Alternativa)",
+                "description": "A frequência angular (ω) é uma medida escalar da velocidade de rotação.",
+                "latex": ["\\omega = 2 \\times \\pi \\times f"],
+                "constants":
+                {
+                    "pi":"3,14"
+                },
+                "variables":
+                {
+                    "ω": "Frequência angular ou velocidade angular (Radianos/Segundo = Rad/s)",
+                    "f": "Frequência (Hertz = Hz)"
+                }
+            },
+            {
+                "name": "Valor instantâneo da tensão",
+                "description":null,
+                "latex": ["v = V_{M} \\times \\sin{\\omega} \\times t"],
+                "constants":null,
+
+                "variables":
+                {
+                    "v": "Valor instantâneo da tensão (Volt = v)",
+                    "VM": "Valor máximo ou de pico da tensão (Volt = v)",
+                    "ω": "Frequência angular ou velocidade angular (Radianos/Segundo = Rad/s)",
+                    "t": "Instante de tempo considerado (Segundo = s)"
+                }
+            },
+            {
+                "name": "Valor instantâneo da corrente",
+                "description":null,
+                "latex": ["i = I_{M} \\times \\sin{\\omega} \\times t"],
+                "constants":null,
+
+                "variables":
+                {
+                    "i": "Valor instantâneo da corrente (Ampère =A)",
+                    "IM": "Valor máximo da corrente (Ampère = A)",
+                    "ω": "Frequência angular ou velocidade angular (Radianos/Segundo = Rad/s)",
+                    "t": "Instante de tempo considerado (Segundo = s)"
+                }
+            },
+            {
+                "name": "Corrente Média",
+                "description":null,
+                "latex": ["I_{md} = \\frac{A}{T}"],
+                "constants":null,
+
+                "variables":
+                {
+                    "Imd": "Corrente média (Ampère = A)",
+                    "A": "Área (Metro² = m²)",
+                    "T": "Período (Segundos = s)"
+                }
+            },
+            {
+                "name": "Tensão Média",
+                "description":null,
+                "latex": ["V_{md} = \\frac{A}{T}"],
+                "constants":null,
+
+                "variables":
+                {
+                    "Vmd": "Tensão média (Volt = V)",
+                    "A": "Área (Metro² = m²)",
+                    "T": "Período (Segundos = s)"
+                }
+            },
+            {
+                "name": "Potência Instantânea",
+                "description":null,
+                "latex": ["p = R \\times i^{2}"],
+                "constants":null,
+
+                "variables":
+                {
+                    "p": "Potência instantânea (Watts = W)",
+                    "R": "Resistência (Ohm = Ω)",
+                    "i": "Valor instantâneo da corrente (Ampère =A)"
+                }
+            },
+            {
+                "name": "Corrente eficaz ou corrente RMS",
+                "description":null,
+                "latex": ["I = \\frac{I_{M}}{\\sqrt{2}}"],
+                "constants":null,
+
+                "variables":
+                {
+                    "I": "Corrente eficaz ou corrente RMS (Ampère = A)",
+                    "IM": "Valor máximo da corrente"
+                }
+            },
+            {
+                "name": "Tensão eficaz ou tensão RMS",
+                "description":null,
+                "latex": ["V = \\frac{V_{M}}{\\sqrt{2}}"],
+                "constants":null,
+
+                "variables":
+                {
+                     "V": "Tensão eficaz ou tensão RMS (Volt = v)",
+                     "VM": "Valor máximo ou tensão de pico (Volt = v)"
+                }
+            },
+            {
+                "name": "Potência média dissipada",
+                "description":null,
+                "latex": ["P_{m} = R \\times I^{2}"],
+                "constants":null,
+
+                "variables":
+                {
+                     "Pm": "Potência média dissipada no resistor (Watt = W)",
+                     "R": "Resistência (Ohm = Ω)",
+                     "I": "Corrente eficaz ou corrente RMS (Ampère = A)"
+                }
+            }
+        ],
+        "supervisors": [
+        {
+            "name": "Fabricio Neitzke Ferreira",
+            "role": "Professor",
+            "degree": "Doutor",
+            "university": "Universidade Federal de Pelotas",
+            "campus": "Campus Pelotas",
+            "course": "Curso Ténico em Eletrônica",
+            "email": "fabricioferreira@ifsul.edu.br",
+            "telephone": null,
+            "github": null,
+            "instagram": null,
+            "youtube": null,
+            "whatsapp": null
+        }
+    ],
+    "references": [
+        {
+            "name": "Wikipedia",
+            "url": "https://pt.wikipedia.org/wiki/Eletricidade",
+            "description": null
+        }
+    ],
+    "images": [
+        {
+            "name": "Imagem de Exemplo",
+            "id": 0,
+            "alt": "Nome da Imagem que aparece ao segurar o clique nela",
+            "url": "",
+            "source": "Google Images",
+            "author": "Autor da Imagem"
+        }
+    ],
+    "tags": ["Indutância","Frequência","Frequência Angular","tensão média","eletricidade", "associação de indutores","indutores","indutor", "tensão", "corrente", "potência","Lei de Lenz","espiras","Força Magnética","eletromotriz","Indução Magnética","Fluxo magnético","Lei de Faraday"],
+    "alias": ["eletricidade", "eletricidade II", "eletricidade 2","Eletricidade ii","ele ii","Ele II","eletricidade2"],
+    "articleWriters": [
+        {
+            "summary": [
+                {
+                    "name": "Pablo Maciel Pinto",
+                    "roles": ["Desenvolvedor", "Estudante de Eletrônica"],
+                    "email": null,
+                    "github": null,
+                    "date": "2024-12-01"
+                }
+            ],
+            "formulas": [
+                {
+                    "name": "Murilo",
+                    "roles": ["Desenvolvedor", "Estudante de Eletrônica"],
+                    "email": null,
+                    "github": null,
+                    "date": "2024-12-01"
+                }
+            ],
+            "json": [
+                {
+                    "name": "Yuri Andrade dos Anjos",
+                    "roles": ["Desenvolvedor", "Estudante de Eletrônica"],
+                    "email": "yurixbroficial@gmail.com",
+                    "github": "https://github.com/YuriXbr",
+                    "date": "2024-12-01"
+                },
+                {
+                    "name": "Carlos Alexandre Dutra Volz",
+                    "roles": ["Desenvolvedor", "Estudante de Eletrônica"],
+                    "email": null,
+                    "github":null,
+                    "date": "2025-05-04"
+                }
+            ]
+            
+        }
+    ],
+    "files": [
+        {
+            "name": "Apresentação Eletricidade I",
+            "id": 0,
+            "description": "Apostila de Eletricidade I",
+            "url": "https://drive.google.com/file/d/",
+            "fileId": "1eU7NinMoUvz3lXTd5Xvxsfq3jBzahWC1",
+            "type": "pdf",
+            "source": "Google Drive",
+            "author": "Prof. Dr. Fulano de Tal",
+            "created_at": null,
+            "updated_at": null,
+            "deleted_at": null
+        }
+    ],
+    "embededVideos": [
+        {
+            "name": "Eletricidade I - Aula 01",
+            "id": 0,
+            "description": "Aula sobre eletricidade básica",
+            "url": "https://www.youtube.com/watch?v=",
+            "type": "video",
+            "source": "Youtube",
+            "author": "canalX",
+            "suggestedBy": "Prof. Dr. Fulano de Tal",
+            "created_at": null,
+            "updated_at": null,
+            "deleted_at": null
+        }
+    ],
+    "created_at": null,
+    "updated_at": null,
+    "deleted_at": null,
+    "fileVersion": 2
+}

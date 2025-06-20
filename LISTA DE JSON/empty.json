@@ -1,0 +1,124 @@
+{
+    "name": "",
+    "id": null,
+    "status": "",
+    "slug": "",
+    "parents": [],
+    "needs": [],
+    "semmester": null,
+    "course": "",
+    "period": "",
+    "description": "",
+    "content": "",
+    "obs": "",
+    "chapters": [],
+    "formulas": [
+        {
+            "name": "",
+            "description": "",
+            "latex": [],
+            "constants": {},
+            "variables": {}
+        }
+    ],
+    "supervisors": [
+        {
+            "name": "",
+            "role": "",
+            "degree": "",
+            "university": "",
+            "campus": "",
+            "course": null,
+            "email": null,
+            "telephone": null,
+            "github": null,
+            "instagram": null,
+            "youtube": null,
+            "whatsapp": null
+        }
+    ],
+    "references": [
+        {
+            "name": "",
+            "url": "",
+            "description": ""
+        }
+    ],
+    "images": [
+        {
+            "name": "",
+            "id": null,
+            "alt": "",
+            "url": "",
+            "source": "",
+            "author": ""
+        }
+    ],
+    "tags": [],
+    "alias": [],
+    "articleWriters": [
+        {
+            "summary": [
+                {
+                    "name": "",
+                    "roles": [],
+                    "email": null,
+                    "github": null,
+                    "date": null
+                }
+            ],
+            "formulas": [
+                {
+                    "name": "",
+                    "roles": [],
+                    "email": null,
+                    "github": null,
+                    "date": null
+                }
+            ],
+            "json": [
+                {
+                    "name": "",
+                    "roles": [],
+                    "email": null,
+                    "github": null,
+                    "date": null
+                }
+            ]
+        }
+    ],
+    "files": [
+        {
+            "name": "",
+            "id": null,
+            "description": "",
+            "url": "",
+            "fileId": "",
+            "type": "",
+            "source": "",
+            "author": "",
+            "created_at": null,
+            "updated_at": null,
+            "deleted_at": null
+        }
+    ],
+    "embededVideos": [
+        {
+            "name": "",
+            "id": null,
+            "description": "",
+            "url": "",
+            "type": "",
+            "source": "",
+            "author": "",
+            "suggestedBy": "",
+            "created_at": null,
+            "updated_at": null,
+            "deleted_at": null
+        }
+    ],
+    "created_at": null,
+    "updated_at": null,
+    "deleted_at": null,
+    "fileVersion": 2
+}

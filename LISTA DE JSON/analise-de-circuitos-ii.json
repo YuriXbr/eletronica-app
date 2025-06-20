@@ -1,0 +1,328 @@
+{
+    "name": "Análise de Circuitos II",
+    "id": 3,
+    "status": "active",
+    "slug": "analise-de-circuitos-ii",
+    "parents": ["analise-de-circuitos-i", "analise-de-circuitos-ii", "analise-de-circuitos-iii", "analise-de-circuitos-iv"],
+    "needs": ["analise de circuitos i"],
+    "semmester": 4,
+    "course": "eletronica",
+    "period": "integrado",
+    "description": "Demonstração dos diferentes usos de amplificadores oepracionais e seus respectivos circuitos",
+    "content": "A disciplina de Análise de Circuitos II aborda o estudo de Amplificadores Operacionais, abrange desde configurações básicas como amplificadores inversor e não inversor, até circuitos mais complexos como somadores, subtratores, integradores e diferenciadores, cada um com equações específicas que relacionam o ganho, as resistências, capacitâncias e as tensões de entrada e saída, permitindo a compreensão e o projeto de sistemas eletrônicos para uma vasta gama de aplicações.",
+    "obs": "Evite a tentação de reduzir todos os circuitos de Op-Amp a um único ganho ou configuração; explorar a diversidade das fórmulas te permitirá projetar amplificadores e filtros mais criativos e adaptados às necessidades específicas.",
+    "chapters": ["tensão de saída", "impedância de entrada", "ganho de tensão","tensão de saída em função do tempo" ],
+    "formulas": 
+    [
+        {
+            "name": "Tensão de Saída",
+            "description":"Amplificador Operacional (Genérico)",
+            "latex": ["V_o = A_{v} \\times (V_{i2} - V_{i1})"],
+            "constants":null,
+
+            "variables":
+            {
+                 "Vo": "Tensão de Saída (Volt = V)",
+                 "Av": "Ganho de tensão",
+                 "Vi2 e Vi1": "Diferença entre duas tensões de entrada(Volt = V)"
+            }
+        },
+        {
+            "name": "Impedância de Entrada",
+            "description":"Amplificador Operacional (Genérico)",
+            "latex": ["Z_i = \\frac{V_i}{I_i}"],
+            "constants":null,
+
+            "variables":
+            {
+                 "Zi": "Impedância de entrada (Ohm = Ω)",
+                 "Vi": "Tensão de entrada (Volt = V)",
+                 "Ii": "Corrente de entrada (Ampère = A)"
+            }
+        },
+        {
+            "name": "Ganho de Tensão",
+            "description":"Amplificador Operacional (Genérico)",
+            "latex": ["A_v = \\frac{V_o}{V_i}"],
+            "constants":null,
+
+            "variables":
+            {
+                 "Av": "Ganho de tensão",
+                 "Vo": "Tensão de saída (Volt = V)",
+                 "Ii": "Tensão de entrada (Volt = V)"
+            }
+        },
+        {
+            "name": "Ganho de Tensão",
+            "description":"Amplificador Inversor",
+            "latex": ["A_v = - \\frac{R_f}{R_i}"],
+            "constants":null,
+
+            "variables":
+            {
+                 "Av": "Ganho de tensão",
+                 "Rf": "Resistor de feedback (Ohm = Ω)",
+                 "Ri": "Resistor de entrada (Ohm = Ω)"
+            }
+        },
+        {
+            "name": "Ganho de Tensão",
+            "description":"Amplificador Não Inversor",
+            "latex": ["A_v = \\frac{R_f}{R_i} + 1"],
+            "constants":null,
+
+            "variables":
+            {
+                 "Av": "Ganho de tensão",
+                 "Rf": "Resistor de feedback (Ohm = Ω)",
+                 "Ri": "Resistor de entrada (Ohm = Ω)"
+            }
+        },
+        {
+            "name": "Ganho de Tensão",
+            "description":"Amplificador Não Inversor (Alternativa)",
+            "latex": ["A_v = \\frac{R_f + R_i}{R_i}"],
+            "constants":null,
+
+            "variables":
+            {
+                 "Av": "Ganho de tensão",
+                 "Rf": "Resistor de feedback (Ohm = Ω)",
+                 "Ri": "Resistor de entrada (Ohm = Ω)"
+            }
+        },
+        {
+            "name": "Tensão de Saída",
+            "description":"Buffer",
+            "latex": ["V_o = A_{v1} \\times A_{v2} \\times V_i"],
+            "constants":null,
+
+            "variables":
+            {
+                 "Vo": "Tensão de saída  (Volt = V)",
+                 "Av1": "Primeiro ganho",
+                 "Av2": "Segundo ganho"
+            }
+        },
+        {
+            "name": "Tensão de Saída",
+            "description":"Somador Inversor",
+            "latex": ["V_o = A_{v1} \\times V_{i1} + A_{v2} \\times V_{i2} + \\dots + A_{vn} \\times V_{in}"],
+            "constants":null,
+
+            "variables":
+            {
+                 "Vo": "Tensão de saída  (Volt = V)",
+                 "Avn": "Ganhos presentes no circuito",
+                 "Vin": "Tensões de entrada presentes no circuito (Volt = V)"
+            }
+        },
+        {
+            "name": "Tensão de Saída",
+            "description":"Somador Não Inversor",
+            "latex": ["V_o = \\left( \\frac{R_f}{R_o} + 1 \\right) \\times \\left\\{ \\left[ V_{i1} \\times \\left( \\frac{R_2 || R_3 || \\dots || R_n}{(R_2 || R_3 || \\dots || R_n) + R_1} \\right) \\right] + \\left[ V_{i2} \\times \\left( \\frac{R_1 || R_3 || \\dots || R_n}{(R_1 || R_3 || \\dots || R_n) + R_2} \\right) \\right] + \\left[ V_{i3} \\times \\left( \\frac{R_1 || R_2 || \\dots || R_n}{(R_1 || R_2 || \\dots || R_n) + R_3} \\right) \\right] + \\dots + \\left[ V_{in} \\times \\left( \\frac{R_1 || R_2 || R_3 || \\dots || R_{n-1}}{(R_1 || R_2 || R_3 || \\dots || R_{n-1}) + R_n} \\right) \\right] \\right\\}"],
+            "constants":null,
+
+            "variables":
+            {
+                 "Vo": "Tensão de saída  (Volt = V)",
+                 "Vin": "Tensões de entrada presentes no circuito (Volt = V)",
+                 "Rf": "Resistor de feedback (Ohm = Ω)",
+                 "Ro": "Resistência de saída (Ohm = Ω)",
+                 "Rn": "Resistores do circuito (Ohm = Ω)"
+            }
+        },
+        {
+            "name": "Tensão de Saída",
+            "description":"Subtrator (Amplificador Inversor)",
+            "latex": ["V_{o1} = A_v \\times V_{i1}"],
+            "constants":null,
+
+            "variables":
+            {
+                 "Vo": "Tensão de saída  (Volt = V)",
+                 "Vi1": "Tensão de entrada (Volt = V)",
+                 "Av": "Ganho de tensão"
+            }
+        },
+        {
+            "name": "Tensão de Saída",
+            "description":"Subtrator (Amplificador Inversor) (Alternativa)",
+            "latex": ["V_{o1} = \\left( - \\frac{R_f}{R_i} \\right) \\times V_{i1}"],
+            "constants":null,
+
+            "variables":
+            {
+                 "Vo1": "Tensão de saída  (Volt = V)",
+                 "Vi1": "Tensão de entrada (Volt = V)",
+                 "Rf": "Resistor de feedback (Ohm = Ω)",
+                 "Ri": "Resistor de entrada (Ohm = Ω)"
+            }
+        },
+        {
+            "name": "Tensão de Saída",
+            "description":"Subtrator (Amplificador Não Inversor)",
+            "latex": ["V_o = \\left( \\left( - \\frac{R_f}{R_i} \\right) \\times V_{i1} \\right) + \\left( \\left( \\frac{R_i + R_f}{R_i} \\right) \\times V_{i2} \\right) \\times \\left( \\frac{R_4}{R_3 + R_4} \\right)"],
+            "constants":null,
+
+            "variables":
+            {
+                 "Vo": "Tensão de saída  (Volt = V)",
+                 "Vin": "Tensões de entrada presentes no circuito (Volt = V)",
+                 "Rf": "Resistor de feedback (Ohm = Ω)",
+                 "Ri": "Resistor de entrada (Ohm = Ω)",
+                 "R3 e R4": "Resistores R3 e R4 do circuito (Ohm = Ω)"
+            }
+        },
+        {
+            "name": "Tensão de Saída em Função do Tempo",
+            "description":"Circuito Integrador",
+            "latex": ["V_o(t) = - \\frac{1}{R \\times C} \\int_{0}^{t} V_i(t) \\, dt - V_C"],
+            "constants":null,
+
+            "variables":
+            {
+                 "Vo(t)": "Tensão de saída em função do tempo  (Volt = V)",
+                 "Vi": "Tensão de entrada em função do tempo (Volt = V)",
+                 "R": "Resistor (Ohm = Ω)",
+                 "C": "Capacitor (Farad = F)",
+                 "dt": "Diferencial de tempo",
+                 "Vc": "Tensão no capacitor (Volt  = V)"
+            }
+        },
+        {
+            "name": "Ganho de Tensão",
+            "description":"Integrador Prático",
+            "latex": ["A_v = - \\frac{1}{2 \\times \\pi \\times f \\times C \\times R}"],
+            "constants":
+            {
+                "pi":"3,14"
+            },
+
+            "variables":
+            {
+                 "Av": "Ganho de tensão",
+                 "f": "Frequência (Hertz = Hz)",
+                 "C": "Capacitor (Farad = F)",
+                 "R": "Resistor (Ohm = Ω)"
+            }
+        },
+        {
+            "name": "Tensão de Saída",
+            "description":"Circuito Diferenciador",
+            "latex": ["V_o(t) = - R \\times C \\times \\frac{dV_i(t)}{dt}"],
+            "constants":null,
+
+            "variables":
+            {
+                 "Vo": "Tensão de saída  (Volt = V)",
+                 "R": "Resistor (Ohm = Ω)",
+                 "C": "Capacitor (Farad = F)",
+                 "dt": "Diferencial de tempo",
+                 "dV": "Diferencial de tensão"
+            }
+        }
+
+    ],
+    "supervisors": [
+        {
+            "name": "Fabricio Neitzke Ferreira",
+            "role": "Professor",
+            "degree": "Doutor",
+            "university": "Universidade Federal de Pelotas",
+            "campus": "Campus Pelotas",
+            "course": "Curso Ténico em Eletrônica",
+            "email": "fabricioferreira@ifsul.edu.br",
+            "telephone": null,
+            "github": null,
+            "instagram": null,
+            "youtube": null,
+            "whatsapp": null
+        }
+    ],
+    "references": [
+        {
+            "name": "BOYLESTAD, Robert L. Introdução a Análise de Circuitos. Ed. Pearson Prentice Education, 2007.",
+            "url": null,
+            "description": null
+        }
+    ],
+    "images": [
+        {
+            "name": "",
+            "id": null,
+            "alt": "",
+            "url": "",
+            "source": "",
+            "author": ""
+        }
+    ],
+    "tags": ["analise de circuitos", "ganho", "ganho de tensão", "tensão de saída"],
+    "alias": ["AC2", "AC II", "analise de circuitos 2", "analise de circuitos", "analise de circuitos ii", "ac 2", "acII"],
+    "articleWriters": [
+        {
+            "summary": [
+                {
+                    "name": "Pablo Maciel Pinto",
+                    "roles": ["Desenvolvedor", "Estudante de Eletrônica"],
+                    "email": null,
+                    "github": "https://github.com/Mablozin",
+                    "date": "2025-04-08"
+                }
+            ],
+            "formulas": [
+                {
+                    "name": "Murilo",
+                    "roles": ["Desenvolvedor", "Estudante de Eletrônica"],
+                    "email": null,
+                    "github": null,
+                    "date": "2024-12-01"
+                }
+            ],
+            "json": [
+                {
+                    "name": "Carlos Alexandre Dutra Volz",
+                    "roles": ["Desenvolvedor", "Estudante de Eletrônica"],
+                    "email": null,
+                    "github":null,
+                    "date": "2025-04-10"
+                }
+            ]
+        }
+    ],
+    "files": [
+        {
+            "name": "",
+            "id": null,
+            "description": "",
+            "url": "",
+            "fileId": "",
+            "type": "",
+            "source": "",
+            "author": "",
+            "created_at": null,
+            "updated_at": null,
+            "deleted_at": null
+        }
+    ],
+    "embededVideos": [
+        {
+            "name": "",
+            "id": null,
+            "description": "",
+            "url": "",
+            "type": "",
+            "source": "",
+            "author": "",
+            "suggestedBy": "",
+            "created_at": null,
+            "updated_at": null,
+            "deleted_at": null
+        }
+    ],
+    "created_at": null,
+    "updated_at": null,
+    "deleted_at": null,
+    "fileVersion": 2
+}
