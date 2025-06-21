@@ -110,7 +110,7 @@ fill="#66ac85" transform="scale(1.011, -1.011) translate(-50, -8160)"/>
           >
             <Card type="formulas" icon="formulas" title="Fórmulas" bgColor="#FF7648" link="formulas" />
             <Card type="disciplines" icon="disciplines" title="Disciplinas" bgColor="#8F98FF" link="formulas" />
-            <Card type="formulas" icon="" title="Cálculo de Resistores" bgColor="#FF7648" link="resistor" />
+            <Card type="formulas" icon="ohm" title="Cálculo de Resistores" bgColor="#FF7648" link="resistor" />
             <Card type="formulas" icon="" title="Work In Progress" bgColor="#FF7648" link="formulas" />
           </ScrollView>
 
