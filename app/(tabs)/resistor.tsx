@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Svg, { Rect } from 'react-native-svg';
-import { View, Text, Pressable, Animated } from 'react-native';
+import { View,ScrollView, Text, Pressable, Animated } from 'react-native';
+import { Link, useRouter } from "expo-router";
 
 // Tipagem para as cores das faixas do resistor
 type ColorBand =
@@ -37,6 +38,7 @@ const colorOptions: ColorBand[] = [
 ];
 
 export default function Resistor() {
+  const router = useRouter();
   // Estados para cada faixa do resistor
   const [band1, setBand1] = useState<ColorBand>('brown');
   const [band2, setBand2] = useState<ColorBand>('black');
@@ -127,7 +129,7 @@ export default function Resistor() {
         <Pressable
           onPress={() => !isDisabled && handlePress(color, setter, selected, idx, animArr)}
           disabled={isDisabled}
-          className={`m-1 rounded-lg border-2 ${selected === color ? 'border-4 border-blue-600 shadow-lg' : 'border-gray-400'}`}
+          className={`m-1 rounded-lg border-2 ${selected === color ? 'border-4 border-blue-600 shadow-lg' : 'border-gray-650'}`}
           style={{
             backgroundColor: colorHex[color],
             width: 65,
@@ -198,8 +200,37 @@ export default function Resistor() {
 
   // Renderização da UI principal
   return (
-    <View className="flex-1 justify-start items-center pt-8 px-2 w-full bg-white">
-      <View className="w-full max-w-xl items-center justify-center">
+    <ScrollView
+  contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-start', alignItems: 'center', paddingTop: 20, paddingHorizontal: 8, backgroundColor: 'white' }}
+  showsVerticalScrollIndicator={true}
+>
+  
+      
+        
+        {/* Título no topo */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 8,marginLeft: 4}}>
+          <View style={{ position: 'absolute', left: -67, top: 0 }}>
+  <button
+    onClick={() => router.push("/")}
+    className="w-[50px] h-[50px] bg-backgreen rounded-xl flex items-center justify-center"
+  >
+    <svg
+      fill="white"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24px"
+      height="24px"
+      viewBox="0 0 52 52"
+      enableBackground="new 0 0 52 52"
+      xmlSpace="preserve"
+    >
+      <path d="M48.6,23H15.4c-0.9,0-1.3-1.1-0.7-1.7l9.6-9.6c-0.6-0.6-0.6-1.5,0-2.1l-2.2-2.2c-0.6-0.6-1.5-0.6-2.1,0 L2.5,25c-0.6,0.6-0.6,1.5,0,2.1L20,44.6c0.6,0.6,1.5,0.6,2.1,0l2.1-2.1c0.6-0.6,0.6-1.5,0-2.1l-9.6-9.6C14,30.1,14.4,29,15.3,29 h33.2c0.8,0,1.5-0.6,1.5-1.4v-3C50,23.8,49.4,23,48.6,23z" />
+    </svg>
+  </button>
+  </View>
+        <View className="w-full max-w-xl items-center justify-center">
+      <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#2563EB', marginBottom: 2 }}>
+      Calculadora de Resistores:
+      </Text>
         {/* SVG do resistor visual */}
         <Svg
           width="100%"
@@ -233,12 +264,13 @@ export default function Resistor() {
           <Rect x="60" y="20" width="200" height="40" rx="20" fill="none" stroke="#8a7c5a" strokeWidth="2.5" />
         </Svg>
       </View>
+      </View>
 
       {/* Exibição do resultado da resistência */}
-      <View className="w-full max-w-xl px-2 py-4">
+      <View className="w-full max-w-xl pt-1 px-2 py-1">
         <View className="items-center">
-          <View className="bg-white rounded-2xl shadow-lg px-6 py-4 mb-4 w-full max-w-md border border-blue-100">
-            <Text className="text-lg md:text-2xl font-bold text-center text-gray-800">
+          <View className="bg-white rounded-2xl shadow-lg px-6 py-2 mb-2 w-full max-w-md border border-blue-100">
+            <Text className="text-lg mg:text-2xl font-bold text-center text-gray-800">
               Resistência:
             </Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -262,15 +294,15 @@ export default function Resistor() {
   <Pressable
   onPress={() => setIsExpanded(!isExpanded)}
   style={{
-    marginTop: 8,
+    marginTop: 6,
     alignSelf: 'center',
-    paddingVertical: 6,
-    paddingHorizontal: 12,
+    paddingVertical: 4,
+    paddingHorizontal: 6,
     backgroundColor: '#2563EB', // azul
     borderRadius: 8,
   }}
 >
-  <Text style={{ color: 'white', fontWeight: 'bold' }}>
+  <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 14}}>
     {isExpanded ? 'Recolher' : 'Mostrar Mais'}
   </Text>
 </Pressable>
@@ -278,12 +310,12 @@ export default function Resistor() {
   <View style={{ marginTop: 10 }}>
     {isCommercialValue(result) ? (
       <Text style={{ color: '#444', fontSize: 14 }}>
-        <Text style={{ color: 'green', fontWeight: 'bold' }}>✔</Text> Este resistor faz parte da tabela E12.
+        <Text style={{ color: 'green', fontWeight: 'bold' }}>✔</Text> : Este resistor faz parte da tabela E12.
         {'\n'}A série E12 contém os valores comerciais mais comuns encontrados no mercado, em passos de 12 valores por década.
       </Text>
     ) : (
       <Text style={{ color: '#444', fontSize: 14 }}>
-        <Text style={{ color: 'red', fontWeight: 'bold' }}>✖</Text> Este resistor não faz parte da tabela E12.
+        <Text style={{ color: 'red', fontWeight: 'bold' }}>✖</Text> : Este resistor não faz parte da tabela E12.
         {'\n'}Isso significa que o valor calculado não é um dos 12 valores padronizados da série comercial, podendo ser um valor especial ou fora de padrão.
       </Text>
     )}
@@ -307,7 +339,7 @@ export default function Resistor() {
 
           </View>
         </View>
-
+        
         {/* Seção dos botões de seleção das faixas */}
         <View className="flex-row flex-wrap justify-center items-start px-1 py-2 w-full gap-2">
           {/* Faixa 1 */}
@@ -342,7 +374,8 @@ export default function Resistor() {
             )}
           </View>
         </View>
+        
       </View>
-    </View>
+    </ScrollView>
   );
 }
