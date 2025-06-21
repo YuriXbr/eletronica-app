@@ -75,8 +75,9 @@ export default function Resistor() {
     ]).start();
   };
 
-  // Cores que não podem ser usadas para tolerância
+  // Cores que não podem ser usadas para tolerância e linha 1
   const disabledTolerance = ['yellow', 'orange', 'black', 'white'] as ColorBand[];
+  const disabledBand1 = ['black'] as ColorBand[];// Não existe preto na linha 1
 
   // Função para renderizar cada botão de cor (digitais, multiplicador ou tolerância)
   const renderColorButton = (
@@ -87,9 +88,11 @@ export default function Resistor() {
     animArr: Animated.Value[],
     isTolerance?: boolean,
     isMultiplier?: boolean,
-    isDigit?: boolean
+    isDigit?: boolean,
+    isBand1?: boolean
   ) => {
-    const isDisabled = isTolerance && disabledTolerance.includes(color);
+    // Desabilita botões de tolerância ou faixa 1 se a cor não existir
+    const isDisabled = (isTolerance && disabledTolerance.includes(color)) || (isBand1 && disabledBand1.includes(color));  
 
     let label = '';
 
@@ -101,7 +104,7 @@ export default function Resistor() {
     // Se for multiplicador, exibe × ou 10^n
     else if (isMultiplier) {
       const multiplierValue = Math.pow(10, colorValues[color]);
-      if (multiplierValue >= 1e4) {
+      if (multiplierValue >= 1e3) {
         // Exibe em notação exponencial com sobrescrito
         const exponent = colorValues[color];
         const superscripts: Record<number, string> = {
@@ -109,7 +112,7 @@ export default function Resistor() {
           5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹',
         };
         const exponentStr = String(exponent).split('').map((d) => superscripts[parseInt(d)]).join('');
-        label = `10${exponentStr}`;
+        label = `×10${exponentStr}`;
       } else {
         label = `×${multiplierValue}`;
       }
@@ -250,7 +253,7 @@ export default function Resistor() {
           <View className="flex-col items-center mx-2">
             <Text className="text-xs font-semibold mb-1 text-gray-600">Faixa 1</Text>
             {colorOptions.slice(0, 10).map((color, idx) =>
-              renderColorButton(color, setBand1, band1, idx, scaleAnimBand1, false, false, true)
+              renderColorButton(color, setBand1, band1, idx, scaleAnimBand1, false, false, true, true)
             )}
           </View>
 
