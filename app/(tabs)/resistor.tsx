@@ -130,7 +130,7 @@ export default function Resistor() {
           className={`m-1 rounded-lg border-2 ${selected === color ? 'border-4 border-blue-600 shadow-lg' : 'border-gray-400'}`}
           style={{
             backgroundColor: colorHex[color],
-            width: 60,
+            width: 65,
             height: 34,
             justifyContent: 'center',
             alignItems: 'center',
@@ -139,7 +139,7 @@ export default function Resistor() {
         >
           <Text
             style={{
-              color: color === 'black' || color === 'brown' || color === 'blue' || color === 'violet' ? 'white' : 'black',
+              color: color === 'black' || color === 'brown' || color === 'blue' || color === 'violet' || color === 'red' || color === 'gray' ? 'white' : 'black',
               fontWeight: 'bold',
               fontSize: 14,
             }}
@@ -150,6 +150,20 @@ export default function Resistor() {
       </Animated.View>
     );
   };
+  // Função para calcular o intervalo de tolerância baseado no valor e na cor selecionada
+  const calculateToleranceRange = (value: number, toleranceStr: string): [number, number] | null => {
+  if (!toleranceStr || !toleranceStr.includes('%')) return null;
+
+  const tolerancePercent = parseFloat(toleranceStr.replace(/[^\d.]/g, ''));
+  const toleranceFraction = tolerancePercent / 100;
+
+  const min = value - value * toleranceFraction;
+  const max = value + value * toleranceFraction;
+
+  return [min, max];
+};
+
+  const [isExpanded, setIsExpanded] = useState(false);
 
   // Verifica se o valor é um valor comercial da série E12 (resistores padrão de mercado)
   const isCommercialValue = (value: number): boolean => {
@@ -244,6 +258,53 @@ export default function Resistor() {
                 {isCommercialValue(result) ? '✔' : '✖'}
               </Text>
             </View>
+  
+  <Pressable
+  onPress={() => setIsExpanded(!isExpanded)}
+  style={{
+    marginTop: 8,
+    alignSelf: 'center',
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    backgroundColor: '#2563EB', // azul
+    borderRadius: 8,
+  }}
+>
+  <Text style={{ color: 'white', fontWeight: 'bold' }}>
+    {isExpanded ? 'Recolher' : 'Mostrar Mais'}
+  </Text>
+</Pressable>
+{isExpanded && (
+  <View style={{ marginTop: 10 }}>
+    {isCommercialValue(result) ? (
+      <Text style={{ color: '#444', fontSize: 14 }}>
+        <Text style={{ color: 'green', fontWeight: 'bold' }}>✔</Text> Este resistor faz parte da tabela E12.
+        {'\n'}A série E12 contém os valores comerciais mais comuns encontrados no mercado, em passos de 12 valores por década.
+      </Text>
+    ) : (
+      <Text style={{ color: '#444', fontSize: 14 }}>
+        <Text style={{ color: 'red', fontWeight: 'bold' }}>✖</Text> Este resistor não faz parte da tabela E12.
+        {'\n'}Isso significa que o valor calculado não é um dos 12 valores padronizados da série comercial, podendo ser um valor especial ou fora de padrão.
+      </Text>
+    )}
+    {(() => {
+  const range = calculateToleranceRange(result, toleranceValues[tolerance]);
+  if (range) {
+    return (
+      <View style={{ marginTop: 10 }}>
+        <Text style={{ color: '#444', fontSize: 14 }}>
+          Faixa de resistência considerando a tolerância ({toleranceValues[tolerance]}):
+          {'\n'}Mínima: {formatResistance(range[0])}
+          {'\n'}Máxima: {formatResistance(range[1])}
+        </Text>
+      </View>
+    );
+  }
+  return null;
+})()}
+  </View>
+)}
+
           </View>
         </View>
 
