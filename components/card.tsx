@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, View, Text, Dimensions, Modal, Pressable as RNPressable, UIManager, findNodeHandle } from 'react-native';
+import { Pressable, View, Text, Dimensions, Modal, Pressable as RNPressable, UIManager, findNodeHandle, Animated } from 'react-native';
 import Svg, { G, Path, Defs, ClipPath, Rect } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 
@@ -80,11 +80,39 @@ export default function Card({ type = "formulas", icon = "formulas", title = "fo
   const [modalVisible, setModalVisible] = React.useState(false);
   const [menuPos, setMenuPos] = React.useState<{x: number, y: number, align: 'left' | 'right'}>({x: 0, y: 0, align: 'right'});
   const dotsRef = React.useRef<any>(null);
-
-  // Função que lida com o clique no card e realiza a navegação para a rota indicada
   const handleClick = () => {
     navigation.navigate(link);
   };
+  // Animação de escala para o card
+  const scaleAnim = React.useRef(new Animated.Value(1)).current;
+  const dotsScale = React.useRef(new Animated.Value(1)).current;
+  // Função que lida com o clique no card e realiza a navegação para a rota indicada(animação de escala)
+  const handleCardPress = () => {
+  Animated.sequence([
+    Animated.timing(scaleAnim, {
+      toValue: 1.1,
+      duration: 60,
+      useNativeDriver: true,
+    }),
+    Animated.timing(scaleAnim, {
+      toValue: 1,
+      duration: 60,
+      useNativeDriver: true,
+    }),
+  ]).start(() => {
+    handleClick();
+  });
+};
+// Função que anima os três pontos com um efeito de escala
+const animateDots = (callback?: () => void) => {
+  Animated.sequence([
+    Animated.timing(dotsScale, { toValue: 1.15, duration: 100, useNativeDriver: true }),
+    Animated.timing(dotsScale, { toValue: 1, duration: 100, useNativeDriver: true }),
+  ]).start(() => {
+    if (callback) callback();
+  });
+};  
+  
 
   // Obtenção da largura da tela para definição de dimensões responsivas
   const { width } = Dimensions.get('window');
@@ -112,26 +140,40 @@ export default function Card({ type = "formulas", icon = "formulas", title = "fo
 
   return (
     <>
-      <Pressable onPress={handleClick} className="p-3 mt-3 flex-row">
-        <View 
-          className="p-4 rounded-xl grid-rows-2" 
-          style={{ 
-            width: cardWidth, 
-            height: cardWidth * 0.75, 
-            backgroundColor: bgColor 
-          }}
-        >
-          <View className="flex-row justify-between items-center">
+      {/* Card que exibe o ícone, título e três pontos para abrir o menu */}
+      
+      <Pressable onPress={handleCardPress} className="p-3 mt-3 flex-row">
+  <Animated.View
+    style={{
+      transform: [{ scale: scaleAnim }],
+      width: cardWidth,
+      height: cardWidth * 0.75,
+      backgroundColor: bgColor,
+      borderRadius: 16,
+      padding: 16,
+    }}
+  >
+    
+  
+    <View className="flex-row justify-between items-center">
             {iconMap[icon] ?? <SquareRootSVG />}
-            <RNPressable ref={dotsRef} onPress={openMenu} hitSlop={10} style={{ padding: 2 }}>
-              <ThreeDotsSVG />
-            </RNPressable>
+            <RNPressable
+  ref={dotsRef}
+  onPress={() => animateDots(openMenu)}
+  hitSlop={10}
+  style={{ padding: 2 }}
+>
+  <Animated.View style={{ transform: [{ scale: dotsScale }] }}>
+    <ThreeDotsSVG />
+  </Animated.View>
+</RNPressable>
           </View>
           <Text className="text-white text-lg font-regular flex-row items-end mt-2">
             {title}
           </Text>
-        </View>
-      </Pressable>
+        
+  </Animated.View>
+</Pressable>
       {/* Menu popover ao lado dos três pontinhos */}
       <Modal
         visible={modalVisible}

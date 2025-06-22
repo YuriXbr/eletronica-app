@@ -76,7 +76,17 @@ export default function Resistor() {
       Animated.timing(animArr[idx], { toValue: 1, duration: 120, useNativeDriver: true })
     ]).start();
   };
+  // Animação de escala para o botão de voltar
+  const backScale = React.useRef(new Animated.Value(1)).current;
 
+  const animateBack = (callback?: () => void) => {
+  Animated.sequence([
+    Animated.timing(backScale, { toValue: 1.15, duration: 120, useNativeDriver: true }),
+    Animated.timing(backScale, { toValue: 1, duration: 120, useNativeDriver: true }),
+  ]).start(() => {
+    if (callback) callback();
+  });
+  };
   // Cores que não podem ser usadas para tolerância e linha 1
   const disabledTolerance = ['yellow', 'orange', 'black', 'white'] as ColorBand[];
   const disabledBand1 = ['black'] as ColorBand[];// Não existe preto na linha 1
@@ -210,22 +220,29 @@ export default function Resistor() {
         {/* Título no topo */}
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 8,marginLeft: 4}}>
           <View style={{ position: 'absolute', left: -67, top: 0 }}>
-  <button
-    onClick={() => router.push("/")}
-    className="w-[50px] h-[50px] bg-backgreen rounded-xl flex items-center justify-center"
+  <Pressable onPress={() => animateBack(() => router.push("/"))}>
+  <Animated.View
+    style={{
+      transform: [{ scale: backScale }],
+      width: 50,
+      height: 50,
+      backgroundColor: '#207261', // backgreen
+      borderRadius: 12,
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}
   >
     <svg
       fill="white"
       xmlns="http://www.w3.org/2000/svg"
-      width="24px"
-      height="24px"
+      width="24"
+      height="24"
       viewBox="0 0 52 52"
-      enableBackground="new 0 0 52 52"
-      xmlSpace="preserve"
     >
       <path d="M48.6,23H15.4c-0.9,0-1.3-1.1-0.7-1.7l9.6-9.6c-0.6-0.6-0.6-1.5,0-2.1l-2.2-2.2c-0.6-0.6-1.5-0.6-2.1,0 L2.5,25c-0.6,0.6-0.6,1.5,0,2.1L20,44.6c0.6,0.6,1.5,0.6,2.1,0l2.1-2.1c0.6-0.6,0.6-1.5,0-2.1l-9.6-9.6C14,30.1,14.4,29,15.3,29 h33.2c0.8,0,1.5-0.6,1.5-1.4v-3C50,23.8,49.4,23,48.6,23z" />
     </svg>
-  </button>
+  </Animated.View>
+</Pressable>
   </View>
         <View className="w-full max-w-xl items-center justify-center">
       <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#2563EB', marginBottom: 2 }}>

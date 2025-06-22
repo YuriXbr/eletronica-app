@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import "../../global.css";
 import { Link, useRouter } from "expo-router";
 import { Ellipsis } from "lucide-react";
+import { Animated, Pressable } from "react-native";
+
+
 
 type Disciplina = {
   name: string;
@@ -16,7 +19,16 @@ export default function Formulas() {
   const [disciplinas, setDisciplinas] = useState<Disciplina[]>([]);
   const [loading, setLoading] = useState(true); // Estado para controlar o carregamento
   const router = useRouter();
+  const [backScale] = useState(new Animated.Value(1));
 
+  const animateBack = (callback: () => void) => {
+    Animated.sequence([
+      Animated.timing(backScale, { toValue: 1.15, duration: 120, useNativeDriver: true }),
+      Animated.timing(backScale, { toValue: 1, duration: 120, useNativeDriver: true }),
+    ]).start(() => {
+      callback();
+    });
+  };
   useEffect(() => {
     const fetchDisciplinas = async () => {
       try {
@@ -52,28 +64,38 @@ export default function Formulas() {
     };
 
     fetchDisciplinas();
+    
   }, []);
-
+  
   return (
+
     <>
+      
       {/* Cabeçalho */}
       <div className="h-1/5 w-full bg-backgreen flex items-center justify-between px-5">
-        <button
-          onClick={() => router.push("/")}
-          className="w-[50px] h-[50px] bg-zinc-400/20 rounded-xl flex items-center justify-center"
-        >
-          <svg
-            fill="white"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24px"
-            height="24px"
-            viewBox="0 0 52 52"
-            enableBackground="new 0 0 52 52"
-            xmlSpace="preserve"
+        <Pressable onPress={() => animateBack(() => router.push("/"))}>
+          <Animated.View
+            style={{
+              transform: [{ scale: backScale }],
+              width: 50,
+              height: 50,
+              backgroundColor: '#207261', // bg-backgreen
+              borderRadius: 12,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
           >
-            <path d="M48.6,23H15.4c-0.9,0-1.3-1.1-0.7-1.7l9.6-9.6c-0.6-0.6-0.6-1.5,0-2.1l-2.2-2.2c-0.6-0.6-1.5-0.6-2.1,0 L2.5,25c-0.6,0.6-0.6,1.5,0,2.1L20,44.6c0.6,0.6,1.5,0.6,2.1,0l2.1-2.1c0.6-0.6,0.6-1.5,0-2.1l-9.6-9.6C14,30.1,14.4,29,15.3,29 h33.2c0.8,0,1.5-0.6,1.5-1.4v-3C50,23.8,49.4,23,48.6,23z" />
-          </svg>
-        </button>
+    <svg
+      fill="white"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 52 52"
+    >
+      <path d="M48.6,23H15.4c-0.9,0-1.3-1.1-0.7-1.7l9.6-9.6c-0.6-0.6-0.6-1.5,0-2.1l-2.2-2.2c-0.6-0.6-1.5-0.6-2.1,0 L2.5,25c-0.6,0.6-0.6,1.5,0,2.1L20,44.6c0.6,0.6,1.5,0.6,2.1,0l2.1-2.1c0.6-0.6,0.6-1.5,0-2.1l-9.6-9.6C14,30.1,14.4,29,15.3,29 h33.2c0.8,0,1.5-0.6,1.5-1.4v-3C50,23.8,49.4,23,48.6,23z" />
+    </svg>
+  </Animated.View>
+</Pressable>
         <h1 className="text-white text-2xl font-bold poppins-black">DISCIPLINAS</h1>
       </div>
 
