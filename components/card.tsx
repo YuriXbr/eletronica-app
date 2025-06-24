@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, View, Text, Dimensions, Modal, Pressable as RNPressable, UIManager, findNodeHandle } from 'react-native';
+import { Pressable, View, Text, Dimensions, Modal, Pressable as RNPressable, UIManager, findNodeHandle, Animated } from 'react-native';
 import Svg, { G, Path, Defs, ClipPath, Rect } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 
@@ -49,7 +49,30 @@ const ThreeDotsSVG = () => (
       </G>
     </Svg>
   </View>
-);
+  );
+  
+  const OhmSVG = () => (<View className="h-auto w-auto">
+    {/* Ícone representando ohm */}
+    <Svg width="24" height="24" viewBox="0 0 28 28"fill="white">
+      <G clipPath="url(#clip0)">
+            <path d="M0.909091 24V21.5H5.77273V21.3182C4.27273 20.3409 3.08712 19.0492 2.21591 17.4432C1.3447 15.8371 0.909091 13.9318 0.909091 11.7273C0.909091 10.0682 1.15909 8.54924 1.65909 7.17045C2.16667 5.78409 2.87879 4.58712 3.79545 3.57954C4.71212 2.57197 5.79545 1.79167 7.04545 1.23864C8.30303 0.685605 9.68182 0.40909 11.1818 0.40909C12.6818 0.40909 14.0568 0.685605 15.3068 1.23864C16.5644 1.79167 17.6515 2.57197 18.5682 3.57954C19.4848 4.58712 20.1932 5.78409 20.6932 7.17045C21.2008 8.54924 21.4545 10.0682 21.4545 11.7273C21.4545 13.9318 21.0189 15.8371 20.1477 17.4432C19.2765 19.0492 18.0909 20.3409 16.5909 21.3182V21.5H21.4545V24H13.1818V20.8182C14.1818 20.3939 15.1023 19.7462 15.9432 18.875C16.7841 17.9962 17.4583 16.9508 17.9659 15.7386C18.4735 14.5189 18.7273 13.1818 18.7273 11.7273C18.7273 10.1061 18.4053 8.64015 17.7614 7.32954C17.1174 6.01894 16.2273 4.97727 15.0909 4.20454C13.9545 3.43182 12.6515 3.04545 11.1818 3.04545C10.0833 3.04545 9.07197 3.26894 8.14773 3.71591C7.22349 4.1553 6.42424 4.77273 5.75 5.56818C5.08333 6.35606 4.56439 7.27652 4.19318 8.32955C3.82197 9.375 3.63636 10.5076 3.63636 11.7273C3.63636 13.1818 3.89015 14.5189 4.39773 15.7386C4.9053 16.9508 5.57955 17.9962 6.42045 18.875C7.26136 19.7462 8.18182 20.3939 9.18182 20.8182V24H0.909091Z" fill="white" />
+      </G>
+      <Defs>
+        <ClipPath id="clip0">
+          <Rect width="24" height="24" fill="white" />
+        </ClipPath>
+      </Defs>
+    </Svg>
+  </View>
+  );
+  
+  // Mapeamento de ícones para tipos de card
+  const iconMap: Record<string, React.ReactNode> = {
+  formulas: <SquareRootSVG />,
+  ohm: <OhmSVG />
+ 
+};
+
 
 export default function Card({ type = "formulas", icon = "formulas", title = "formulas", bgColor = "#FF7648", link = "/" }: CardProps) {
   // Hook de navegação para redirecionamento entre telas
@@ -57,11 +80,39 @@ export default function Card({ type = "formulas", icon = "formulas", title = "fo
   const [modalVisible, setModalVisible] = React.useState(false);
   const [menuPos, setMenuPos] = React.useState<{x: number, y: number, align: 'left' | 'right'}>({x: 0, y: 0, align: 'right'});
   const dotsRef = React.useRef<any>(null);
-
-  // Função que lida com o clique no card e realiza a navegação para a rota indicada
   const handleClick = () => {
     navigation.navigate(link);
   };
+  // Animação de escala para o card
+  const scaleAnim = React.useRef(new Animated.Value(1)).current;
+  const dotsScale = React.useRef(new Animated.Value(1)).current;
+  // Função que lida com o clique no card e realiza a navegação para a rota indicada(animação de escala)
+  const handleCardPress = () => {
+  Animated.sequence([
+    Animated.timing(scaleAnim, {
+      toValue: 1.1,
+      duration: 60,
+      useNativeDriver: true,
+    }),
+    Animated.timing(scaleAnim, {
+      toValue: 1,
+      duration: 60,
+      useNativeDriver: true,
+    }),
+  ]).start(() => {
+    handleClick();
+  });
+};
+// Função que anima os três pontos com um efeito de escala
+const animateDots = (callback?: () => void) => {
+  Animated.sequence([
+    Animated.timing(dotsScale, { toValue: 1.15, duration: 100, useNativeDriver: true }),
+    Animated.timing(dotsScale, { toValue: 1, duration: 100, useNativeDriver: true }),
+  ]).start(() => {
+    if (callback) callback();
+  });
+};  
+  
 
   // Obtenção da largura da tela para definição de dimensões responsivas
   const { width } = Dimensions.get('window');
@@ -89,26 +140,40 @@ export default function Card({ type = "formulas", icon = "formulas", title = "fo
 
   return (
     <>
-      <Pressable onPress={handleClick} className="p-3 mt-3 flex-row">
-        <View 
-          className="p-4 rounded-xl grid-rows-2" 
-          style={{ 
-            width: cardWidth, 
-            height: cardWidth * 0.75, 
-            backgroundColor: bgColor 
-          }}
-        >
-          <View className="flex-row justify-between items-center">
-            <SquareRootSVG />
-            <RNPressable ref={dotsRef} onPress={openMenu} hitSlop={10} style={{ padding: 2 }}>
-              <ThreeDotsSVG />
-            </RNPressable>
+      {/* Card que exibe o ícone, título e três pontos para abrir o menu */}
+      
+      <Pressable onPress={handleCardPress} className="p-3 mt-3 flex-row">
+  <Animated.View
+    style={{
+      transform: [{ scale: scaleAnim }],
+      width: cardWidth,
+      height: cardWidth * 0.75,
+      backgroundColor: bgColor,
+      borderRadius: 16,
+      padding: 16,
+    }}
+  >
+    
+  
+    <View className="flex-row justify-between items-center">
+            {iconMap[icon] ?? <SquareRootSVG />}
+            <RNPressable
+  ref={dotsRef}
+  onPress={() => animateDots(openMenu)}
+  hitSlop={10}
+  style={{ padding: 2 }}
+>
+  <Animated.View style={{ transform: [{ scale: dotsScale }] }}>
+    <ThreeDotsSVG />
+  </Animated.View>
+</RNPressable>
           </View>
           <Text className="text-white text-lg font-regular flex-row items-end mt-2">
             {title}
           </Text>
-        </View>
-      </Pressable>
+        
+  </Animated.View>
+</Pressable>
       {/* Menu popover ao lado dos três pontinhos */}
       <Modal
         visible={modalVisible}
