@@ -217,16 +217,15 @@ export default function Resistor() {
   
       
         
-        {/* Título no topo */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 8,marginLeft: 4}}>
-          <View style={{ position: 'absolute', left: -67, top: 0 }}>
+        <View style={{ position: 'absolute', left: 20, top: 20 }}>
   <Pressable onPress={() => animateBack(() => router.push("/"))}>
   <Animated.View
     style={{
       transform: [{ scale: backScale }],
       width: 50,
       height: 50,
-      backgroundColor: '#207261', // backgreen
+      zIndex: 999,
+      backgroundColor: '#792614', 
       borderRadius: 12,
       justifyContent: 'center',
       alignItems: 'center',
@@ -244,6 +243,9 @@ export default function Resistor() {
   </Animated.View>
 </Pressable>
   </View>
+        {/* Título no topo */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 8,marginLeft: 4}}>
+          
         <View className="w-full max-w-xl items-center justify-center">
       <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#2563EB', marginBottom: 2 }}>
       Calculadora de Resistores:
