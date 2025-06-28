@@ -10,7 +10,9 @@
     "web": "expo start --web",
     "webexpose": "expo start --web --port 3000",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "build:android": "eas build --platform android --profile preview",
+    "build:android:production": "eas build --platform android --profile production"
   },
   "jest": {
     "preset": "jest-expo"
