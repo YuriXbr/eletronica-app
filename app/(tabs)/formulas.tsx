@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "../../global.css";
 import { Link, useRouter } from "expo-router";
 import { Ellipsis } from "lucide-react";
 import { Animated, Pressable } from "react-native";
