@@ -4,14 +4,6 @@ import { useLocalSearchParams } from 'expo-router';
 import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';
 
-// Importar os arquivos JSON diretamente
-import eletricidadeI from "../../LISTA DE JSON/eletricidade-i.json";
-import eletricidadeII from "../../LISTA DE JSON/eletricidade-ii.json";
-import analiseCircuitosI from "../../LISTA DE JSON/analise-de-circuitos-i.json";
-import analiseCircuitosII from "../../LISTA DE JSON/analise-de-circuitos-ii.json";
-import analiseCircuitosIII from "../../LISTA DE JSON/analise-de-circuitos-iii.json";
-import eletronicaGeralIII from "../../LISTA DE JSON/eletronica-geral-iii.json";
-
 // Tipos para fórmulas e disciplina para melhor entendimento da estrutura dos dados.
 type Formula = {
     name: string;
@@ -48,27 +40,13 @@ export default function DisciplinaDetail() {
     const [expandedFormulas, setExpandedFormulas] = useState<{ [index: number]: boolean }>({});
 
     useEffect(() => {
-        // Mapeamento dos arquivos JSON importados
-        const disciplinasMap: Record<string, any> = {
-          "eletricidade-i": eletricidadeI,
-          "eletricidade-ii": eletricidadeII,
-          "analise-de-circuitos-i": analiseCircuitosI,
-          "analise-de-circuitos-ii": analiseCircuitosII,
-          "analise-de-circuitos-iii": analiseCircuitosIII,
-          "eletronica-geral-iii": eletronicaGeralIII,
-        };
-
-        // Carrega os dados da disciplina diretamente do objeto importado
-        try {
-            const data = disciplinasMap[slug as string];
-            if (data) {
+        // Carrega os dados da disciplina a partir do JSON correspondente ao slug
+        fetch(`../../../LISTA DE JSON/${slug}.json`)
+            .then(response => response.json())
+            .then((data: Disciplina) => {
                 setDisciplina(data);
-            } else {
-                console.error("Disciplina não encontrada:", slug);
-            }
-        } catch (error) {
-            console.error("Erro ao carregar disciplina:", error);
-        }
+            })
+            .catch(error => console.error("Erro ao carregar disciplina:", error));
     }, [slug]);
 
     if (!disciplina)

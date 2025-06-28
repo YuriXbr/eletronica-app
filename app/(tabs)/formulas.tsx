@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from "react";
+import "../../global.css";
 import { Link, useRouter } from "expo-router";
 import { Ellipsis } from "lucide-react";
 import { Animated, Pressable } from "react-native";
-
-// Importar os arquivos JSON diretamente
-import indexData from "../../LISTA DE JSON/index.json";
-import eletricidadeI from "../../LISTA DE JSON/eletricidade-i.json";
-import eletricidadeII from "../../LISTA DE JSON/eletricidade-ii.json";
-import analiseCircuitosI from "../../LISTA DE JSON/analise-de-circuitos-i.json";
-import analiseCircuitosII from "../../LISTA DE JSON/analise-de-circuitos-ii.json";
-import analiseCircuitosIII from "../../LISTA DE JSON/analise-de-circuitos-iii.json";
-import eletronicaGeralIII from "../../LISTA DE JSON/eletronica-geral-iii.json";
 
 
 
@@ -38,24 +30,20 @@ export default function Formulas() {
     });
   };
   useEffect(() => {
-    const loadDisciplinas = () => {
+    const fetchDisciplinas = async () => {
       try {
-        // Mapeamento dos arquivos JSON importados
-        const disciplinasMap: Record<string, any> = {
-          "eletricidade-i.json": eletricidadeI,
-          "eletricidade-ii.json": eletricidadeII,
-          "analise-de-circuitos-i.json": analiseCircuitosI,
-          "analise-de-circuitos-ii.json": analiseCircuitosII,
-          "analise-de-circuitos-iii.json": analiseCircuitosIII,
-          "eletronica-geral-iii.json": eletronicaGeralIII,
-        };
+        // Buscar o índice de arquivos JSON
+        const response = await fetch("../../../LISTA DE JSON/index.json");
+        const files = await response.json();
 
         // Carregar os dados de cada arquivo JSON
         const disciplinasAtivas: Disciplina[] = [];
-        for (const file of indexData) {
-          const disciplinaData = disciplinasMap[file];
-          
-          if (disciplinaData && disciplinaData.status === "active") {
+        for (const file of files) {
+          const disciplinaResponse = await fetch(`../../../LISTA DE JSON/${file}`);
+          const disciplinaData = await disciplinaResponse.json();
+
+          // Filtrar apenas disciplinas com status "active"
+          if (disciplinaData.status === "active") {
             disciplinasAtivas.push({
               name: disciplinaData.name,
               slug: disciplinaData.slug,
@@ -71,11 +59,12 @@ export default function Formulas() {
       } catch (error) {
         console.error("Erro ao carregar disciplinas:", error);
       } finally {
-        setLoading(false);
+        setLoading(false); // Finalizar o carregamento
       }
     };
 
-    loadDisciplinas();
+    fetchDisciplinas();
+    
   }, []);
   
   return (

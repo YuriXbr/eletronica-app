@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Eletrônica App",
+    "name": "my-app",
     "slug": "my-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "eletronicaapp",
+    "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -20,7 +20,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.yurixbr.eletronicaapp"
+      "package": "com.yurixbr.testeapp"
     },
     "web": {
       "bundler": "metro",
@@ -33,10 +33,6 @@
     "experiments": {
       "typedRoutes": true
     },
-    "updates": {
-      "url": "https://u.expo.dev/d79749b6-e04b-4b08-9153-ef41832d5a3d"
-    },
-    "runtimeVersion": "1.0.0",
     "extra": {
       "eas": {
         "projectId": "d79749b6-e04b-4b08-9153-ef41832d5a3d"
