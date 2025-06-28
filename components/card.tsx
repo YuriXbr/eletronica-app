@@ -116,7 +116,7 @@ const animateDots = (callback?: () => void) => {
 
   // Obtenção da largura da tela para definição de dimensões responsivas
   const { width } = Dimensions.get('window');
-  const cardWidth = width * 0.4; // Aproximadamente 40% da largura da tela
+  const cardWidth = width * 0.4; // Aproximadamente 20% da largura da tela
 
   const openMenu = () => {
     if (dotsRef.current) {
@@ -147,14 +147,14 @@ const animateDots = (callback?: () => void) => {
     style={{
       transform: [{ scale: scaleAnim }],
       width: cardWidth,
-      height: cardWidth * 0.75,
+      height: cardWidth * 0.70,
       backgroundColor: bgColor,
       borderRadius: 16,
       padding: 16,
     }}
   >
     
-  
+  {/* Area dos icones */}
     <View className="flex-row justify-between items-center">
             {iconMap[icon] ?? <SquareRootSVG />}
             <RNPressable
@@ -168,7 +168,7 @@ const animateDots = (callback?: () => void) => {
   </Animated.View>
 </RNPressable>
           </View>
-          <Text className="text-white text-lg font-regular flex-row items-end mt-2">
+          <Text className="text-white text-md font-regular flex-row items-end mt-2">
             {title}
           </Text>
         
