@@ -12,6 +12,7 @@ interface CardProps {
   title?: string;
   bgColor?: string;
   link?: string;
+  onPress?: () => void; // Callback opcional para quando não há link válido
 }
 
 // Componente que renderiza o ícone de raiz quadrada (SVG)
@@ -74,14 +75,19 @@ const ThreeDotsSVG = () => (
 };
 
 
-export default function Card({ type = "formulas", icon = "formulas", title = "formulas", bgColor = "#FF7648", link = "/" }: CardProps) {
+export default function Card({ type = "formulas", icon = "formulas", title = "formulas", bgColor = "#FF7648", link = "/", onPress }: CardProps) {
   // Hook de navegação para redirecionamento entre telas
   const navigation = useNavigation<any>();
   const [modalVisible, setModalVisible] = React.useState(false);
   const [menuPos, setMenuPos] = React.useState<{x: number, y: number, align: 'left' | 'right'}>({x: 0, y: 0, align: 'right'});
   const dotsRef = React.useRef<any>(null);
   const handleClick = () => {
-    navigation.navigate(link);
+    // Se não há link válido e há um callback onPress, executa o callback
+    if ((!link || link === "" || link === "/") && onPress) {
+      onPress();
+    } else {
+      navigation.navigate(link);
+    }
   };
   // Animação de escala para o card
   const scaleAnim = React.useRef(new Animated.Value(1)).current;
@@ -142,7 +148,7 @@ const animateDots = (callback?: () => void) => {
     <>
       {/* Card que exibe o ícone, título e três pontos para abrir o menu */}
       
-      <Pressable onPress={handleCardPress} className="p-3 mt-3 flex-row">
+      <Pressable onPress={handleCardPress} style={{ marginRight: 16 }}>
   <Animated.View
     style={{
       transform: [{ scale: scaleAnim }],
@@ -151,6 +157,11 @@ const animateDots = (callback?: () => void) => {
       backgroundColor: bgColor,
       borderRadius: 16,
       padding: 16,
+      elevation: 4,
+      shadowColor: '#000',
+      shadowOpacity: 0.1,
+      shadowRadius: 8,
+      shadowOffset: { width: 0, height: 4 },
     }}
   >
     

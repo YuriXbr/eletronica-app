@@ -1,8 +1,8 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 
-
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
+import CustomTabBar from '@/components/navigation/CustomTabBar';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -11,35 +11,32 @@ export default function TabLayout() {
 
   return (
     <Tabs
+      tabBar={(props) => <CustomTabBar {...props} />}
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
+          title: 'Início',
         }}
       />
       <Tabs.Screen
         name="formulas"
         options={{
-          title: 'Formulas',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'book' : 'book-outline'} color={color} />
-          ),
+          title: 'Disciplinas',
         }}
       />
       <Tabs.Screen
         name="resistor"
         options={{
-          title: 'Cálculo de Resistores',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
+          title: 'Calculadora de Resistores',
+        }}
+      />
+      <Tabs.Screen
+        name="teste"
+        options={{
+          title: 'Desenvolvedores',
         }}
       />
     </Tabs>
