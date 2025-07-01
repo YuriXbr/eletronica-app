@@ -21,6 +21,7 @@ export default function Teste() {
                 <div>
                     <h1 className='text-2xl font-bold text-center m-5 mt-6'>Equipe de Desenvolvimento</h1>
                 </div>
+                {/* Alunos */}
                 <div className='m-3 p-3 bg-zinc-300 border-l-8 border-l-yellow-300 w-auto h-auto flex flex-row space-x-5 items-center rounded-md hover:bg-zinc-400 transition-all duration-300'>
                     <img className='h-14 rounded-full' src="https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"></img>
                     <div className='flex flex-col'>
@@ -88,6 +89,7 @@ export default function Teste() {
                 <div>
                     <h1 className='text-2xl font-bold text-center m-5'>Professores</h1>
                 </div>
+                {/* Professores */}
                 <div className='m-3 p-3 bg-zinc-300 border-l-8 border-l-yellow-300 w-auto h-auto flex flex-row space-x-5 items-center rounded-md hover:bg-zinc-400 transition-all duration-300'>
                     <img className='h-14 rounded-full' src="https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"></img>
                     <div className='flex flex-col'>
@@ -115,15 +117,14 @@ export default function Teste() {
                     </div>
                     
                 </div>
-                {/* Footer com copyright */}
                 {/* divisor */}
                 <div className='border-t border-gray-300 my-5 mx-2 rounded-full'></div>
 
+                {/* Footer com copyright */}
                 <div className='text-center text-gray-500 text-sm mt-5 mb-10'>
                     <p>© 2025 Todos os direitos reservados.</p>
                     <p>Desenvolvido por alunos do IFSul Campus Pelotas.</p>
                 </div>
-
                 </ScrollView>
         </>
     )
