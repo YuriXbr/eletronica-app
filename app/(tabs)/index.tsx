@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Dimensions, View, Text, ScrollView, Animated } from 'react-native';
+import { Dimensions, View, Text, ScrollView, Animated} from 'react-native';
 import Card from "@/components/card";
 import Svg, { Path } from 'react-native-svg';
 
@@ -59,8 +59,8 @@ export default function HomeScreen() {
         {/*Svg da senoide da tro*/}
               <View style={{
               position: 'absolute',  
-              right: 20,             
-              top: 20,
+              right: 10,             
+              top: 10,
               zIndex: 999,
               }}>
               <Svg width="50" height="50" viewBox="0 0 285 400">
@@ -73,8 +73,8 @@ export default function HomeScreen() {
         {/*View do botão de pesquisa*/}
         <View style={{
         position: 'absolute',  
-        left: 20,             
-        top: 20,                
+        left: 10,             
+        top: 10,                
         width: 50,
         height: 50,
         zIndex: 999,

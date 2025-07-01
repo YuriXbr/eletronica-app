@@ -67,6 +67,7 @@ export default function Formulas() {
     
   }, []);
   
+  // Renderizar a página de disciplinas
   return (
 
     <>
@@ -74,7 +75,8 @@ export default function Formulas() {
       {/* Cabeçalho */}
       <ScrollView>
       <div className="h-32 w-full bg-red-800 flex items-center justify-between px-5">
-        <View style={{ position: 'absolute', left: 20, top: 20 }}>
+        {/* Botão de voltar */}
+        <View style={{ position: 'absolute', left: 10, top: 10, zIndex: 999 }}>
           <Pressable onPress={() => animateBack(() => router.push("/"))}>
           <Animated.View
             style={{
@@ -82,7 +84,7 @@ export default function Formulas() {
               width: 50,
               height: 50,
               zIndex: 999,
-              backgroundColor: '#792614', 
+              backgroundColor: '#6e2f2f', 
               borderRadius: 12,
               justifyContent: 'center',
               alignItems: 'center',
@@ -100,6 +102,10 @@ export default function Formulas() {
           </Animated.View>
         </Pressable>
           </View>
+        {/* fim do botão de voltar */}
+
+
+        {/* Título */}
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'  }}>
         <h1 className="text-white text-2xl font-bold poppins-black">DISCIPLINAS</h1>
         </View>
