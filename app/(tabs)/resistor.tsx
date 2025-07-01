@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Svg, { Rect } from 'react-native-svg';
-import { View,ScrollView, Text, Pressable, Animated } from 'react-native';
+import { View,ScrollView, Text, Pressable, Animated, Dimensions } from 'react-native';
 import { Link, useRouter } from "expo-router";
+
+const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get('window').width;
 
 // Tipagem para as cores das faixas do resistor
 type ColorBand =
@@ -142,8 +145,8 @@ export default function Resistor() {
           className={`m-1 rounded-lg border-2 ${selected === color ? 'border-4 border-blue-600 shadow-lg' : 'border-gray-650'}`}
           style={{
             backgroundColor: colorHex[color],
-            width: 65,
-            height: 34,
+            width: 60*windowWidth* 0.0024, // Ajuste proporcional à largura da tela
+            height: 34, 
             justifyContent: 'center',
             alignItems: 'center',
             opacity: isDisabled ? 0 : 1,
@@ -216,8 +219,8 @@ export default function Resistor() {
 >
   
       
-        
-        <View style={{ position: 'absolute', left: 20, top: 20 }}>
+        {/* Botão de voltar */}
+        <View style={{ position: 'absolute', left: 10, top: 10 }}>
   <Pressable onPress={() => animateBack(() => router.push("/"))}>
   <Animated.View
     style={{
@@ -225,7 +228,7 @@ export default function Resistor() {
       width: 50,
       height: 50,
       zIndex: 999,
-      backgroundColor: '#792614', 
+      backgroundColor: '#6e2f2f', 
       borderRadius: 12,
       justifyContent: 'center',
       alignItems: 'center',
@@ -247,7 +250,7 @@ export default function Resistor() {
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 8,marginLeft: 4}}>
           
         <View className="w-full max-w-xl items-center justify-center">
-      <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#2563EB', marginBottom: 2 }}>
+      <Text style={{ fontSize: 24*windowWidth*0.0022, fontWeight: 'bold', color: '#2563EB', marginBottom: 2 }}>
       Calculadora de Resistores:
       </Text>
         {/* SVG do resistor visual */}
@@ -360,7 +363,7 @@ export default function Resistor() {
         </View>
         
         {/* Seção dos botões de seleção das faixas */}
-        <View className="flex-row flex-wrap justify-center items-start px-1 py-2 w-full gap-2">
+        <View className="flex-row flex-wrap justify-center items-start px-1 py-2 w-full gap-0">
           {/* Faixa 1 */}
           <View className="flex-col items-center mx-2">
             <Text className="text-xs font-semibold mb-1 text-gray-600">Faixa 1</Text>
