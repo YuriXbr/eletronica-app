@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Svg, { Rect } from 'react-native-svg';
-import { View,ScrollView, Text, Pressable, Animated, Dimensions } from 'react-native';
+import Svg, { Rect, Path, Defs, LinearGradient, Stop } from 'react-native-svg';
+import { View, ScrollView, Text, Pressable, Animated, Dimensions } from 'react-native';
 import { Link, useRouter } from "expo-router";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -42,12 +43,28 @@ const colorOptions: ColorBand[] = [
 
 export default function Resistor() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
+  
   // Estados para cada faixa do resistor
   const [band1, setBand1] = useState<ColorBand>('brown');
   const [band2, setBand2] = useState<ColorBand>('black');
   const [multiplier, setMultiplier] = useState<ColorBand>('red');
   const [tolerance, setTolerance] = useState<ColorBand>('gold');
   const [result, setResult] = useState<number>(0);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  // Animações para cada faixa ao serem pressionadas
+  const [scaleAnimBand1] = useState(() => colorOptions.slice(0, 10).map(() => new Animated.Value(1)));
+  const [scaleAnimBand2] = useState(() => colorOptions.slice(0, 10).map(() => new Animated.Value(1)));
+  const [scaleAnimMultiplier] = useState(() => colorOptions.map(() => new Animated.Value(1)));
+  const [scaleAnimTolerance] = useState(() => colorOptions.map(() => new Animated.Value(1)));
+  
+  // Animação de escala para o botão de voltar
+  const backScale = React.useRef(new Animated.Value(1)).current;
+
+  // Altura do header considerando a safe area - reduzido significativamente
+  const headerHeight = 60 + insets.top;
+  const backgroundHeight = headerHeight + 20;
 
   // Recalcula a resistência sempre que uma faixa muda
   useEffect(() => {
@@ -58,12 +75,6 @@ export default function Resistor() {
     const resistance = (firstDigit * 10 + secondDigit) * multiplierValue;
     setResult(resistance);
   }, [band1, band2, multiplier]);
-
-  // Animações para cada faixa ao serem pressionadas
-  const [scaleAnimBand1] = useState(() => colorOptions.slice(0, 10).map(() => new Animated.Value(1)));
-  const [scaleAnimBand2] = useState(() => colorOptions.slice(0, 10).map(() => new Animated.Value(1)));
-  const [scaleAnimMultiplier] = useState(() => colorOptions.map(() => new Animated.Value(1)));
-  const [scaleAnimTolerance] = useState(() => colorOptions.map(() => new Animated.Value(1)));
 
   // Função que lida com a seleção de cor e executa a animação de feedback
   const handlePress = (
@@ -79,16 +90,13 @@ export default function Resistor() {
       Animated.timing(animArr[idx], { toValue: 1, duration: 120, useNativeDriver: true })
     ]).start();
   };
-  // Animação de escala para o botão de voltar
-  const backScale = React.useRef(new Animated.Value(1)).current;
-
   const animateBack = (callback?: () => void) => {
-  Animated.sequence([
-    Animated.timing(backScale, { toValue: 1.15, duration: 120, useNativeDriver: true }),
-    Animated.timing(backScale, { toValue: 1, duration: 120, useNativeDriver: true }),
-  ]).start(() => {
-    if (callback) callback();
-  });
+    Animated.sequence([
+      Animated.timing(backScale, { toValue: 1.15, duration: 120, useNativeDriver: true }),
+      Animated.timing(backScale, { toValue: 1, duration: 120, useNativeDriver: true }),
+    ]).start(() => {
+      if (callback) callback();
+    });
   };
   // Cores que não podem ser usadas para tolerância e linha 1
   const disabledTolerance = ['yellow', 'orange', 'black', 'white'] as ColorBand[];
@@ -138,27 +146,35 @@ export default function Resistor() {
     }
 
     return (
-      <Animated.View key={color} style={{ transform: [{ scale: animArr[idx] }] }}>
+      <Animated.View key={color} style={{ 
+        transform: [{ scale: animArr[idx] }],
+        marginBottom: 8,
+      }}>
         <Pressable
           onPress={() => !isDisabled && handlePress(color, setter, selected, idx, animArr)}
           disabled={isDisabled}
-          className={`m-1 rounded-lg border-2 ${selected === color ? 'border-4 border-blue-600 shadow-lg' : 'border-gray-650'}`}
           style={{
             backgroundColor: colorHex[color],
-            width: 60*windowWidth* 0.0024, // Ajuste proporcional à largura da tela
-            height: 34, 
+            width: 52,
+            height: 34,
+            borderRadius: 8,
             justifyContent: 'center',
             alignItems: 'center',
-            opacity: isDisabled ? 0 : 1,
+            borderWidth: selected === color ? 2.5 : 1.5,
+            borderColor: selected === color ? '#873939' : '#ccc',
+            opacity: isDisabled ? 0.3 : 1,
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 1 },
+            shadowOpacity: 0.15,
+            shadowRadius: 2,
+            elevation: 2,
           }}
         >
-          <Text
-            style={{
-              color: color === 'black' || color === 'brown' || color === 'blue' || color === 'violet' || color === 'red' || color === 'gray' ? 'white' : 'black',
-              fontWeight: 'bold',
-              fontSize: 14,
-            }}
-          >
+          <Text style={{
+            color: ['black', 'brown', 'blue', 'violet', 'red', 'gray'].includes(color) ? 'white' : 'black',
+            fontWeight: 'bold',
+            fontSize: 10,
+          }}>
             {label}
           </Text>
         </Pressable>
@@ -177,8 +193,6 @@ export default function Resistor() {
 
   return [min, max];
 };
-
-  const [isExpanded, setIsExpanded] = useState(false);
 
   // Verifica se o valor é um valor comercial da série E12 (resistores padrão de mercado)
   const isCommercialValue = (value: number): boolean => {
@@ -213,191 +227,360 @@ export default function Resistor() {
 
   // Renderização da UI principal
   return (
-    <ScrollView
-  contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-start', alignItems: 'center', paddingTop: 20, paddingHorizontal: 8, backgroundColor: 'white' }}
-  showsVerticalScrollIndicator={true}
->
-  
-      
+    <View style={{ flex: 1, backgroundColor: '#f8f9fa' }}>
+      {/* Header com gradiente */}
+      <View style={{ 
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: backgroundHeight,
+        backgroundColor: '#873939',
+        zIndex: 1,
+      }}>
+        {/* SVG de fundo decorativo - reduzido */}
+        <View style={{ position: 'absolute', top: -10, left: 0, right: 0, overflow: 'visible' }}>
+          <Svg width="100%" height={150} viewBox="0 0 1024 150" preserveAspectRatio="xMidYMid slice">
+            <Defs>
+              <LinearGradient id="headerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <Stop offset="0%" stopColor="rgba(0,0,0,0.05)" />
+                <Stop offset="100%" stopColor="rgba(0,0,0,0.15)" />
+              </LinearGradient>
+            </Defs>
+            <Path d="M0,0 L1024,0 L1024,120 Q512,140 0,120 Z" fill="url(#headerGradient)" />
+          </Svg>
+        </View>
+
         {/* Botão de voltar */}
-        <View style={{ position: 'absolute', left: 10, top: 10 }}>
-  <Pressable onPress={() => animateBack(() => router.push("/"))}>
-  <Animated.View
-    style={{
-      transform: [{ scale: backScale }],
-      width: 50,
-      height: 50,
-      zIndex: 999,
-      backgroundColor: '#6e2f2f', 
-      borderRadius: 12,
-      justifyContent: 'center',
-      alignItems: 'center',
-    }}
-  >
-    <svg
-      fill="white"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 52 52"
-    >
-      <path d="M48.6,23H15.4c-0.9,0-1.3-1.1-0.7-1.7l9.6-9.6c-0.6-0.6-0.6-1.5,0-2.1l-2.2-2.2c-0.6-0.6-1.5-0.6-2.1,0 L2.5,25c-0.6,0.6-0.6,1.5,0,2.1L20,44.6c0.6,0.6,1.5,0.6,2.1,0l2.1-2.1c0.6-0.6,0.6-1.5,0-2.1l-9.6-9.6C14,30.1,14.4,29,15.3,29 h33.2c0.8,0,1.5-0.6,1.5-1.4v-3C50,23.8,49.4,23,48.6,23z" />
-    </svg>
-  </Animated.View>
-</Pressable>
-  </View>
-        {/* Título no topo */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 8,marginLeft: 4}}>
-          
-        <View className="w-full max-w-xl items-center justify-center">
-      <Text style={{ fontSize: 24*windowWidth*0.0022, fontWeight: 'bold', color: '#2563EB', marginBottom: 2 }}>
-      Calculadora de Resistores:
-      </Text>
-        {/* SVG do resistor visual */}
-        <Svg
-          width="100%"
-          height={80}
-          viewBox="0 0 320 80"
-          style={{ aspectRatio: 4, maxWidth: 340 }}
-          accessibilityLabel="Resistor ilustrado"
-        >
-          {/* Terminais metálicos */}
-          <Rect x="10" y="36" width="50" height="8" rx="4" fill="#bbb" />
-          <Rect x="260" y="36" width="50" height="8" rx="4" fill="#bbb" />
-          {/* Corpo do resistor */}
-          <Rect x="60" y="20" width="200" height="40" rx="20" fill="#f5e6b2" stroke="#bfa76a" strokeWidth="2" />
-          {/* Sombra */}
-          <ellipse cx="160" cy="62" rx="90" ry="8" fill="#000" opacity="0.08" />
-          {/* Faixas coloridas */}
-          {bandColors.map((color, index) => (
-            <Rect
-              key={index}
-              x={92 + index * 40}
-              y={22}
-              width={16}
-              height={36}
-              rx={4}
-              fill={colorHex[color]}
-              stroke="#222"
-              strokeWidth={1.5}
-            />
-          ))}
-          {/* Contorno do corpo */}
-          <Rect x="60" y="20" width="200" height="40" rx="20" fill="none" stroke="#8a7c5a" strokeWidth="2.5" />
-        </Svg>
-      </View>
+        <View style={{ 
+          position: 'absolute',
+          top: insets.top + 10,
+          left: 20,
+          zIndex: 999,
+        }}>
+          <Pressable onPress={() => animateBack(() => router.push("/"))}>
+            <Animated.View style={{
+              transform: [{ scale: backScale }],
+              width: 40,
+              height: 40,
+              backgroundColor: 'rgba(255,255,255,0.2)',
+              borderRadius: 20,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderWidth: 1,
+              borderColor: 'rgba(255,255,255,0.3)',
+            }}>
+              <Svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <Path d="M15 6l-6 6 6 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </Svg>
+            </Animated.View>
+          </Pressable>
+        </View>
+
+        {/* Título do header - mais compacto */}
+        <View style={{
+          position: 'absolute',
+          top: insets.top + 12,
+          left: 80,
+          right: 20,
+          alignItems: 'flex-start',
+        }}>
+          <Text style={{ 
+            color: 'white', 
+            fontSize: 18, 
+            fontWeight: 'bold',
+            marginBottom: 2,
+          }}>
+            Calculadora de Resistores
+          </Text>
+          <Text style={{ 
+            color: '#d8cc39', 
+            fontSize: 12,
+          }}>
+            Código de cores • 4 faixas
+          </Text>
+        </View>
       </View>
 
-      {/* Exibição do resultado da resistência */}
-      <View className="w-full max-w-xl pt-1 px-2 py-1">
-        <View className="items-center">
-          <View className="bg-white rounded-2xl shadow-lg px-6 py-2 mb-2 w-full max-w-md border border-blue-100">
-            <Text className="text-lg mg:text-2xl font-bold text-center text-gray-800">
-              Resistência:
+      {/* ScrollView com conteúdo - padding reduzido */}
+      <ScrollView
+        contentContainerStyle={{ 
+          flexGrow: 1,
+          paddingTop: backgroundHeight + 10,
+          paddingHorizontal: 16,
+          paddingBottom: 40,
+        }}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Card do resistor visual - mais compacto */}
+        <View style={{
+          backgroundColor: 'white',
+          borderRadius: 16,
+          marginBottom: 16,
+          padding: 16,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.1,
+          shadowRadius: 8,
+          elevation: 4,
+        }}>
+          <View style={{ alignItems: 'center', marginBottom: 12 }}>
+            <Text style={{ 
+              fontSize: 16, 
+              fontWeight: '600', 
+              color: '#333',
+              marginBottom: 8,
+            }}>
+              Resistor Visual
             </Text>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Text className="text-2xl md:text-4xl font-extrabold text-center text-blue-700">
-                {formatResistance(result)} {toleranceValues[tolerance] && `(${toleranceValues[tolerance]})`}
-              </Text>
+            
+            {/* SVG do resistor - reduzido */}
+            <Svg
+              width="100%"
+              height={60}
+              viewBox="0 0 320 80"
+              style={{ aspectRatio: 5.3, maxWidth: 280 }}
+            >
+              {/* Terminais metálicos */}
+              <Rect x="10" y="36" width="50" height="8" rx="4" fill="#bbb" />
+              <Rect x="260" y="36" width="50" height="8" rx="4" fill="#bbb" />
+              {/* Corpo do resistor */}
+              <Rect x="60" y="20" width="200" height="40" rx="20" fill="#f5e6b2" stroke="#bfa76a" strokeWidth="2" />
+              {/* Sombra */}
+              <ellipse cx="160" cy="62" rx="90" ry="8" fill="#000" opacity="0.08" />
+              {/* Faixas coloridas */}
+              {[band1, band2, multiplier, tolerance].map((color, index) => (
+                <Rect
+                  key={index}
+                  x={92 + index * 40}
+                  y={22}
+                  width={16}
+                  height={36}
+                  rx={4}
+                  fill={colorHex[color]}
+                  stroke="#222"
+                  strokeWidth={1.5}
+                />
+              ))}
+              {/* Contorno do corpo */}
+              <Rect x="60" y="20" width="200" height="40" rx="20" fill="none" stroke="#8a7c5a" strokeWidth="2.5" />
+            </Svg>
+          </View>
 
-              {/* Indicação visual se o valor é comercial */}
-              <Text
-                style={{
-                  color: isCommercialValue(result) ? 'green' : 'red',
-                  fontSize: 24,
-                  marginLeft: 8,
-                  fontWeight: 'bold',
-                }}
-              >
-                {isCommercialValue(result) ? '✔' : '✖'}
-              </Text>
+          {/* Resultado - mais compacto */}
+          <View style={{
+            backgroundColor: '#f8f9fa',
+            borderRadius: 12,
+            padding: 12,
+            borderLeftWidth: 4,
+            borderLeftColor: '#d8cc39',
+          }}>
+            <Text style={{ 
+              fontSize: 14, 
+              fontWeight: '600', 
+              color: '#333',
+              marginBottom: 6,
+            }}>
+              Resistência Calculada
+            </Text>
+            
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+              <View style={{ flex: 1 }}>
+                <Text style={{ 
+                  fontSize: 20, 
+                  fontWeight: 'bold', 
+                  color: '#873939',
+                  marginBottom: 2,
+                }}>
+                  {formatResistance(result)}
+                </Text>
+                {toleranceValues[tolerance] && (
+                  <Text style={{ 
+                    fontSize: 12, 
+                    color: '#666',
+                  }}>
+                    Tolerância: {toleranceValues[tolerance]}
+                  </Text>
+                )}
+              </View>
+              
+              <View style={{ alignItems: 'center' }}>
+                <View style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: 16,
+                  backgroundColor: isCommercialValue(result) ? '#22c55e' : '#ef4444',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginBottom: 2,
+                }}>
+                  <Text style={{ color: 'white', fontSize: 14, fontWeight: 'bold' }}>
+                    {isCommercialValue(result) ? '✓' : '✗'}
+                  </Text>
+                </View>
+                <Text style={{ 
+                  fontSize: 8, 
+                  color: '#666',
+                  textAlign: 'center',
+                }}>
+                  {isCommercialValue(result) ? 'Comercial' : 'Especial'}
+                </Text>
+              </View>
             </View>
-  
-  <Pressable
-  onPress={() => setIsExpanded(!isExpanded)}
-  style={{
-    marginTop: 6,
-    alignSelf: 'center',
-    paddingVertical: 4,
-    paddingHorizontal: 6,
-    backgroundColor: '#2563EB', // azul
-    borderRadius: 8,
-  }}
->
-  <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 14}}>
-    {isExpanded ? 'Recolher' : 'Mostrar Mais'}
-  </Text>
-</Pressable>
-{isExpanded && (
-  <View style={{ marginTop: 10 }}>
-    {isCommercialValue(result) ? (
-      <Text style={{ color: '#444', fontSize: 14 }}>
-        <Text style={{ color: 'green', fontWeight: 'bold' }}>✔</Text> : Este resistor faz parte da tabela E12.
-        {'\n'}A série E12 contém os valores comerciais mais comuns encontrados no mercado, em passos de 12 valores por década.
-      </Text>
-    ) : (
-      <Text style={{ color: '#444', fontSize: 14 }}>
-        <Text style={{ color: 'red', fontWeight: 'bold' }}>✖</Text> : Este resistor não faz parte da tabela E12.
-        {'\n'}Isso significa que o valor calculado não é um dos 12 valores padronizados da série comercial, podendo ser um valor especial ou fora de padrão.
-      </Text>
-    )}
-    {(() => {
-  const range = calculateToleranceRange(result, toleranceValues[tolerance]);
-  if (range) {
-    return (
-      <View style={{ marginTop: 10 }}>
-        <Text style={{ color: '#444', fontSize: 14 }}>
-          Faixa de resistência considerando a tolerância ({toleranceValues[tolerance]}):
-          {'\n'}Mínima: {formatResistance(range[0])}
-          {'\n'}Máxima: {formatResistance(range[1])}
-        </Text>
-      </View>
-    );
-  }
-  return null;
-})()}
-  </View>
-)}
 
+            {/* Botão expandir/recolher - mais compacto */}
+            <Pressable
+              onPress={() => setIsExpanded(!isExpanded)}
+              style={{
+                marginTop: 8,
+                backgroundColor: '#873939',
+                borderRadius: 6,
+                paddingVertical: 6,
+                paddingHorizontal: 12,
+                alignSelf: 'flex-start',
+              }}
+            >
+              <Text style={{ color: 'white', fontWeight: '600', fontSize: 10 }}>
+                {isExpanded ? 'Recolher' : 'Mostrar Detalhes'}
+              </Text>
+            </Pressable>
+
+            {/* Seção expansível - mais compacta */}
+            {isExpanded && (
+              <View style={{ marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: '#e5e5e5' }}>
+                <View style={{ marginBottom: 8 }}>
+                  <Text style={{ 
+                    fontSize: 12, 
+                    fontWeight: '600', 
+                    color: '#333',
+                    marginBottom: 2,
+                  }}>
+                    Série E12:
+                  </Text>
+                  <Text style={{ fontSize: 10, color: '#666', lineHeight: 14 }}>
+                    {isCommercialValue(result) 
+                      ? '✓ Este resistor faz parte da série E12 - valores comerciais padrão encontrados no mercado.'
+                      : '✗ Este resistor não faz parte da série E12 - pode ser um valor especial ou fora de padrão.'
+                    }
+                  </Text>
+                </View>
+
+                {(() => {
+                  const range = calculateToleranceRange(result, toleranceValues[tolerance]);
+                  if (range) {
+                    return (
+                      <View>
+                        <Text style={{ 
+                          fontSize: 12, 
+                          fontWeight: '600', 
+                          color: '#333',
+                          marginBottom: 2,
+                        }}>
+                          Faixa de Tolerância:
+                        </Text>
+                        <Text style={{ fontSize: 10, color: '#666', lineHeight: 14 }}>
+                          Mínimo: {formatResistance(range[0])}
+                          {'\n'}Máximo: {formatResistance(range[1])}
+                        </Text>
+                      </View>
+                    );
+                  }
+                  return null;
+                })()}
+              </View>
+            )}
           </View>
         </View>
-        
+
         {/* Seção dos botões de seleção das faixas */}
-        <View className="flex-row flex-wrap justify-center items-start px-1 py-2 w-full gap-0">
-          {/* Faixa 1 */}
-          <View className="flex-col items-center mx-2">
-            <Text className="text-xs font-semibold mb-1 text-gray-600">Faixa 1</Text>
-            {colorOptions.slice(0, 10).map((color, idx) =>
-              renderColorButton(color, setBand1, band1, idx, scaleAnimBand1, false, false, true, true)
-            )}
-          </View>
+        <View style={{
+          backgroundColor: 'white',
+          borderRadius: 12,
+          padding: 12,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 1 },
+          shadowOpacity: 0.1,
+          shadowRadius: 4,
+          elevation: 2,
+          marginBottom: 20,
+        }}>
 
-          {/* Faixa 2 */}
-          <View className="flex-col items-center mx-2">
-            <Text className="text-xs font-semibold mb-1 text-gray-600">Faixa 2</Text>
-            {colorOptions.slice(0, 10).map((color, idx) =>
-              renderColorButton(color, setBand2, band2, idx, scaleAnimBand2, false, false, true)
-            )}
-          </View>
+          <ScrollView 
+            style={{ maxHeight: 500 }}
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 4 }}>
+              {/* Faixa 1 */}
+              <View style={{ alignItems: 'center', width: windowWidth * 0.2 }}>
+                <Text style={{ 
+                  fontSize: 10, 
+                  fontWeight: '600', 
+                  marginBottom: 6, 
+                  color: '#666',
+                }}>
+                  1ª Faixa
+                </Text>
+                <View>
+                  {colorOptions.slice(0, 10).map((color, idx) =>
+                    renderColorButton(color, setBand1, band1, idx, scaleAnimBand1, false, false, true, true)
+                  )}
+                </View>
+              </View>
 
-          {/* Multiplicador */}
-          <View className="flex-col items-center mx-2">
-            <Text className="text-xs font-semibold mb-1 text-gray-600">Multiplicador</Text>
-            {colorOptions.map((color, idx) =>
-              renderColorButton(color, setMultiplier, multiplier, idx, scaleAnimMultiplier, false, true, false)
-            )}
-          </View>
+              {/* Faixa 2 */}
+              <View style={{ alignItems: 'center', width: windowWidth * 0.2 }}>
+                <Text style={{ 
+                  fontSize: 10, 
+                  fontWeight: '600', 
+                  marginBottom: 6, 
+                  color: '#666',
+                }}>
+                  2ª Faixa
+                </Text>
+                <View>
+                  {colorOptions.slice(0, 10).map((color, idx) =>
+                    renderColorButton(color, setBand2, band2, idx, scaleAnimBand2, false, false, true)
+                  )}
+                </View>
+              </View>
 
-          {/* Tolerância */}
-          <View className="flex-col items-center mx-2">
-            <Text className="text-xs font-semibold mb-1 text-gray-600">Tolerância</Text>
-            {colorOptions.map((color, idx) =>
-              renderColorButton(color, setTolerance, tolerance, idx, scaleAnimTolerance, true, false, false)
-            )}
-          </View>
+              {/* Multiplicador */}
+              <View style={{ alignItems: 'center', width: windowWidth * 0.2 }}>
+                <Text style={{ 
+                  fontSize: 10, 
+                  fontWeight: '600', 
+                  marginBottom: 6, 
+                  color: '#666',
+                }}>
+                  Mult.
+                </Text>
+                <View>
+                  {colorOptions.map((color, idx) =>
+                    renderColorButton(color, setMultiplier, multiplier, idx, scaleAnimMultiplier, false, true, false)
+                  )}
+                </View>
+              </View>
+
+              {/* Tolerância */}
+              <View style={{ alignItems: 'center', width: windowWidth * 0.2 }}>
+                <Text style={{ 
+                  fontSize: 10, 
+                  fontWeight: '600', 
+                  marginBottom: 6, 
+                  color: '#666',
+                }}>
+                  Toler.
+                </Text>
+                <View>
+                  {colorOptions.map((color, idx) =>
+                    renderColorButton(color, setTolerance, tolerance, idx, scaleAnimTolerance, true, false, false)
+                  )}
+                </View>
+              </View>
+            </View>
+          </ScrollView>
         </View>
-        
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 }

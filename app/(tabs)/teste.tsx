@@ -12,12 +12,82 @@ const teamMembers = [
     contact: "+53 984620902",
     position: "Desenvolvedor Full-Stack",
     bio: "Apaixonado por tecnologia e educação, focado em criar soluções inovadoras.",
-    skills: ["Node.js", "JavaScript", "HTML/CSS", "React Native", "TypeScript", "MongoDB", "Expo", "Tailwind CSS", "FIGMA", "Git"],
+    skills: ["Node.js", "JavaScript", "HTML/CSS", "React Native", "TypeScript", "MongoDB", "Expo", "Tailwind CSS", "Figma", "Git"],
     avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
   },
   {
     id: 2,
-    name: "Nome",
+    name: "Alexandre Nunes Da Silva Filho",
+    github: "github.com/usuario",
+    contact: "+55 123456789",
+    position: "Desenvolvedor Front-End",
+    bio: "Breve descrição sobre você e suas contribuições.",
+    skills: ["Habilidade 1", "Habilidade 2", "Habilidade 3"],
+    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+  },
+  {
+    id: 3,
+    name: "Carlos Alexandre Dutra Voltz",
+    github: "github.com/usuario",
+    contact: "+55 123456789",
+    position: "Desenvolvedor Front-End",
+    bio: "Breve descrição sobre você e suas contribuições.",
+    skills: ["Habilidade 1", "Habilidade 2", "Habilidade 3"],
+    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+  },
+  {
+    id: 4,
+    name: "Eduardo Peixoto Alves Decker",
+    github: "github.com/usuario",
+    contact: "+55 123456789",
+    position: "Posição no projeto",
+    bio: "Breve descrição sobre você e suas contribuições.",
+    skills: ["Habilidade 1", "Habilidade 2", "Habilidade 3"],
+    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+  },
+  {
+    id: 5,
+    name: "Murilo Chagas Martin",
+    github: "github.com/usuario",
+    contact: "+55 123456789",
+    position: "Posição no projeto",
+    bio: "Breve descrição sobre você e suas contribuições.",
+    skills: ["Habilidade 1", "Habilidade 2", "Habilidade 3"],
+    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+  },
+  {
+    id: 6,
+    name: "Pablo Maciel Pinto",
+    github: "github.com/usuario",
+    contact: "+55 123456789",
+    position: "Desenvolvedor Full-Stack",
+    bio: "Breve descrição sobre você e suas contribuições.",
+    skills: ["C", "C++", "HTML/CSS", "JavaScript"],
+    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+  },
+  {
+    id: 7,
+    name: "Erick Willrich Vargas",
+    github: "github.com/usuario",
+    contact: "+55 123456789",
+    position: "Posição no projeto",
+    bio: "Breve descrição sobre você e suas contribuições.",
+    skills: ["Habilidade 1", "Habilidade 2", "Habilidade 3"],
+    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+  },
+  {
+    id: 8,
+    name: "Ezequiel Soares da Silva",
+    github: "github.com/usuario",
+    contact: "+55 123456789",
+    position: "Posição no projeto",
+    bio: "Breve descrição sobre você e suas contribuições.",
+    skills: ["Habilidade 1", "Habilidade 2", "Habilidade 3"],
+    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+  },
+  {
+    id: 9,
+    name: "Adriel Albrecht da Silva",
     github: "github.com/usuario",
     contact: "+55 123456789",
     position: "Posição no projeto",
@@ -30,7 +100,16 @@ const teamMembers = [
 const professors = [
   {
     id: 1,
-    name: "Prof. Dr. fulano",
+    name: "Fabricio Neitzke Ferreira",
+    contact: "carlos.eduardo@ifsul.edu.br",
+    position: "Professor Orientador",
+    bio: "Bio do professor, incluindo suas áreas de pesquisa e contribuições.",
+    department: "Curso Técnico em Eletrônica",
+    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+  },
+  {
+    id: 2,
+    name: "Rodrigo Nuevo Lellis",
     contact: "carlos.eduardo@ifsul.edu.br",
     position: "Professor Orientador",
     bio: "Bio do professor, incluindo suas áreas de pesquisa e contribuições.",
