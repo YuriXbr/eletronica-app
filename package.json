@@ -10,7 +10,15 @@
     "web": "expo start --web",
     "webexpose": "expo start --web --port 3000",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "doctor": "expo doctor",
+    "eas-build": "eas build --platform android --profile preview",
+    "eas-build-ios": "eas build --platform ios --profile preview",
+    "eas-build-web": "eas build --platform web --profile preview",
+    "eas-cli": "eas",
+    "eas-cli-android": "eas build --platform android",
+    "eas-cli-ios": "eas build --platform ios",
+    "eas-cli-web": "eas build --platform web"
   },
   "jest": {
     "preset": "jest-expo"
