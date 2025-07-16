@@ -17,25 +17,54 @@ const teamMembers = [
   },
   {
     id: 2,
-    name: "Nome",
-    github: "github.com/usuario",
-    contact: "+55 123456789",
-    position: "Posição no projeto",
+    name: "Alexandre Nunes da Silva Filho",
+    github: "github.com/ale1zin",
+    contact: "53 981362695",
+    position: "Desenvolvedor Full-Stack",
     bio: "Breve descrição sobre você e suas contribuições.",
     skills: ["Habilidade 1", "Habilidade 2", "Habilidade 3"],
-    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+    avatar: "https://i.imgur.com/C3Rodm6.jpeg"
+  },
+  {
+    id: 3,
+    name: "Carlos Alexandre Dutra Volz",
+    github: "github.com/Carlosvolz",
+    contact: "53 9927-7854",
+    position: "Desenvolvedor Front-end",
+    bio: "Breve descrição sobre você e suas contribuições.",
+    skills: ["Habilidade 1", "Habilidade 2", "Habilidade 3"],
+    avatar: "https://i.imgur.com/yvezboY.png"
+  },
+  {
+    id: 4,
+    name: "Eduardo Peixoto Alves Decker",
+    github: "github.com/eduardodecker2006",
+    contact: "53 98421-5326",
+    position: "Desenvolvedor Front-end",
+    bio: "Breve descrição sobre você e suas contribuições.",
+    skills: ["Habilidade 1", "Habilidade 2", "Habilidade 3"],
+    avatar: "https://i.imgur.com/7c5C78g.jpeg"
   },
 ];
 
 const professors = [
   {
     id: 1,
-    name: "Prof. Dr. fulano",
-    contact: "carlos.eduardo@ifsul.edu.br",
+    name: "Fabricio Neitzke Ferreira",
+    contact: "fabricioferreira@ifsul.edu.br",
     position: "Professor Orientador",
     bio: "Bio do professor, incluindo suas áreas de pesquisa e contribuições.",
-    department: "Curso Técnico em Eletrônica",
-    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+    department: "Doutor em Computação",
+    avatar: "https://i.imgur.com/rRCsaeY.png"
+  },
+  {
+    id: 2,
+    name: "Rodrigo Nuevo Lellis",
+    contact: "rodrigolellis@ifsul.edu.br",
+    position: "Professor Orientador",
+    bio: "Bio do professor, incluindo suas áreas de pesquisa e contribuições.",
+    department: "Doutor em Computação",
+    avatar: "https://i.imgur.com/rJaadYz.jpeg"
   }
 ];
 
