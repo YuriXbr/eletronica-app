@@ -54,6 +54,7 @@ const teamMembers = [
     bio: "Breve descrição sobre você e suas contribuições.",
     skills: ["Habilidade 1", "Habilidade 2", "Habilidade 3"],
     avatar: "https://i.imgur.com/7c5C78g.jpeg"
+    avatar: "https://i.imgur.com/7c5C78g.jpeg"
   },
 ];
 
@@ -71,8 +72,21 @@ const professors = [
     id: 2,
     name: "Rodrigo Nuevo Lellis",
     contact: "rodrigolellis@ifsul.edu.br",
+    name: "Fabricio Neitzke Ferreira",
+    contact: "fabricioferreira@ifsul.edu.br",
     position: "Professor Orientador",
     bio: "Bio do professor, incluindo suas áreas de pesquisa e contribuições.",
+    department: "Doutor em Computação",
+    avatar: "https://i.imgur.com/rRCsaeY.png"
+  },
+  {
+    id: 2,
+    name: "Rodrigo Nuevo Lellis",
+    contact: "rodrigolellis@ifsul.edu.br",
+    position: "Professor Orientador",
+    bio: "Bio do professor, incluindo suas áreas de pesquisa e contribuições.",
+    department: "Doutor em Computação",
+    avatar: "https://i.imgur.com/rJaadYz.jpeg"
     department: "Doutor em Computação",
     avatar: "https://i.imgur.com/rJaadYz.jpeg"
   }
