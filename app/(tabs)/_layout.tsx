@@ -34,6 +34,12 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="rgb"
+        options={{
+          title: 'Controle RGB',
+        }}
+      />
+      <Tabs.Screen
         name="teste"
         options={{
           title: 'Desenvolvedores',

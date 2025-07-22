@@ -21,6 +21,8 @@ const TabIcon: React.FC<TabIconProps> = ({ name, focused, color }) => {
         return focused ? 'library' : 'library-outline';
       case 'teste':
         return focused ? 'person' : 'person-outline';
+      case 'rgb':
+        return focused ? 'color-palette' : 'color-palette-outline';
       default:
         return 'help-outline';
     }
@@ -93,8 +95,10 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigat
         return 'Disciplinas';
       case 'resistor':
         return 'Código de cores';
+      case 'rgb':
+        return 'RGB';
       case 'teste':
-        return 'Desenvolvedores';
+        return 'Equipe';
       default:
         return routeName;
     }
