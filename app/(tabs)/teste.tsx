@@ -12,88 +12,48 @@ const teamMembers = [
     contact: "+53 984620902",
     position: "Desenvolvedor Full-Stack",
     bio: "Apaixonado por tecnologia e educação, focado em criar soluções inovadoras.",
-    skills: ["Node.js", "JavaScript", "HTML/CSS", "React Native", "TypeScript", "MongoDB", "Expo", "Tailwind CSS", "Figma", "Git"],
-    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+    skills: ["Node.js", "JavaScript", "HTML/CSS", "React Native", "TypeScript", "MongoDB", "Expo", "Tailwind CSS", "FIGMA", "Git"],
+    avatar: "https://i.imgur.com/rE9kG5v.jpeg"
   },
   {
     id: 2,
-    name: "Alexandre Nunes Da Silva Filho",
-    github: "github.com/usuario",
-    contact: "+55 123456789",
-    position: "Desenvolvedor Front-End",
-    bio: "Breve descrição sobre você e suas contribuições.",
-    skills: ["Habilidade 1", "Habilidade 2", "Habilidade 3"],
-    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+    name: "Pablo Maciel Pinto",
+    github: "github.com/Mablozin",
+    contact: "+53 984660202",
+    position: "Desenvolvedor Full-Stack",
+    bio: "Amante de C e C++, apaixonado por arduino.",
+    skills: ["C", "C++", "Arduino", "Node.js", "JavaScript", "HTML/CSS", "React Native", "TypeScript", "Expo", "Git"],
+    avatar: "https://i.imgur.com/iZ1ajd1.jpeg"
   },
   {
     id: 3,
-    name: "Carlos Alexandre Dutra Voltz",
-    github: "github.com/usuario",
-    contact: "+55 123456789",
-    position: "Desenvolvedor Front-End",
+    name: "Alexandre Nunes da Silva Filho",
+    github: "github.com/ale1zin",
+    contact: "53 981362695",
+    position: "Desenvolvedor Full-Stack",
     bio: "Breve descrição sobre você e suas contribuições.",
     skills: ["Habilidade 1", "Habilidade 2", "Habilidade 3"],
-    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+    avatar: "https://i.imgur.com/C3Rodm6.jpeg"
   },
   {
     id: 4,
-    name: "Eduardo Peixoto Alves Decker",
-    github: "github.com/usuario",
-    contact: "+55 123456789",
-    position: "Posição no projeto",
+    name: "Carlos Alexandre Dutra Volz",
+    github: "github.com/Carlosvolz",
+    contact: "53 9927-7854",
+    position: "Desenvolvedor Front-end",
     bio: "Breve descrição sobre você e suas contribuições.",
     skills: ["Habilidade 1", "Habilidade 2", "Habilidade 3"],
-    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+    avatar: "https://i.imgur.com/yvezboY.png"
   },
   {
     id: 5,
-    name: "Murilo Chagas Martin",
-    github: "github.com/usuario",
-    contact: "+55 123456789",
-    position: "Posição no projeto",
+    name: "Eduardo Peixoto Alves Decker",
+    github: "github.com/eduardodecker2006",
+    contact: "53 98421-5326",
+    position: "Desenvolvedor Front-end",
     bio: "Breve descrição sobre você e suas contribuições.",
     skills: ["Habilidade 1", "Habilidade 2", "Habilidade 3"],
-    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
-  },
-  {
-    id: 6,
-    name: "Pablo Maciel Pinto",
-    github: "github.com/usuario",
-    contact: "+55 123456789",
-    position: "Desenvolvedor Full-Stack",
-    bio: "Breve descrição sobre você e suas contribuições.",
-    skills: ["C", "C++", "HTML/CSS", "JavaScript"],
-    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
-  },
-  {
-    id: 7,
-    name: "Erick Willrich Vargas",
-    github: "github.com/usuario",
-    contact: "+55 123456789",
-    position: "Posição no projeto",
-    bio: "Breve descrição sobre você e suas contribuições.",
-    skills: ["Habilidade 1", "Habilidade 2", "Habilidade 3"],
-    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
-  },
-  {
-    id: 8,
-    name: "Ezequiel Soares da Silva",
-    github: "github.com/usuario",
-    contact: "+55 123456789",
-    position: "Posição no projeto",
-    bio: "Breve descrição sobre você e suas contribuições.",
-    skills: ["Habilidade 1", "Habilidade 2", "Habilidade 3"],
-    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
-  },
-  {
-    id: 9,
-    name: "Adriel Albrecht da Silva",
-    github: "github.com/usuario",
-    contact: "+55 123456789",
-    position: "Posição no projeto",
-    bio: "Breve descrição sobre você e suas contribuições.",
-    skills: ["Habilidade 1", "Habilidade 2", "Habilidade 3"],
-    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+    avatar: "https://i.imgur.com/7c5C78g.jpeg"
   },
 ];
 
@@ -101,20 +61,20 @@ const professors = [
   {
     id: 1,
     name: "Fabricio Neitzke Ferreira",
-    contact: "carlos.eduardo@ifsul.edu.br",
+    contact: "fabricioferreira@ifsul.edu.br",
     position: "Professor Orientador",
     bio: "Bio do professor, incluindo suas áreas de pesquisa e contribuições.",
-    department: "Curso Técnico em Eletrônica",
-    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+    department: "Doutor em Computação",
+    avatar: "https://i.imgur.com/rRCsaeY.png"
   },
   {
     id: 2,
     name: "Rodrigo Nuevo Lellis",
-    contact: "carlos.eduardo@ifsul.edu.br",
+    contact: "rodrigolellis@ifsul.edu.br",
     position: "Professor Orientador",
     bio: "Bio do professor, incluindo suas áreas de pesquisa e contribuições.",
-    department: "Curso Técnico em Eletrônica",
-    avatar: "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+    department: "Doutor em Computação",
+    avatar: "https://i.imgur.com/rJaadYz.jpeg"
   }
 ];
 
