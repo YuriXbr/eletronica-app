@@ -404,6 +404,154 @@ void setRGBColor(int red, int green, int blue) {
 }
 ```
 
+### Efeito Wave RGB (Onda Colorida)
+
+```cpp
+// Variáveis para o efeito wave
+bool waveMode = false;
+float wavePhase = 0.0;
+float waveSpeed = 0.1;
+unsigned long lastWaveUpdate = 0;
+int waveInterval = 50; // ms entre atualizações
+
+void processRGBMessage(const char* jsonString) {
+  DynamicJsonDocument doc(1024);
+  DeserializationError error = deserializeJson(doc, jsonString);
+  
+  if (error) {
+    Serial.print("❌ Erro ao fazer parse do JSON: ");
+    Serial.println(error.c_str());
+    return;
+  }
+  
+  String messageType = doc["type"];
+  
+  // Verificar se é comando para ativar wave
+  if (messageType == "wave") {
+    waveMode = doc["enabled"];
+    if (waveMode) {
+      waveSpeed = doc["speed"] | 0.1; // Velocidade padrão 0.1
+      Serial.println("🌊 Modo Wave RGB ativado!");
+    } else {
+      Serial.println("🛑 Modo Wave RGB desativado");
+    }
+    return;
+  }
+  
+  // Processar RGB normal se não estiver em modo wave
+  if (messageType == "rgb" && !waveMode) {
+    int r = doc["values"]["r"];
+    int g = doc["values"]["g"];  
+    int b = doc["values"]["b"];
+    
+    r = constrain(r, 0, 255);
+    g = constrain(g, 0, 255);
+    b = constrain(b, 0, 255);
+    
+    setRGBColor(r, g, b);
+    Serial.printf("🎨 Cor atualizada: RGB(%d, %d, %d)\n", r, g, b);
+  }
+}
+
+void updateWaveEffect() {
+  if (!waveMode) return;
+  
+  unsigned long now = millis();
+  if (now - lastWaveUpdate < waveInterval) return;
+  
+  lastWaveUpdate = now;
+  wavePhase += waveSpeed;
+  
+  if (wavePhase >= 6.28) { // 2π
+    wavePhase = 0.0;
+  }
+  
+  // Calcular cores usando funções seno para criar onda suave
+  int red = (int)(127 + 127 * sin(wavePhase));
+  int green = (int)(127 + 127 * sin(wavePhase + 2.09)); // Defasagem de 2π/3
+  int blue = (int)(127 + 127 * sin(wavePhase + 4.18));  // Defasagem de 4π/3
+  
+  setRGBColor(red, green, blue);
+  
+  // Log periódico (a cada 1 segundo)
+  static unsigned long lastLog = 0;
+  if (now - lastLog > 1000) {
+    Serial.printf("🌊 Wave RGB: R=%d G=%d B=%d (fase: %.2f)\n", 
+                  red, green, blue, wavePhase);
+    lastLog = now;
+  }
+}
+
+void loop() {
+  webSocket.loop();
+  
+  // Atualizar efeito wave se ativo
+  updateWaveEffect();
+  
+  // Piscar LED interno
+  static unsigned long lastBlink = 0;
+  if (millis() - lastBlink > 2000) {
+    digitalWrite(2, !digitalRead(2));
+    lastBlink = millis();
+  }
+}
+```
+
+### Wave com Múltiplas Velocidades
+
+```cpp
+// Wave com velocidades diferentes para cada cor
+void updateRainbowWave() {
+  if (!waveMode) return;
+  
+  unsigned long now = millis();
+  if (now - lastWaveUpdate < waveInterval) return;
+  
+  lastWaveUpdate = now;
+  
+  // Diferentes velocidades para cada cor
+  static float redPhase = 0.0;
+  static float greenPhase = 2.09;   // 2π/3
+  static float bluePhase = 4.18;    // 4π/3
+  
+  redPhase += waveSpeed;
+  greenPhase += waveSpeed * 1.2;    // Verde 20% mais rápido
+  bluePhase += waveSpeed * 0.8;     // Azul 20% mais lento
+  
+  // Reset das fases
+  if (redPhase >= 6.28) redPhase = 0.0;
+  if (greenPhase >= 6.28) greenPhase = 0.0;
+  if (bluePhase >= 6.28) bluePhase = 0.0;
+  
+  int red = (int)(127 + 127 * sin(redPhase));
+  int green = (int)(127 + 127 * sin(greenPhase));
+  int blue = (int)(127 + 127 * sin(bluePhase));
+  
+  setRGBColor(red, green, blue);
+}
+```
+
+### Comandos do App para Wave
+
+Para ativar o efeito wave, o app deve enviar:
+
+```json
+{
+  "type": "wave",
+  "enabled": true,
+  "speed": 0.15
+}
+```
+
+Para desativar:
+
+```json
+{
+  "type": "wave", 
+  "enabled": false
+}
+```
+
 ---
 
 ## 📚 Recursos Adicionais
