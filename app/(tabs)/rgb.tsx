@@ -6,14 +6,19 @@ import Svg, { Path, LinearGradient, Stop, Defs, Rect } from 'react-native-svg';
 
 const { width: screenWidth } = Dimensions.get('window');
 
+// Configuração do servidor WebSocket - ESP32 com AsyncTCP e ESPAsyncWebServer
+const ESP32_IP = "192.168.173.189";
+const WS_PORT = "80";
+const DEFAULT_WS_URL = `ws://${ESP32_IP}:${WS_PORT}/ws`;
+
 export default function RGBControl() {
   const insets = useSafeAreaInsets();
   const [red, setRed] = useState(0);
   const [green, setGreen] = useState(0);
   const [blue, setBlue] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
-  const [wsUrl, setWsUrl] = useState('ws://192.168.1.100:8080');
-  const [tempWsUrl, setTempWsUrl] = useState('ws://192.168.1.100:8080');
+  const [wsUrl, setWsUrl] = useState(DEFAULT_WS_URL);
+  const [tempWsUrl, setTempWsUrl] = useState(DEFAULT_WS_URL);
   const [isConfigExpanded, setIsConfigExpanded] = useState(false);
   const wsRef = useRef<WebSocket | null>(null);
 
@@ -135,19 +140,18 @@ export default function RGBControl() {
   };
 
   const resetToDefault = () => {
-    const defaultUrl = 'ws://192.168.1.100:8080';
-    console.log('Resetando URL para:', defaultUrl);
+    console.log('Resetando URL para:', DEFAULT_WS_URL);
     
-    setTempWsUrl(defaultUrl);
+    setTempWsUrl(DEFAULT_WS_URL);
     
     if (wsRef.current) {
       wsRef.current.close();
     }
     
     // Atualizar a URL - isso vai triggerar o useEffect que reconecta
-    setWsUrl(defaultUrl);
+    setWsUrl(DEFAULT_WS_URL);
     
-    Alert.alert('Sucesso', `URL resetada para: ${defaultUrl}`);
+    Alert.alert('Sucesso', `URL resetada para: ${DEFAULT_WS_URL}`);
   };
 
   const currentColor = `rgb(${red}, ${green}, ${blue})`;
@@ -605,7 +609,7 @@ export default function RGBControl() {
                 }}
                 value={tempWsUrl}
                 onChangeText={setTempWsUrl}
-                placeholder="ws://192.168.1.100:8080"
+                placeholder={`ws://${ESP32_IP}:${WS_PORT}/ws`}
                 placeholderTextColor="#9ca3af"
                 keyboardType="url"
                 autoCapitalize="none"
