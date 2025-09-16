@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Eletrônica App",
-    "slug": "eletronica-app",
+    "slug": "my-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
