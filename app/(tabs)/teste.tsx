@@ -393,50 +393,30 @@ export default function Teste() {
         paddingBottom: 120, // Espaço para a tab bar
       }}
     >
-      {/* Header com gradiente */}
-      <View style={{ position: 'relative', overflow: 'hidden' }}>
-        <Svg height="200" width="100%" viewBox="0 0 400 200" style={{ position: 'absolute' }}>
-          <Defs>
-            <LinearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <Stop offset="0%" stopColor="#873939" />
-              <Stop offset="50%" stopColor="#a84545" />
-              <Stop offset="100%" stopColor="#d8cc39" />
-            </LinearGradient>
-          </Defs>
-          <Path d="M0,0 L400,0 L400,180 Q200,200 0,180 Z" fill="url(#headerGrad)" />
-        </Svg>
-        
-        <View style={{
-          paddingTop: 60,
-          paddingBottom: 40,
-          paddingHorizontal: 20,
-          position: 'relative',
-          zIndex: 1,
+      {/* Header simples */}
+      <View style={{
+        backgroundColor: '#873939',
+        paddingTop: 60,
+        paddingBottom: 40,
+        paddingHorizontal: 20,
+      }}>
+        <Text style={{
+          fontSize: 32,
+          fontWeight: 'bold',
+          color: 'white',
+          textAlign: 'center',
+          marginBottom: 8,
         }}>
-          <Text style={{
-            fontSize: 32,
-            fontWeight: 'bold',
-            color: '#1f2937',
-            textAlign: 'center',
-            textShadowColor: 'rgba(255,255,255,0.8)',
-            textShadowOffset: { width: 0, height: 1 },
-            textShadowRadius: 2,
-            marginBottom: 8,
-          }}>
-            Nossa Equipe
-          </Text>
-          <Text style={{
-            fontSize: 16,
-            color: '#4b5563',
-            textAlign: 'center',
-            fontWeight: '600',
-            textShadowColor: 'rgba(255,255,255,0.5)',
-            textShadowOffset: { width: 0, height: 1 },
-            textShadowRadius: 1,
-          }}>
-            Conheça quem desenvolve este projeto
-          </Text>
-        </View>
+          Nossa Equipe
+        </Text>
+        <Text style={{
+          fontSize: 16,
+          color: '#f4e976',
+          textAlign: 'center',
+          fontWeight: '600',
+        }}>
+          Conheça quem desenvolve este projeto
+        </Text>
       </View>
 
       {/* Filtros */}

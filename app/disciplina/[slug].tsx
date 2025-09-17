@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View, TouchableOpacity, Pressable, Dimensions } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import MathRenderer from '../../components/MathRenderer';
+import LaTeXRenderer from '../../components/LaTeXRenderer';
 import Svg, { Path } from 'react-native-svg';
 
 // Tipos para fórmulas e disciplina para melhor entendimento da estrutura dos dados.
@@ -249,15 +249,16 @@ export default function DisciplinaDetail() {
                                         borderColor: '#e5e7eb'
                                     }}>
                                         {formula.latex.map((ltx, i) => (
-                                            <MathRenderer 
+                                            <LaTeXRenderer 
                                                 key={i} 
                                                 latex={ltx}
-                                                fontSize={18}
                                                 style={{ 
                                                     backgroundColor: 'white',
                                                     marginVertical: 4,
                                                     borderWidth: 1,
-                                                    borderColor: '#d1d5db'
+                                                    borderColor: '#d1d5db',
+                                                    borderRadius: 8,
+                                                    overflow: 'hidden'
                                                 }}
                                             />
                                         ))}
