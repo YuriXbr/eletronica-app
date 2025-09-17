@@ -59,17 +59,28 @@ export default function Formulas() {
   };
 
   useEffect(() => {
-    const fetchDisciplinas = async () => {
+    const loadDisciplinas = () => {
       try {
-        const response = await fetch("../../../LISTA DE JSON/index.json");
-        const files = await response.json();
+        // Importar arquivos locais diretamente
+        const files = require("../../LISTA DE JSON/index.json");
 
         const disciplinasAtivas: Disciplina[] = [];
-        for (const file of files) {
-          const disciplinaResponse = await fetch(`../../../LISTA DE JSON/${file}`);
-          const disciplinaData = await disciplinaResponse.json();
+        
+        // Mapear todos os arquivos
+        const fileMap = {
+          "eletricidade-i.json": require("../../LISTA DE JSON/eletricidade-i.json"),
+          "eletricidade-ii.json": require("../../LISTA DE JSON/eletricidade-ii.json"),
+          "analise-de-circuitos-i.json": require("../../LISTA DE JSON/analise-de-circuitos-i.json"),
+          "analise-de-circuitos-ii.json": require("../../LISTA DE JSON/analise-de-circuitos-ii.json"),
+          "analise-de-circuitos-iii.json": require("../../LISTA DE JSON/analise-de-circuitos-iii.json"),
+          "analise-de-circuitos-iv.json": require("../../LISTA DE JSON/analise-de-circuitos-iv.json"),
+          "eletronica-geral-iii.json": require("../../LISTA DE JSON/eletronica-geral-iii.json"),
+        };
 
-          if (disciplinaData.status === "active") {
+        for (const file of files) {
+          const disciplinaData = fileMap[file as keyof typeof fileMap];
+          
+          if (disciplinaData && disciplinaData.status === "active") {
             disciplinasAtivas.push({
               name: disciplinaData.name,
               slug: disciplinaData.slug,
@@ -99,7 +110,7 @@ export default function Formulas() {
       }
     };
 
-    fetchDisciplinas();
+    loadDisciplinas();
   }, []);
 
   // Função para filtrar disciplinas

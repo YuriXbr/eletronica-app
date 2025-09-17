@@ -591,7 +591,7 @@ export default function Teste() {
             </View>
             
             {teamMembers.map((member) => (
-              <MemberCard key={member.id} member={member} />
+              <MemberCard key={`member-${member.id}`} member={member} />
             ))}
           </View>
         ) : null}
@@ -636,7 +636,7 @@ export default function Teste() {
             </View>
             
             {professors.map((professor) => (
-              <MemberCard key={professor.id} member={professor} />
+              <MemberCard key={`professor-${professor.id}`} member={professor} />
             ))}
           </View>
         ) : null}
