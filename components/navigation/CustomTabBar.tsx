@@ -1,10 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import Svg, { Path } from 'react-native-svg';
 import Ionicons from '@expo/vector-icons/Ionicons';
-
-const { width } = Dimensions.get('window');
 
 interface TabIconProps {
   name: string;
@@ -21,8 +19,7 @@ const TabIcon: React.FC<TabIconProps> = ({ name, focused, color }) => {
         return focused ? 'library' : 'library-outline';
       case 'teste':
         return focused ? 'person' : 'person-outline';
-      case 'rgb':
-        return focused ? 'color-palette' : 'color-palette-outline';
+
       default:
         return 'help-outline';
     }
@@ -95,8 +92,7 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigat
         return 'Disciplinas';
       case 'resistor':
         return 'Código de cores';
-      case 'rgb':
-        return 'RGB';
+
       case 'teste':
         return 'Equipe';
       default:
@@ -141,7 +137,6 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigat
         paddingTop: 8,
       }}>
         {state.routes.map((route, index) => {
-          const { options } = descriptors[route.key];
           const isFocused = state.index === index;
 
           const onPress = () => {

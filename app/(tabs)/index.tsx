@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Dimensions, View, Text, ScrollView, Animated, TouchableOpacity, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Card from "@/components/card";
@@ -8,7 +8,6 @@ const SCROLL_INPUT_RANGE = [0, 1000];
 const SCROLL_OUTPUT_RANGE = [0, -150];
 
 const windowHeight = Dimensions.get('window').height;
-const windowWidth = Dimensions.get('window').width;
 
 // Dados simulados para demonstração
 const recentDisciplines = [
@@ -25,8 +24,8 @@ const continueStudying = {
 };
 
 export default function HomeScreen() {
-  const [userProgress, setUserProgress] = useState(68); // Progresso geral do usuário
-  const [streakDays, setStreakDays] = useState(7);
+  const [userProgress] = useState(68); // Progresso geral do usuário
+  const [streakDays] = useState(7);
   const [showNotImplementedModal, setShowNotImplementedModal] = useState(false);
   
   const navigation = useNavigation<any>();

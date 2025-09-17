@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Svg, { Rect, Path, Defs, LinearGradient, Stop } from 'react-native-svg';
 import { View, ScrollView, Text, Pressable, Animated, Dimensions } from 'react-native';
-import { Link, useRouter } from "expo-router";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 
 // Tipagem para as cores das faixas do resistor
@@ -202,9 +200,6 @@ export default function Resistor() {
     const normalized = value / decade;
     return e12Base.some((base) => Math.abs(normalized - base) / base < 0.05);
   };
-
-  // Todas as cores selecionadas atualmente nas faixas
-  const bandColors = [band1, band2, multiplier, tolerance];
 
   // Função de formatação da resistência para exibição amigável ao usuário
   const formatResistance = (value: number): string => {

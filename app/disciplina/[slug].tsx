@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View, TouchableOpacity } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
-import 'katex/dist/katex.min.css';
-import Latex from 'react-latex-next';
 
 // Tipos para fórmulas e disciplina para melhor entendimento da estrutura dos dados.
 type Formula = {
@@ -19,16 +17,36 @@ type Disciplina = {
     formulas: Formula[];
 };
 
-// Função auxiliar que verifica se o texto possui comandos LaTeX (ex.: \frac, \sqrt, etc.)
-function renderLatexIfNeeded(text: string) {
-    // Verifica se o texto contém um comando LaTeX com uma expressão regular.
-    const latexRegex = /\\[a-zA-Z]+/; // Regex para detectar comandos LaTeX (ex.: \frac, \sqrt)
-    if (latexRegex.test(text)) {
-        // Se detectar, renderiza o texto como LaTeX
-        return <Latex>{`$${text}$`}</Latex>;
-    }
-    // Caso contrário, retorna o texto simples
-    return text;
+// Função auxiliar que renderiza texto matemático de forma simplificada
+function renderMathText(text: string) {
+    // Substitui comandos LaTeX básicos por texto legível
+    let processedText = text
+        .replace(/\\times/g, '×')
+        .replace(/\\cdot/g, '·')
+        .replace(/\\div/g, '÷')
+        .replace(/\\pm/g, '±')
+        .replace(/\\leq/g, '≤')
+        .replace(/\\geq/g, '≥')
+        .replace(/\\neq/g, '≠')
+        .replace(/\\approx/g, '≈')
+        .replace(/\\infty/g, '∞')
+        .replace(/\\pi/g, 'π')
+        .replace(/\\alpha/g, 'α')
+        .replace(/\\beta/g, 'β')
+        .replace(/\\gamma/g, 'γ')
+        .replace(/\\theta/g, 'θ')
+        .replace(/\\omega/g, 'ω')
+        .replace(/\\mu/g, 'μ')
+        .replace(/\\sigma/g, 'σ')
+        .replace(/\^{([^}]+)}/g, '$1') // Expoentes simples
+        .replace(/_{([^}]+)}/g, '$1') // Índices simples
+        .replace(/\\frac{([^}]+)}{([^}]+)}/g, '($1)/($2)') // Frações
+        .replace(/\\sqrt{([^}]+)}/g, '√($1)') // Raiz quadrada
+        .replace(/\\\\/g, '\n') // Quebras de linha
+        .replace(/\${2}/g, '') // Remove delimitadores duplos
+        .replace(/\$/g, ''); // Remove delimitadores simples
+    
+    return processedText;
 }
 
 export default function DisciplinaDetail() {
@@ -40,13 +58,94 @@ export default function DisciplinaDetail() {
     const [expandedFormulas, setExpandedFormulas] = useState<{ [index: number]: boolean }>({});
 
     useEffect(() => {
-        // Carrega os dados da disciplina a partir do JSON correspondente ao slug
-        fetch(`../../../LISTA DE JSON/${slug}.json`)
-            .then(response => response.json())
-            .then((data: Disciplina) => {
-                setDisciplina(data);
-            })
-            .catch(error => console.error("Erro ao carregar disciplina:", error));
+        // Dados estáticos das disciplinas baseados nos arquivos JSON
+        const disciplinasData: { [key: string]: Disciplina } = {
+            'eletricidade-i': {
+                name: "Eletricidade I",
+                description: "Apresentação sobre eletricidade básica. Eletricidade I é a disciplina inicial do nosso curso, ela é ofertada no segundo semestre e vem logo após 'Introdução a Eletrônica'. Aqui começamos de fato os estudos na eletrônica aprendendo sobre a base dela.",
+                formulas: [
+                    {
+                        name: "Carga Elétrica",
+                        description: "Carga Elétrica é a quantidade de elétrons que passam por um ponto em um determinado tempo.",
+                        latex: ["q=n\\times e"],
+                        constants: {
+                            "e": "1,6\\times{10}^{-19} C"
+                        },
+                        variables: {
+                            "q": "Carga Elétrica (C)",
+                            "n": "Número de Elétrons",
+                            "e": "Carga Elementar (C)"
+                        }
+                    },
+                    {
+                        name: "Lei de Ohm",
+                        description: "A lei de Ohm relaciona tensão, corrente e resistência em um circuito elétrico.",
+                        latex: ["V = I \\times R"],
+                        variables: {
+                            "V": "Tensão (V)",
+                            "I": "Corrente (A)", 
+                            "R": "Resistência (Ω)"
+                        }
+                    },
+                    {
+                        name: "Potência Elétrica",
+                        description: "A potência elétrica é a quantidade de energia elétrica consumida por unidade de tempo.",
+                        latex: ["P = V \\times I", "P = I^2 \\times R", "P = \\frac{V^2}{R}"],
+                        variables: {
+                            "P": "Potência (W)",
+                            "V": "Tensão (V)",
+                            "I": "Corrente (A)",
+                            "R": "Resistência (Ω)"
+                        }
+                    }
+                ]
+            },
+            'eletricidade-ii': {
+                name: "Eletricidade II",
+                description: "Continuação dos estudos de eletricidade, abordando capacitores, indutores e circuitos mais complexos.",
+                formulas: [
+                    {
+                        name: "Capacitância",
+                        description: "A capacitância é a capacidade de armazenar carga elétrica.",
+                        latex: ["C = \\frac{Q}{V}"],
+                        variables: {
+                            "C": "Capacitância (F)",
+                            "Q": "Carga (C)",
+                            "V": "Tensão (V)"
+                        }
+                    }
+                ]
+            },
+            'analise-de-circuitos-i': {
+                name: "Análise de Circuitos I",
+                description: "Análise de circuitos elétricos básicos utilizando métodos sistemáticos.",
+                formulas: [
+                    {
+                        name: "Lei de Kirchhoff das Tensões",
+                        description: "A soma algébrica das tensões em uma malha fechada é igual a zero.",
+                        latex: ["\\sum V = 0"],
+                        variables: {
+                            "V": "Tensão (V)"
+                        }
+                    },
+                    {
+                        name: "Lei de Kirchhoff das Correntes",
+                        description: "A soma algébrica das correntes em um nó é igual a zero.",
+                        latex: ["\\sum I = 0"],
+                        variables: {
+                            "I": "Corrente (A)"
+                        }
+                    }
+                ]
+            }
+        };
+
+        // Carrega a disciplina baseada no slug
+        if (slug && typeof slug === 'string' && disciplinasData[slug]) {
+            setDisciplina(disciplinasData[slug]);
+        } else {
+            console.error("Disciplina não encontrada para o slug:", slug);
+        }
     }, [slug]);
 
     if (!disciplina)
@@ -82,11 +181,13 @@ export default function DisciplinaDetail() {
                                 {/* Exibe o nome e a descrição da fórmula */}
                                 <Text className="text-lg font-semibold text-gray-800 mb-2">{formula.name}</Text>
                                 <Text className="text-sm text-gray-600 mb-2">{formula.description}</Text>
-                                {/* Renderiza as expressões em LaTeX */}
+                                {/* Renderiza as expressões matemáticas */}
                                 <View className="bg-gray-200 p-2 rounded-md">
                                     {formula.latex.map((ltx, i) => (
-                                        // Renderiza cada expressão LaTeX individualmente
-                                        <Latex key={i}>{`$${ltx}$`}</Latex>
+                                        // Renderiza cada expressão matemática de forma simplificada
+                                        <Text key={i} className="text-lg font-mono text-center text-gray-800">
+                                            {renderMathText(ltx)}
+                                        </Text>
                                     ))}
                                 </View>
                                 {/* Se a fórmula estiver expandida, exibe variáveis e constantes */}
@@ -98,7 +199,7 @@ export default function DisciplinaDetail() {
                                                 {Object.entries(formula.variables).map(([key, value]) => (
                                                     <Text key={key} className="text-gray-700">
                                                         {`${key}: `}
-                                                        {renderLatexIfNeeded(value)}
+                                                        {renderMathText(value)}
                                                     </Text>
                                                 ))}
                                             </>
@@ -109,7 +210,7 @@ export default function DisciplinaDetail() {
                                                 {Object.entries(formula.constants).map(([key, value]) => (
                                                     <Text key={key} className="text-gray-700">
                                                         {`${key}: `}
-                                                        {renderLatexIfNeeded(value)}
+                                                        {renderMathText(value)}
                                                     </Text>
                                                 ))}
                                             </>

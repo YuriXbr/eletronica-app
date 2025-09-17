@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { View, Text, ScrollView, Image, TouchableOpacity, Linking, Modal, Alert } from 'react-native';
+import { View, Text, ScrollView, Image, TouchableOpacity, Linking } from 'react-native';
 import Svg, { Path, LinearGradient, Stop, Defs } from 'react-native-svg';
 
 // Dados dos membros da equipe
@@ -62,15 +62,6 @@ const professors = [
     id: 1,
     name: "Fabricio Neitzke Ferreira",
     contact: "fabricioferreira@ifsul.edu.br",
-    position: "Professor Orientador",
-    bio: "Bio do professor, incluindo suas áreas de pesquisa e contribuições.",
-    department: "Doutor em Computação",
-    avatar: "https://i.imgur.com/rRCsaeY.png"
-  },
-  {
-    id: 2,
-    name: "Rodrigo Nuevo Lellis",
-    contact: "rodrigolellis@ifsul.edu.br",
     position: "Professor Orientador",
     bio: "Bio do professor, incluindo suas áreas de pesquisa e contribuições.",
     department: "Doutor em Computação",
@@ -385,12 +376,6 @@ const MemberCard: React.FC<MemberCardProps> = ({ member, onPress }) => {
 
 export default function Teste() {
   const [selectedFilter, setSelectedFilter] = useState('all');
-
-  const filteredMembers = selectedFilter === 'all' 
-    ? [...teamMembers, ...professors] 
-    : selectedFilter === 'students' 
-    ? teamMembers 
-    : professors;
 
   return (
     <ScrollView 

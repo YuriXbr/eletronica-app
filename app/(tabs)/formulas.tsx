@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../../global.css";
 import { Link, useRouter } from "expo-router";
-import { View, ScrollView, Text, TouchableOpacity, Dimensions, Animated, Pressable } from "react-native";
-import Svg, { Path, LinearGradient, Stop, Defs } from 'react-native-svg';
-
-const { width } = Dimensions.get('window');
+import { View, ScrollView, Text, TouchableOpacity, Animated, Pressable } from "react-native";
+import Svg, { Path } from 'react-native-svg';
 
 type Disciplina = {
   name: string;
@@ -59,29 +57,51 @@ export default function Formulas() {
   };
 
   useEffect(() => {
-    const fetchDisciplinas = async () => {
+    const loadDisciplinas = () => {
       try {
-        const response = await fetch("../../../LISTA DE JSON/index.json");
-        const files = await response.json();
-
-        const disciplinasAtivas: Disciplina[] = [];
-        for (const file of files) {
-          const disciplinaResponse = await fetch(`../../../LISTA DE JSON/${file}`);
-          const disciplinaData = await disciplinaResponse.json();
-
-          if (disciplinaData.status === "active") {
-            disciplinasAtivas.push({
-              name: disciplinaData.name,
-              slug: disciplinaData.slug,
-              description: disciplinaData.description,
-              status: disciplinaData.status,
-              semmester: disciplinaData.semmester,
-              course: disciplinaData.course,
-              chapters: disciplinaData.chapters || [],
-              period: disciplinaData.period || "integrado",
-            });
+        // Dados hardcoded das disciplinas baseados nos arquivos JSON
+        const disciplinasAtivas: Disciplina[] = [
+          {
+            name: "Eletricidade I",
+            slug: "eletricidade-i",
+            description: "Apresentação sobre eletricidade básica",
+            status: "active",
+            semmester: 2,
+            course: "eletrônica",
+            chapters: ["carga eletrica", "campo eletrico", "corrente eletrica", "resistencia", "tensao", "potencia", "lei de ohm", "associação de resistores"],
+            period: "integrado"
+          },
+          {
+            name: "Eletricidade II",
+            slug: "eletricidade-ii",
+            description: "Continuação dos estudos de eletricidade",
+            status: "active",
+            semmester: 3,
+            course: "eletrônica",
+            chapters: ["capacitores", "indutores", "circuitos RLC"],
+            period: "integrado"
+          },
+          {
+            name: "Análise de Circuitos I",
+            slug: "analise-de-circuitos-i",
+            description: "Análise de circuitos elétricos básicos",
+            status: "active",
+            semmester: 3,
+            course: "eletrônica",
+            chapters: ["malhas", "nós", "teoremas de rede"],
+            period: "integrado"
+          },
+          {
+            name: "Análise de Circuitos II",
+            slug: "analise-de-circuitos-ii",
+            description: "Análise avançada de circuitos elétricos",
+            status: "active",
+            semmester: 4,
+            course: "eletrônica",
+            chapters: ["transformadas", "análise de frequência"],
+            period: "integrado"
           }
-        }
+        ];
 
         // Ordenar por semestre
         disciplinasAtivas.sort((a, b) => a.semmester - b.semmester);
@@ -99,7 +119,7 @@ export default function Formulas() {
       }
     };
 
-    fetchDisciplinas();
+    loadDisciplinas();
   }, []);
 
   // Função para filtrar disciplinas
