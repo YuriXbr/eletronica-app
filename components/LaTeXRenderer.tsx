@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Dimensions } from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 interface LaTeXRendererProps {
