@@ -45,7 +45,7 @@ export default function HomeScreen() {
     
     /* Top background */
      <Animated.ScrollView
-      
+      contentContainerStyle={{ paddingBottom: 120 }}
       onScroll={Animated.event(
     [{ nativeEvent: { contentOffset: { y: scrollY } } }],
     { useNativeDriver: true }

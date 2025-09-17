@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../global.css";
 import { Link, useRouter } from "expo-router";
-import { View, ScrollView, Text, TouchableOpacity, Dimensions, Animated, Pressable } from "react-native";
+import { View, ScrollView, Text, TouchableOpacity, Dimensions } from "react-native";
 import Svg, { Path, LinearGradient, Stop, Defs } from 'react-native-svg';
 
 const { width } = Dimensions.get('window');
@@ -16,13 +16,6 @@ type Disciplina = {
   chapters?: string[];
   period?: string;
 };
-
-// Componente do ícone de voltar
-const BackIcon = () => (
-  <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <Path d="M19 12H5M12 19L5 12L12 5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </Svg>
-);
 
 // Componente do ícone de disciplina
 const BookIcon = ({ color = "#873939" }) => (
@@ -47,16 +40,6 @@ export default function Formulas() {
   const [searchText, setSearchText] = useState('');
   const [availableSemesters, setAvailableSemesters] = useState<number[]>([]);
   const router = useRouter();
-  const [backScale] = useState(new Animated.Value(1));
-
-  const animateBack = (callback: () => void) => {
-    Animated.sequence([
-      Animated.timing(backScale, { toValue: 0.95, duration: 100, useNativeDriver: true }),
-      Animated.timing(backScale, { toValue: 1, duration: 100, useNativeDriver: true }),
-    ]).start(() => {
-      callback();
-    });
-  };
 
   useEffect(() => {
     const loadDisciplinas = () => {
@@ -67,7 +50,7 @@ export default function Formulas() {
         const disciplinasAtivas: Disciplina[] = [];
         
         // Mapear todos os arquivos
-        const fileMap = {
+        const fileMap: Record<string, any> = {
           "eletricidade-i.json": require("../../LISTA DE JSON/eletricidade-i.json"),
           "eletricidade-ii.json": require("../../LISTA DE JSON/eletricidade-ii.json"),
           "analise-de-circuitos-i.json": require("../../LISTA DE JSON/analise-de-circuitos-i.json"),
@@ -78,7 +61,7 @@ export default function Formulas() {
         };
 
         for (const file of files) {
-          const disciplinaData = fileMap[file as keyof typeof fileMap];
+          const disciplinaData = fileMap[file];
           
           if (disciplinaData && disciplinaData.status === "active") {
             disciplinasAtivas.push({
@@ -104,7 +87,7 @@ export default function Formulas() {
         setFilteredDisciplinas(disciplinasAtivas);
         setAvailableSemesters(semestres);
       } catch (error) {
-        console.error("Erro ao carregar disciplinas:", error);
+        // Erro ao carregar disciplinas
       } finally {
         setLoading(false);
       }
@@ -162,28 +145,7 @@ export default function Formulas() {
         shadowRadius: 8,
         elevation: 8,
       }}>
-        {/* Botão de voltar */}
-        <Pressable 
-          onPress={() => animateBack(() => router.push("/"))}
-          style={{ 
-            position: 'absolute', 
-            left: 20, 
-            top: 50, 
-            zIndex: 999,
-            width: 44,
-            height: 44,
-            borderRadius: 22,
-            backgroundColor: 'rgba(255,255,255,0.2)',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderWidth: 1,
-            borderColor: 'rgba(255,255,255,0.3)',
-          }}
-        >
-          <Animated.View style={{ transform: [{ scale: backScale }] }}>
-            <BackIcon />
-          </Animated.View>
-        </Pressable>
+
 
         {/* Título centralizado */}
         <View style={{ alignItems: 'center', marginTop: 20 }}>
@@ -387,12 +349,7 @@ export default function Formulas() {
                 borderTopColor: '#d8cc39',
                 borderRadius: 30,
                 marginBottom: 20,
-              }}>
-                <Animated.View style={{
-                  width: '100%', height: '100%',
-                  transform: [{ rotate: '360deg' }],
-                }} />
-              </View>
+              }} />
               <Text style={{ color: '#6b7280', fontSize: 18, fontWeight: '600', marginBottom: 8 }}>
                 Carregando disciplinas...
               </Text>

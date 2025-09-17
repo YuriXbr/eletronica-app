@@ -128,6 +128,19 @@ interface MemberCardProps {
 const MemberCard: React.FC<MemberCardProps> = ({ member, onPress }) => {
   const [showDetails, setShowDetails] = useState(false);
 
+  // Verifica se há informações reais para mostrar
+  const hasRealInfo = () => {
+    const hasRealBio = member.bio && 
+      !member.bio.includes('Breve descrição sobre você') && 
+      !member.bio.includes('Bio do professor');
+    
+    const hasRealSkills = member.skills && 
+      member.skills.length > 0 && 
+      !member.skills.some(skill => skill.includes('Habilidade'));
+    
+    return hasRealBio || hasRealSkills;
+  };
+
   const handleGitHubPress = () => {
     if (member.github) {
       Linking.openURL(`https://${member.github}`);
@@ -157,8 +170,8 @@ const MemberCard: React.FC<MemberCardProps> = ({ member, onPress }) => {
           shadowRadius: 12,
           elevation: 6,
         }}
-        onPress={() => setShowDetails(!showDetails)}
-        activeOpacity={0.95}
+        onPress={hasRealInfo() ? () => setShowDetails(!showDetails) : undefined}
+        activeOpacity={hasRealInfo() ? 0.95 : 1}
       >
         {/* Gradient Header */}
         <View style={{ height: 6 }}>
@@ -295,31 +308,35 @@ const MemberCard: React.FC<MemberCardProps> = ({ member, onPress }) => {
               </View>
             </View>
 
-            {/* Expand indicator */}
-            <View style={{
-              width: 24,
-              height: 24,
-              borderRadius: 12,
-              backgroundColor: '#f3f4f6',
-              justifyContent: 'center',
-              alignItems: 'center',
-              transform: [{ rotate: showDetails ? '180deg' : '0deg' }],
-            }}>
-              <Text style={{ color: '#6b7280', fontSize: 12, fontWeight: 'bold' }}>
-                ▼
-              </Text>
-            </View>
+            {/* Expand indicator - só mostra se há informações reais */}
+            {hasRealInfo() && (
+              <View style={{
+                width: 24,
+                height: 24,
+                borderRadius: 12,
+                backgroundColor: '#f3f4f6',
+                justifyContent: 'center',
+                alignItems: 'center',
+                transform: [{ rotate: showDetails ? '180deg' : '0deg' }],
+              }}>
+                <Text style={{ color: '#6b7280', fontSize: 12, fontWeight: 'bold' }}>
+                  ▼
+                </Text>
+              </View>
+            )}
           </View>
           
-          {/* Expandable details */}
-          {showDetails && (
+          {/* Expandable details - só mostra se há informações reais */}
+          {showDetails && hasRealInfo() && (
             <View style={{
               marginTop: 16,
               paddingTop: 16,
               borderTopWidth: 1,
               borderTopColor: '#f3f4f6',
             }}>
-              {member.bio && (
+              {member.bio && 
+               !member.bio.includes('Breve descrição sobre você') && 
+               !member.bio.includes('Bio do professor') && (
                 <View style={{ marginBottom: 12 }}>
                   <Text style={{
                     fontSize: 14,
@@ -331,7 +348,9 @@ const MemberCard: React.FC<MemberCardProps> = ({ member, onPress }) => {
                 </View>
               )}
               
-              {member.skills && (
+              {member.skills && 
+               member.skills.length > 0 && 
+               !member.skills.some(skill => skill.includes('Habilidade')) && (
                 <View>
                   <Text style={{
                     fontSize: 13,
@@ -443,6 +462,7 @@ export default function Equipe() {
           <TouchableOpacity
             key={filter.key}
             onPress={() => setSelectedFilter(filter.key)}
+            activeOpacity={0.8}
             style={{
               flex: 1,
               paddingVertical: 12,

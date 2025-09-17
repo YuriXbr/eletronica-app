@@ -59,12 +59,7 @@ export default function Resistor() {
   const [scaleAnimMultiplier] = useState(() => colorOptions.map(() => new Animated.Value(1)));
   const [scaleAnimTolerance] = useState(() => colorOptions.map(() => new Animated.Value(1)));
   
-  // Animação de escala para o botão de voltar
-  const backScale = React.useRef(new Animated.Value(1)).current;
 
-  // Altura do header considerando a safe area - reduzido significativamente
-  const headerHeight = 60 + insets.top;
-  const backgroundHeight = headerHeight + 20;
 
   // Recalcula a resistência sempre que uma faixa muda
   useEffect(() => {
@@ -90,14 +85,7 @@ export default function Resistor() {
       Animated.timing(animArr[idx], { toValue: 1, duration: 120, useNativeDriver: true })
     ]).start();
   };
-  const animateBack = (callback?: () => void) => {
-    Animated.sequence([
-      Animated.timing(backScale, { toValue: 1.15, duration: 120, useNativeDriver: true }),
-      Animated.timing(backScale, { toValue: 1, duration: 120, useNativeDriver: true }),
-    ]).start(() => {
-      if (callback) callback();
-    });
-  };
+
   // Cores que não podem ser usadas para tolerância e linha 1
   const disabledTolerance = ['yellow', 'orange', 'black', 'white'] as ColorBand[];
   const disabledBand1 = ['black'] as ColorBand[];// Não existe preto na linha 1
@@ -228,87 +216,46 @@ export default function Resistor() {
   // Renderização da UI principal
   return (
     <View style={{ flex: 1, backgroundColor: '#f8f9fa' }}>
-      {/* Header com gradiente */}
+      {/* Header fixo com identidade visual consistente */}
       <View style={{ 
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        height: backgroundHeight,
         backgroundColor: '#873939',
-        zIndex: 1,
+        paddingTop: 50,
+        paddingBottom: 20,
+        paddingHorizontal: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+        elevation: 8,
       }}>
-        {/* SVG de fundo decorativo - reduzido */}
-        <View style={{ position: 'absolute', top: -10, left: 0, right: 0, overflow: 'visible' }}>
-          <Svg width="100%" height={150} viewBox="0 0 1024 150" preserveAspectRatio="xMidYMid slice">
-            <Defs>
-              <LinearGradient id="headerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <Stop offset="0%" stopColor="rgba(0,0,0,0.05)" />
-                <Stop offset="100%" stopColor="rgba(0,0,0,0.15)" />
-              </LinearGradient>
-            </Defs>
-            <Path d="M0,0 L1024,0 L1024,120 Q512,140 0,120 Z" fill="url(#headerGradient)" />
-          </Svg>
-        </View>
-
-        {/* Botão de voltar */}
-        <View style={{ 
-          position: 'absolute',
-          top: insets.top + 10,
-          left: 20,
-          zIndex: 999,
-        }}>
-          <Pressable onPress={() => animateBack(() => router.push("/"))}>
-            <Animated.View style={{
-              transform: [{ scale: backScale }],
-              width: 40,
-              height: 40,
-              backgroundColor: 'rgba(255,255,255,0.2)',
-              borderRadius: 20,
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderWidth: 1,
-              borderColor: 'rgba(255,255,255,0.3)',
-            }}>
-              <Svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <Path d="M15 6l-6 6 6 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </Svg>
-            </Animated.View>
-          </Pressable>
-        </View>
-
-        {/* Título do header - mais compacto */}
-        <View style={{
-          position: 'absolute',
-          top: insets.top + 12,
-          left: 80,
-          right: 20,
-          alignItems: 'flex-start',
-        }}>
-          <Text style={{ 
-            color: 'white', 
-            fontSize: 18, 
+        {/* Título centralizado */}
+        <View style={{ alignItems: 'center', marginTop: 20 }}>
+          <Text style={{
+            fontSize: 28,
             fontWeight: 'bold',
-            marginBottom: 2,
+            color: 'white',
+            textAlign: 'center',
+            marginBottom: 8,
           }}>
             Calculadora de Resistores
           </Text>
-          <Text style={{ 
-            color: '#d8cc39', 
-            fontSize: 12,
+          <Text style={{
+            fontSize: 16,
+            color: '#f4e976',
+            textAlign: 'center',
           }}>
             Código de cores • 4 faixas
           </Text>
         </View>
       </View>
 
-      {/* ScrollView com conteúdo - padding reduzido */}
+      {/* ScrollView com conteúdo */}
       <ScrollView
+        style={{ flex: 1 }}
         contentContainerStyle={{ 
-          flexGrow: 1,
-          paddingTop: backgroundHeight + 10,
+          paddingBottom: 140,
           paddingHorizontal: 16,
-          paddingBottom: 40,
+          paddingTop: 20,
         }}
         showsVerticalScrollIndicator={false}
       >
@@ -507,6 +454,7 @@ export default function Resistor() {
 
           <ScrollView 
             style={{ maxHeight: 500 }}
+            contentContainerStyle={{ paddingBottom: 20 }}
             showsVerticalScrollIndicator={false}
           >
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 4 }}>

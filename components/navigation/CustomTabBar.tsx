@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, Text, TouchableOpacity, Dimensions, Animated } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import Svg, { Path } from 'react-native-svg';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -85,6 +85,7 @@ const TabIcon: React.FC<TabIconProps> = ({ name, focused, color }) => {
 };
 
 const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigation }) => {
+
   const getTabLabel = (routeName: string) => {
     switch (routeName) {
       case 'index':
@@ -148,6 +149,8 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigat
             });
 
             if (!isFocused && !event.defaultPrevented) {
+              // Pequena vibração de feedback (se disponível)
+              // Feedback.impactAsync(Feedback.ImpactFeedbackStyle.Light);
               navigation.navigate(route.name);
             }
           };
@@ -162,8 +165,9 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigat
                 flex: 1,
                 alignItems: 'center',
                 paddingVertical: 8,
+                transform: [{ scale: isFocused ? 1.05 : 1 }],
               }}
-              activeOpacity={0.7}
+              activeOpacity={0.6}
             >
               <TabIcon
                 name={route.name}

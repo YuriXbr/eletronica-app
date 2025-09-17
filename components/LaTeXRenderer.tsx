@@ -114,7 +114,7 @@ export default function LaTeXRenderer({
         setWebViewHeight(Math.max(60, Math.min(data.height, 200))); // Altura entre 60 e 200px
       }
     } catch (error) {
-      console.log('Erro ao processar mensagem do WebView:', error);
+      // Erro ao processar mensagem do WebView
     }
   };
 
@@ -144,12 +144,10 @@ export default function LaTeXRenderer({
         allowsInlineMediaPlayback={true}
         mediaPlaybackRequiresUserAction={false}
         onError={(syntheticEvent) => {
-          const { nativeEvent } = syntheticEvent;
-          console.warn('WebView error: ', nativeEvent);
+          // WebView error handling
         }}
         onHttpError={(syntheticEvent) => {
-          const { nativeEvent } = syntheticEvent;
-          console.warn('WebView HTTP error: ', nativeEvent);
+          // WebView HTTP error handling
         }}
       />
     </View>
