@@ -162,14 +162,14 @@ const MemberCard: React.FC<MemberCardProps> = ({ member, onPress }) => {
       >
         {/* Gradient Header */}
         <View style={{ height: 6 }}>
-          <Svg height="6" width="100%" style={{ position: 'absolute' }}>
+          <Svg height="6" width="100%" viewBox="0 0 100 6" style={{ position: 'absolute' }}>
             <Defs>
               <LinearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
                 <Stop offset="0%" stopColor="#873939" />
                 <Stop offset="100%" stopColor="#d8cc39" />
               </LinearGradient>
             </Defs>
-            <Path d="M0,0 L100%,0 L100%,6 L0,6 Z" fill="url(#grad)" />
+            <Path d="M0,0 L100,0 L100,6 L0,6 Z" fill="url(#grad)" />
           </Svg>
         </View>
 
@@ -395,7 +395,7 @@ export default function Teste() {
     >
       {/* Header com gradiente */}
       <View style={{ position: 'relative', overflow: 'hidden' }}>
-        <Svg height="200" width="100%" style={{ position: 'absolute' }}>
+        <Svg height="200" width="100%" viewBox="0 0 400 200" style={{ position: 'absolute' }}>
           <Defs>
             <LinearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <Stop offset="0%" stopColor="#873939" />
@@ -403,7 +403,7 @@ export default function Teste() {
               <Stop offset="100%" stopColor="#d8cc39" />
             </LinearGradient>
           </Defs>
-          <Path d="M0,0 L100%,0 L100%,180 Q50%,200 0,180 Z" fill="url(#headerGrad)" />
+          <Path d="M0,0 L400,0 L400,180 Q200,200 0,180 Z" fill="url(#headerGrad)" />
         </Svg>
         
         <View style={{
