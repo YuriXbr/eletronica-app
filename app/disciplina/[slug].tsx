@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View, TouchableOpacity } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
-import 'katex/dist/katex.min.css';
-import Latex from 'react-latex-next';
+// import 'katex/dist/katex.min.css';
+// import Latex from 'react-latex-next';
 
 // Tipos para fórmulas e disciplina para melhor entendimento da estrutura dos dados.
 type Formula = {
@@ -25,7 +25,7 @@ function renderLatexIfNeeded(text: string) {
     const latexRegex = /\\[a-zA-Z]+/; // Regex para detectar comandos LaTeX (ex.: \frac, \sqrt)
     if (latexRegex.test(text)) {
         // Se detectar, renderiza o texto como LaTeX
-        return <Latex>{`$${text}$`}</Latex>;
+        return <text>{`$${text}$`}</text>;
     }
     // Caso contrário, retorna o texto simples
     return text;
@@ -86,7 +86,7 @@ export default function DisciplinaDetail() {
                                 <View className="bg-gray-200 p-2 rounded-md">
                                     {formula.latex.map((ltx, i) => (
                                         // Renderiza cada expressão LaTeX individualmente
-                                        <Latex key={i}>{`$${ltx}$`}</Latex>
+                                        <text key={i}>{`$${ltx}$`}</text>
                                     ))}
                                 </View>
                                 {/* Se a fórmula estiver expandida, exibe variáveis e constantes */}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Svg, { Rect, Path, Defs, LinearGradient, Stop } from 'react-native-svg';
+import Svg, { Rect, Path, Defs, LinearGradient, Stop, Ellipse } from 'react-native-svg';
 import { View, ScrollView, Text, Pressable, Animated, Dimensions } from 'react-native';
 import { Link, useRouter } from "expo-router";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -347,7 +347,7 @@ export default function Resistor() {
               {/* Corpo do resistor */}
               <Rect x="60" y="20" width="200" height="40" rx="20" fill="#f5e6b2" stroke="#bfa76a" strokeWidth="2" />
               {/* Sombra */}
-              <ellipse cx="160" cy="62" rx="90" ry="8" fill="#000" opacity="0.08" />
+              <Ellipse cx="160" cy="62" rx="90" ry="8" fill="#000" opacity="0.08" />
               {/* Faixas coloridas */}
               {[band1, band2, multiplier, tolerance].map((color, index) => (
                 <Rect
