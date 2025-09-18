@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { ScrollView, Text, View, TouchableOpacity, Pressable, Dimensions, Animated } from 'react-native';
+import { ScrollView, Text, View, TouchableOpacity, Pressable, Dimensions, Animated, NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import LaTeXRenderer from '../../components/LaTeXRenderer';
 import Svg, { Path } from 'react-native-svg';
@@ -36,13 +36,22 @@ const hasLatexSyntax = (text: string): boolean => {
 const TextWithLatex = ({ children, style }: { children: string; style?: any }) => {
   if (hasLatexSyntax(children)) {
     return (
-      <LaTeXRenderer 
-        latex={children} 
-        fontSize={style?.fontSize || 13}
-        textColor={style?.color || '#6b7280'}
-        backgroundColor="transparent"
-        style={{ marginVertical: 2 }}
-      />
+      <View style={{ 
+        backgroundColor: 'transparent',
+        minHeight: 20,
+        justifyContent: 'center',
+      }}>
+        <LaTeXRenderer 
+          latex={children} 
+          fontSize={style?.fontSize || 13}
+          textColor={style?.color || '#6b7280'}
+          backgroundColor="#ffffff"
+          style={{ 
+            marginVertical: 2,
+            minHeight: 20,
+          }}
+        />
+      </View>
     );
   }
   return <Text style={style}>{children}</Text>;
@@ -60,7 +69,10 @@ export default function DisciplinaDetail() {
     const [loadedFormulas, setLoadedFormulas] = useState<Set<number>>(new Set());
     const [loadingFormulas, setLoadingFormulas] = useState<Set<number>>(new Set());
     const [isLoading, setIsLoading] = useState(true);
+    const [formulaPositions, setFormulaPositions] = useState<{ [key: number]: number }>({});
+    const [viewportInfo, setViewportInfo] = useState({ top: 0, height: Dimensions.get('window').height });
     const spinValue = useRef(new Animated.Value(0)).current;
+    const scrollViewRef = useRef<ScrollView>(null);
 
     useEffect(() => {
         // Configurar animação do spinner
@@ -100,16 +112,22 @@ export default function DisciplinaDetail() {
                 
                 if (disciplinaData) {
                     setDisciplina(disciplinaData);
-                    setIsLoading(false);
                     
-                    // Precarregar as primeiras 3 fórmulas em background
+                    // Carregamento inicial inteligente
+                    const initialLoadCount = Math.min(2, disciplinaData.formulas.length);
+                    const initialSet = new Set<number>();
+                    
+                    for (let i = 0; i < initialLoadCount; i++) {
+                        initialSet.add(i);
+                        setLoadingFormulas(prev => new Set(prev).add(i));
+                    }
+                    
+                    // Simular carregamento das primeiras fórmulas
                     setTimeout(() => {
-                        const preloadSet = new Set<number>();
-                        for (let i = 0; i < Math.min(3, disciplinaData.formulas.length); i++) {
-                            preloadSet.add(i);
-                        }
-                        setLoadedFormulas(preloadSet);
-                    }, 100);
+                        setLoadedFormulas(initialSet);
+                        setLoadingFormulas(new Set());
+                        setIsLoading(false);
+                    }, 300);
                 } else {
                     // Disciplina não encontrada
                     setIsLoading(false);
@@ -153,7 +171,94 @@ export default function DisciplinaDetail() {
                     newSet.delete(index);
                     return newSet;
                 });
-            }, 200);
+            }, 150);
+        }
+    };
+
+    // Função para descarregar fórmulas que estão muito longe da viewport
+    const unloadDistantFormulas = (visibleIndexes: number[]) => {
+        if (visibleIndexes.length === 0) return;
+        
+        const BUFFER_SIZE = 3; // Manter 3 fórmulas antes e depois da viewport
+        const MAX_LOADED = 10; // Máximo de fórmulas carregadas simultaneamente
+        
+        const minVisible = Math.min(...visibleIndexes);
+        const maxVisible = Math.max(...visibleIndexes);
+        const minKeep = Math.max(0, minVisible - BUFFER_SIZE);
+        const maxKeep = Math.min((disciplina?.formulas.length || 0) - 1, maxVisible + BUFFER_SIZE);
+        
+        setLoadedFormulas(prev => {
+            // Se não há muitas fórmulas carregadas, não descarregar
+            if (prev.size <= MAX_LOADED) return prev;
+            
+            const newSet = new Set<number>();
+            
+            // Manter fórmulas na viewport e buffer
+            prev.forEach(index => {
+                if (index >= minKeep && index <= maxKeep) {
+                    newSet.add(index);
+                }
+            });
+            
+            // Se removemos muitas, manter pelo menos as visíveis
+            if (newSet.size < visibleIndexes.length) {
+                visibleIndexes.forEach(index => newSet.add(index));
+            }
+            
+            return newSet;
+        });
+    };
+
+    // Função para determinar quais fórmulas estão visíveis na viewport
+    const getVisibleFormulas = () => {
+        const { top, height } = viewportInfo;
+        
+        // Verificação de segurança
+        if (typeof top !== 'number' || typeof height !== 'number') {
+            return [];
+        }
+        
+        const visibleIndexes: number[] = [];
+        const VIEWPORT_BUFFER = 400; // Buffer para pré-carregar fórmulas próximas
+        
+        Object.entries(formulaPositions).forEach(([indexStr, position]) => {
+            const index = parseInt(indexStr);
+            const formulaHeight = 250; // Altura estimada mais generosa
+            
+            // Verificar se a posição é válida
+            if (typeof position !== 'number') return;
+            
+            // Verificar se a fórmula está na viewport expandida
+            const isInViewport = (
+                position + formulaHeight >= top - VIEWPORT_BUFFER && 
+                position <= top + height + VIEWPORT_BUFFER
+            );
+            
+            if (isInViewport) {
+                visibleIndexes.push(index);
+            }
+        });
+        
+        return visibleIndexes.sort((a, b) => a - b);
+    };
+
+    // Função para carregar fórmulas automaticamente baseado na viewport
+    const loadVisibleFormulas = () => {
+        const visibleIndexes = getVisibleFormulas();
+        const BUFFER_SIZE = 1; // Carregar 1 fórmula antes e depois das visíveis
+        
+        visibleIndexes.forEach(index => {
+            // Carregar fórmula visível
+            loadFormula(index);
+            
+            // Carregar buffer antes e depois
+            if (index - BUFFER_SIZE >= 0) loadFormula(index - BUFFER_SIZE);
+            if (index + BUFFER_SIZE < (disciplina?.formulas.length || 0)) loadFormula(index + BUFFER_SIZE);
+        });
+        
+        // Descarregar fórmulas distantes se houver muitas carregadas
+        if (loadedFormulas.size > 6) {
+            unloadDistantFormulas(visibleIndexes);
         }
     };
 
@@ -169,6 +274,54 @@ export default function DisciplinaDetail() {
             }
         });
     }, [expandedFormulas, disciplina]);
+
+    // useEffect para carregar fórmulas automaticamente quando viewport muda
+    useEffect(() => {
+        if (disciplina && formulaPositions && Object.keys(formulaPositions).length > 0) {
+            const timeoutId = setTimeout(() => {
+                loadVisibleFormulas();
+            }, 100); // Throttle para evitar muitas chamadas
+            
+            return () => clearTimeout(timeoutId);
+        }
+    }, [viewportInfo, formulaPositions, disciplina]);
+
+    // Handler para scroll (extrai dados imediatamente para evitar synthetic event issues)
+    const handleScrollData = (offsetY: number, layoutHeight: number) => {
+        setViewportInfo({
+            top: offsetY,
+            height: layoutHeight
+        });
+    };
+
+    // Throttle otimizado para scroll handler
+    const throttledScrollHandler = useRef<number | null>(null);
+    const lastScrollTime = useRef<number>(0);
+    
+    const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+        // Verificação de segurança e extração imediata dos dados
+        if (!event?.nativeEvent?.contentOffset || !event?.nativeEvent?.layoutMeasurement) return;
+        
+        // Extrair dados imediatamente para evitar synthetic event issues
+        const offsetY = event.nativeEvent.contentOffset.y;
+        const layoutHeight = event.nativeEvent.layoutMeasurement.height;
+        const now = Date.now();
+        
+        // Throttle mais agressivo para melhor performance
+        if (now - lastScrollTime.current < 50) {
+            if (throttledScrollHandler.current) {
+                clearTimeout(throttledScrollHandler.current);
+            }
+            
+            throttledScrollHandler.current = setTimeout(() => {
+                handleScrollData(offsetY, layoutHeight);
+                lastScrollTime.current = Date.now();
+            }, 150) as any;
+        } else {
+            handleScrollData(offsetY, layoutHeight);
+            lastScrollTime.current = now;
+        }
+    };
 
     if (!disciplina || isLoading) {
         return (
@@ -292,7 +445,13 @@ export default function DisciplinaDetail() {
                 </View>
             </View>
 
-            <ScrollView style={{ flex: 1 }} contentContainerStyle={{ padding: 20, paddingBottom: 40 }}>
+            <ScrollView 
+                ref={scrollViewRef}
+                style={{ flex: 1 }} 
+                contentContainerStyle={{ padding: 20, paddingBottom: 40 }}
+                onScroll={onScroll}
+                scrollEventThrottle={16}
+            >
                 {/* Descrição da disciplina */}
                 <View style={{
                     backgroundColor: 'white',
@@ -333,6 +492,18 @@ export default function DisciplinaDetail() {
                                 key={index}
                                 onPress={(formula.variables || formula.constants) ? () => toggleFormula(index) : undefined}
                                 activeOpacity={(formula.variables || formula.constants) ? 0.95 : 1}
+                                onLayout={(event) => {
+                                    if (!event?.nativeEvent?.layout) return;
+                                    
+                                    const { y } = event.nativeEvent.layout;
+                                    
+                                    if (typeof y === 'number') {
+                                        setFormulaPositions(prev => ({
+                                            ...prev,
+                                            [index]: y
+                                        }));
+                                    }
+                                }}
                                 style={{
                                     backgroundColor: 'white',
                                     borderRadius: 16,
@@ -391,7 +562,7 @@ export default function DisciplinaDetail() {
                                                 alignItems: 'center',
                                                 backgroundColor: '#f8f9fa',
                                             }}>
-                                                <View style={{
+                                                <Animated.View style={{
                                                     width: 20,
                                                     height: 20,
                                                     borderWidth: 2,
@@ -399,36 +570,49 @@ export default function DisciplinaDetail() {
                                                     borderTopColor: '#873939',
                                                     borderRadius: 10,
                                                     marginBottom: 8,
+                                                    transform: [{
+                                                        rotate: spinValue.interpolate({
+                                                            inputRange: [0, 1],
+                                                            outputRange: ['0deg', '360deg']
+                                                        })
+                                                    }]
                                                 }} />
                                                 <Text style={{
                                                     color: '#6b7280',
                                                     fontSize: 12,
                                                 }}>
-                                                    Carregando...
+                                                    Carregando automaticamente...
                                                 </Text>
                                             </View>
                                         ) : (
-                                            <TouchableOpacity 
-                                                onPress={() => loadFormula(index)}
-                                                style={{
-                                                    minHeight: 50,
-                                                    justifyContent: 'center',
-                                                    alignItems: 'center',
-                                                    backgroundColor: '#f3f4f6',
-                                                    borderRadius: 6,
-                                                    borderWidth: 1,
-                                                    borderColor: '#d1d5db',
-                                                    borderStyle: 'dashed',
-                                                }}
-                                            >
-                                                <Text style={{
-                                                    color: '#873939',
-                                                    fontSize: 14,
-                                                    fontWeight: '500'
-                                                }}>
-                                                    📐 Tocar para carregar fórmula
-                                                </Text>
-                                            </TouchableOpacity>
+                                            <View style={{
+                                                minHeight: 50,
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                backgroundColor: '#f8f9fa',
+                                                borderRadius: 6,
+                                            }}>
+                                                <View style={{
+                                                    width: 30,
+                                                    height: 4,
+                                                    backgroundColor: '#d1d5db',
+                                                    borderRadius: 2,
+                                                    marginBottom: 6,
+                                                }} />
+                                                <View style={{
+                                                    width: 50,
+                                                    height: 4,
+                                                    backgroundColor: '#e5e7eb',
+                                                    borderRadius: 2,
+                                                    marginBottom: 4,
+                                                }} />
+                                                <View style={{
+                                                    width: 20,
+                                                    height: 4,
+                                                    backgroundColor: '#e5e7eb',
+                                                    borderRadius: 2,
+                                                }} />
+                                            </View>
                                         )}
                                     </View>
                                 ))}
